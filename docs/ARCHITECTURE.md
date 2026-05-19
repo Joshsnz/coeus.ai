@@ -2,9 +2,11 @@
 
 ## Overview
 
-Coeus AI is structured as a native desktop AI workspace with a shared runtime core. The application is organized around a clear separation between the UI, project context systems, retrieval, tool execution, model/provider integration, and telemetry.
+Coeus AI is structured as a native desktop AI workspace with a modular runtime core. The application is organized around a separation between the UI, project context systems, retrieval, tool execution, model/provider integration, and telemetry.
 
-The public demo repository does not include private source code, but this document explains the architecture at a professional overview level.
+The public demo repository does not include private source code. This document explains the architecture at a professional overview level.
+
+> **Important:** the public release contains the GUI desktop build only. A separate headless build exists in the private development environment for testing and automation, but it is not included in this package.
 
 ---
 
@@ -23,7 +25,7 @@ Coeus AI
 │   ├── Runtime orchestration
 │   ├── Request construction
 │   ├── Output handling
-│   └── GUI/headless bridge
+│   └── GUI bridge
 │
 ├── Project Context Layer
 │   ├── Project inventory
@@ -95,9 +97,9 @@ At a high level, it handles:
 - Calling model/provider layers
 - Processing model output
 - Updating state and telemetry
-- Returning output to GUI or headless callers
+- Returning output to the GUI
 
-The runtime is designed so the same core logic can operate behind both the GUI executable and headless/evaluation modes.
+The private development architecture also supports a separate non-GUI/headless build for automated testing and evaluation. That build is not part of the public release.
 
 ---
 
@@ -128,8 +130,8 @@ It includes support for:
 - Search over local project files
 - Ranked retrieval
 - Vector memory integration
-- Candidate fusion
-- Context selection for answering
+- Candidate selection
+- Context assembly for answering
 
 The user-facing goal is simple: when the assistant answers a project question, it should have access to relevant supporting material.
 
@@ -182,23 +184,24 @@ This makes the system inspectable and helps explain why a given answer or action
 
 ---
 
-## GUI and Headless Runtime Design
+## GUI Build vs Private Headless Build
 
-Coeus AI was designed so the core runtime is not locked to the GUI.
-
-This enables:
-
-- Interactive desktop use
-- Headless test runs
-- Automated evaluation
-- CI-style validation in future workflows
-- Easier debugging of runtime behavior
-
-The public demo focuses on the GUI executable:
+The public release includes:
 
 ```powershell
-.in\CoeusAI.exe
+.\bin\CoeusAI.exe
 ```
+
+That is the GUI desktop build.
+
+The private development environment also has a separate headless build path used for:
+
+- Automated evaluation
+- Regression testing
+- Runtime debugging
+- Non-GUI workflow checks
+
+This distinction matters because public users should not expect a headless executable or CLI workflow in this portfolio package.
 
 ---
 
@@ -212,3 +215,4 @@ The public repository is a portfolio/demo release. It intentionally excludes:
 - API keys
 - Private evaluation datasets
 - Internal development scripts
+- Private headless executable
