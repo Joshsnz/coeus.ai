@@ -2,7 +2,7 @@
 
 **Coeus AI** is a native C++ desktop AI workspace that combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, structured telemetry, and a shared GUI/headless runtime design.
 
-This public repository is intended as a **portfolio/demo release**. The full source code is private, but this repository provides a compiled demo build, usage notes, architecture documentation, and a technical case study.
+This public repository is intended as a **portfolio/demo release**. The full source code is private, but this repository provides a compiled Windows demo build, usage notes, architecture documentation, and a technical case study.
 
 ---
 
@@ -29,7 +29,7 @@ This repository is structured as a documentation and binary demo package.
 ```text
 .
 ├── bin/
-│   └── AgentGui_skia.exe
+│   └── CoeusAI.exe
 ├── docs/
 │   ├── ARCHITECTURE.md
 │   ├── BUILD_WINDOWS.md
@@ -49,8 +49,6 @@ This repository is structured as a documentation and binary demo package.
 ```
 
 Depending on the release package, additional runtime DLLs or support files may also be present in `bin/`.
-
-> Note: the current executable may still be named `AgentGui_skia.exe` because that was the internal/native build target name. The public-facing project name is **Coeus AI**.
 
 ---
 
@@ -121,7 +119,7 @@ Depending on the release package, additional runtime DLLs or support files may a
 3. Run:
 
 ```powershell
-.\bin\CoeusAI.exe
+.in\CoeusAI.exe
 ```
 
 If the application requires DLLs, keep the included DLL files in the same directory as the executable.
@@ -158,12 +156,12 @@ docs/BUILD_WINDOWS.md
 The application is built around a separation between:
 
 - UI/rendering layer
-- agent runtime
-- project context system
-- retrieval/search system
-- tool execution layer
-- telemetry/export layer
-- optional headless runtime
+- Agent runtime
+- Project context system
+- Retrieval/search system
+- Tool execution layer
+- Telemetry/export layer
+- Optional headless runtime
 
 For more detail, see:
 
@@ -189,7 +187,7 @@ This explains the project goals, features, technical highlights, and engineering
 
 - GUI build compiles successfully
 - CMake build path established
-- Native executable demo available
+- Native executable demo available as `CoeusAI.exe`
 - Documentation package prepared
 - Source code remains private
 
