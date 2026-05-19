@@ -1,0 +1,18 @@
+{
+  "active_index": 1,
+  "tabs": [
+    {
+      "id": 1,
+      "subType": 0
+    },
+    {
+      "id": 999999,
+      "subType": 3
+    },
+    {
+      "id": 0,
+      "subType": 2
+    }
+  ],
+  "version": 2
+}

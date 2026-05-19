@@ -1,0 +1,17 @@
+{
+  "providers": [
+    {
+      "apiKeyName": "OPENAI_API_KEY",
+      "apiKeyValue": "",
+      "baseUrl": "https://api.openai.com",
+      "displayName": "New Provider",
+      "id": 1,
+      "kind": "remote",
+      "models": [],
+      "runner": {
+        "endpoint": "https://api.openai.com/v1/chat/completions",
+        "kind": "HttpJson"
+      }
+    }
+  ]
+}
