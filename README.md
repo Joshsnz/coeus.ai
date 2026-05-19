@@ -121,7 +121,7 @@ Depending on the release package, additional runtime DLLs or support files may a
 3. Run:
 
 ```powershell
-.\bin\AgentGui_skia.exe
+.\bin\CoeusAI.exe
 ```
 
 If the application requires DLLs, keep the included DLL files in the same directory as the executable.
