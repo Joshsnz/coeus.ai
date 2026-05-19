@@ -1,14 +1,14 @@
 # Coeus AI — Project-Aware AI Desktop Workspace
 
-**Coeus AI** is a native C++ desktop AI workspace that combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, structured telemetry, and a shared GUI/headless runtime design.
+**Coeus AI** is a native C++ desktop AI workspace that combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, and structured telemetry.
 
-This public repository is intended as a **portfolio/demo release**. The full source code is private, but this repository provides a compiled Windows demo build, usage notes, architecture documentation, and a technical case study.
+This public repository is intended as a **portfolio/demo release**. The full source code is private, but this repository provides a compiled Windows GUI demo build, usage notes, architecture documentation, and a technical case study.
 
 ---
 
 ## Overview
 
-Coeus AI was built as a local-first AI development environment for working with software projects. It is designed to let a user load or work against a project, ask targeted questions about the codebase, inspect contextual evidence, and interact with an AI assistant through a desktop interface rather than a web chat.
+Coeus AI was built as a local-first AI development environment for working with software projects. It is designed to let a user load or work against a project, ask targeted questions about the codebase, inspect contextual evidence, and interact with an AI assistant through a native desktop interface rather than a web chat.
 
 The project demonstrates:
 
@@ -18,7 +18,9 @@ The project demonstrates:
 - Retrieval and context assembly over local files
 - Tool execution and project operations
 - Structured telemetry and debugging infrastructure
-- Shared GUI/headless runtime design for testing and automation
+- A runtime architecture that can also support private/internal headless testing builds
+
+> **Public demo note:** this release includes the **GUI desktop build only**. A separate headless build exists in the private development environment for testing and automation, but it is **not included** in this public portfolio package.
 
 ---
 
@@ -87,7 +89,7 @@ Depending on the release package, additional runtime DLLs or support files may a
 - File-context operations
 - Search and retrieval tooling
 - Planning/apply workflow support
-- Shared runtime usable by GUI and headless modes
+- Runtime design that also supports private/internal non-GUI test execution
 
 ### Telemetry and Debugging
 
@@ -119,7 +121,7 @@ Depending on the release package, additional runtime DLLs or support files may a
 3. Run:
 
 ```powershell
-.in\CoeusAI.exe
+.\bin\CoeusAI.exe
 ```
 
 If the application requires DLLs, keep the included DLL files in the same directory as the executable.
@@ -161,7 +163,9 @@ The application is built around a separation between:
 - Retrieval/search system
 - Tool execution layer
 - Telemetry/export layer
-- Optional headless runtime
+- Private/internal headless test runtime
+
+The public binary release contains only the GUI desktop executable.
 
 For more detail, see:
 
@@ -187,9 +191,10 @@ This explains the project goals, features, technical highlights, and engineering
 
 - GUI build compiles successfully
 - CMake build path established
-- Native executable demo available as `CoeusAI.exe`
+- Native GUI executable demo available as `CoeusAI.exe`
 - Documentation package prepared
 - Source code remains private
+- Private/internal headless build exists for testing, but is not included in this release
 
 ---
 
