@@ -1,26 +1,45 @@
 # Coeus AI — Project-Aware AI Desktop Workspace
 
-**Coeus AI** is a native C++ desktop AI workspace that combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, and structured telemetry.
+**Coeus AI** is a native C++ desktop AI workspace for working with software projects. It combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, structured telemetry, and a private headless evaluation path used to test repository-grounded behavior.
 
-This public repository is intended as a **portfolio/demo release**. The full source code is private, but this repository provides a compiled Windows GUI demo build, usage notes, architecture documentation, and a technical case study.
+This public repository is a **portfolio/demo release**. The full source code remains private, but this package provides a compiled Windows GUI demo build, architecture documentation, usage notes, evaluation reports, and a technical case study.
 
 ---
 
 ## Overview
 
-Coeus AI was built as a local-first AI development environment for working with software projects. It is designed to let a user load or work against a project, ask targeted questions about the codebase, inspect contextual evidence, and interact with an AI assistant through a native desktop interface rather than a web chat.
+Coeus AI was built as a local-first AI development environment for working with software projects.
 
-The project demonstrates:
+Instead of treating the assistant as a generic chatbot, the application is designed around **project context**:
 
-- Native C++ application development
-- Custom GUI architecture with Skia and SDL2
-- Project-aware AI assistant workflows
-- Retrieval and context assembly over local files
-- Tool execution and project operations
-- Structured telemetry and debugging infrastructure
-- A runtime architecture that can also support private/internal headless testing builds
+- load or work against a local project,
+- inspect file-level and project-level context,
+- ask targeted questions about the codebase,
+- compare source files semantically,
+- reason about absent or unsupported features,
+- maintain continuity across follow-up questions,
+- and avoid exposing internal trace or retrieval machinery in user-facing answers.
 
-> **Public demo note:** this release includes the **GUI desktop build only**. A separate headless build exists in the private development environment for testing and automation, but it is **not included** in this public portfolio package.
+The project demonstrates both application engineering and evaluation engineering. In addition to the native GUI, the private development environment includes a headless runtime used to automate repository-grounding tests. Public benchmark reports from that private evaluation path are included in this portfolio package.
+
+> **Public demo note:** this release includes the **GUI desktop build only**. The private source code and private headless test executable are not included. Evaluation reports generated from the private headless harness are included as portfolio evidence.
+
+---
+
+## Why This Project Matters
+
+Many AI coding tools can produce plausible answers, but they often lose repository context, hallucinate unsupported features, or route ordinary codebase questions into the wrong mode.
+
+Coeus AI was built to explore a more structured approach:
+
+- separate project inventory from source evidence,
+- retrieve relevant project context,
+- maintain turn state across follow-ups,
+- route semantic questions differently from patch/diff requests,
+- use telemetry to debug model/runtime behavior,
+- and test those behaviors with repeatable benchmark scenarios.
+
+The included RepoGrounding evaluation reports show this system being tested on repository-context tasks such as startup-flow tracing, movement/data-flow tracing, semantic comparison, negative grounding, multi-turn continuity, and internal artifact suppression.
 
 ---
 
@@ -33,6 +52,14 @@ This repository is structured as a documentation and binary demo package.
 ├── bin/
 │   └── CoeusAI.exe
 ├── docs/
+│   ├── evals/
+│   │   ├── repo_grounding_core/
+│   │   │   ├── index.html
+│   │   │   └── scorecard.svg
+│   │   ├── repo_grounding_plus/
+│   │   │   ├── index.html
+│   │   │   └── scorecard.svg
+│   │   └── README.md
 │   ├── ARCHITECTURE.md
 │   ├── BUILD_WINDOWS.md
 │   ├── DEMO_GUIDE.md
@@ -48,156 +75,3 @@ This repository is structured as a documentation and binary demo package.
 │   ├── VIDEO_WALKTHROUGH_SCRIPT.md
 │   └── PORTFOLIO_SUMMARY_SHORT.md
 └── README.md
-```
-
-Depending on the release package, additional runtime DLLs or support files may also be present in `bin/`.
-
----
-
-## Key Features
-
-### Project-Aware AI Assistance
-
-- Ask questions about a loaded software project
-- Inspect file-level and project-level context
-- Support for targeted file understanding
-- Support for broader architecture questions
-- Support for recent-change and comparison-style questions
-- Uses local project context rather than acting as a generic chatbot
-
-### Native Desktop Interface
-
-- Custom C++ desktop GUI
-- Skia-based rendering pipeline
-- SDL2/OpenGL windowing backend
-- Conversation view
-- Context/evidence panels
-- Settings and tool panels
-- Telemetry/debugging surfaces
-
-### Retrieval and Context System
-
-- Project file inventory
-- Local file-context indexing
-- Search and retrieval over code/project files
-- Summary and gist support
-- Memory/snapshot support for continuity
-
-### Tool and Runtime Layer
-
-- Built-in project tools
-- File-context operations
-- Search and retrieval tooling
-- Planning/apply workflow support
-- Runtime design that also supports private/internal non-GUI test execution
-
-### Telemetry and Debugging
-
-- Per-turn trace data
-- Activity feed
-- Run artifacts
-- Debug markers
-- Build and evaluation diagnostics
-
----
-
-## Technology Stack
-
-- **Language**: C++20
-- **GUI**: Skia, SDL2, OpenGL
-- **Build**: MSVC, CMake, Windows batch build scripts
-- **Data/Storage**: SQLite, JSON/JSONL, filesystem artifacts
-- **Retrieval/Search**: BM25-style retrieval, vector memory support, FAISS integration
-- **Networking/LLM Integration**: libcurl, OpenSSL, provider/runnable abstraction
-- **Parsing/Indexing**: tree-sitter integration
-- **Telemetry**: structured traces, run logs, activity feed
-
----
-
-## Running the Demo
-
-1. Clone or download the repository.
-2. Open the `bin/` folder.
-3. Run:
-
-```powershell
-.\bin\CoeusAI.exe
-```
-
-If the application requires DLLs, keep the included DLL files in the same directory as the executable.
-
-For a guided walkthrough, see:
-
-```text
-docs/DEMO_GUIDE.md
-```
-
----
-
-## Build Notes
-
-The full source build is not included in this public demo repository. The original application is built privately using:
-
-- Visual Studio 2022 Build Tools
-- MSVC x64
-- CMake
-- Skia
-- SDL2
-- vcpkg-managed native dependencies
-
-For a high-level overview of the build environment, see:
-
-```text
-docs/BUILD_WINDOWS.md
-```
-
----
-
-## Architecture
-
-The application is built around a separation between:
-
-- UI/rendering layer
-- Agent runtime
-- Project context system
-- Retrieval/search system
-- Tool execution layer
-- Telemetry/export layer
-- Private/internal headless test runtime
-
-The public binary release contains only the GUI desktop executable.
-
-For more detail, see:
-
-```text
-docs/ARCHITECTURE.md
-```
-
----
-
-## Portfolio Case Study
-
-A narrative project writeup is available here:
-
-```text
-docs/PORTFOLIO_CASE_STUDY.md
-```
-
-This explains the project goals, features, technical highlights, and engineering outcomes without exposing private source code or proprietary implementation details.
-
----
-
-## Current Status
-
-- GUI build compiles successfully
-- CMake build path established
-- Native GUI executable demo available as `CoeusAI.exe`
-- Documentation package prepared
-- Source code remains private
-- Private/internal headless build exists for testing, but is not included in this release
-
----
-
-## Notes
-
-This repository is provided for demonstration and portfolio purposes. Some internal implementation details, source code, prompts, and proprietary runtime architecture are intentionally excluded from the public release.
