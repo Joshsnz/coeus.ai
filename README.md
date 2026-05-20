@@ -71,15 +71,16 @@ The included **RepoGrounding** benchmark reports show this behavior being tested
 
 For reviewers, the fastest path through the project is:
 
-1. **Read this README** for the overall summary.
-2. Open the **portfolio case study**:
+1. Read this README for the overall summary.
+2. Open the portfolio case study:
    - [`docs/PORTFOLIO_CASE_STUDY.md`](docs/PORTFOLIO_CASE_STUDY.md)
-3. Review the **architecture overview**:
+3. Review the architecture overview:
    - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-4. Run or inspect the **GUI demo**:
+4. Run or inspect the GUI demo:
    - [`bin/CoeusAI.exe`](bin/CoeusAI.exe)
    - [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md)
-5. Review the **evaluation evidence**:
+5. Review the evaluation evidence:
+   - [`docs/evals/README.md`](docs/evals/README.md)
    - [`docs/evals/repo_grounding_core/index.html`](docs/evals/repo_grounding_core/index.html)
    - [`docs/evals/repo_grounding_plus/index.html`](docs/evals/repo_grounding_plus/index.html)
 6. Review the planned video walkthrough:
@@ -87,6 +88,7 @@ For reviewers, the fastest path through the project is:
 7. Check limitations and release scope:
    - [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)
    - [`docs/SECURITY_AND_PRIVACY.md`](docs/SECURITY_AND_PRIVACY.md)
+   - [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md)
 
 ---
 
@@ -100,13 +102,15 @@ This repository is structured as a documentation and binary demo package.
 │   └── CoeusAI.exe
 ├── docs/
 │   ├── evals/
+│   │   ├── README.md
 │   │   ├── repo_grounding_core/
+│   │   │   ├── README.md
 │   │   │   ├── index.html
 │   │   │   └── scorecard.svg
-│   │   ├── repo_grounding_plus/
-│   │   │   ├── index.html
-│   │   │   └── scorecard.svg
-│   │   └── README.md
+│   │   └── repo_grounding_plus/
+│   │       ├── README.md
+│   │       ├── index.html
+│   │       └── scorecard.svg
 │   ├── ARCHITECTURE.md
 │   ├── BUILD_WINDOWS.md
 │   ├── DEMO_GUIDE.md
@@ -115,8 +119,8 @@ This repository is structured as a documentation and binary demo package.
 │   ├── KNOWN_LIMITATIONS.md
 │   ├── PORTFOLIO_CASE_STUDY.md
 │   ├── PORTFOLIO_SUMMARY_SHORT.md
+│   ├── PROJECT_STATUS.md
 │   ├── RELEASE_NOTES.md
-│   ├── ROADMAP.md
 │   ├── SCREENSHOTS.md
 │   ├── SECURITY_AND_PRIVACY.md
 │   ├── TROUBLESHOOTING.md
