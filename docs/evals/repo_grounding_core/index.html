@@ -1,0 +1,450 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>RepoGrounding-Eval: Codebase Context Benchmark</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #161b22;
+      --panel2: #0f1115;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #9aa4b2;
+      --green: #2da44e;
+      --yellow: #bf8700;
+      --red: #d1242f;
+      --blue: #2f81f7;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Segoe UI, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.45;
+    }
+    main {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 32px 22px 80px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #161b22, #111827);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      margin-bottom: 22px;
+    }
+    h1 {
+      font-size: 38px;
+      margin: 0 0 8px;
+    }
+    h2 {
+      margin-top: 36px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 8px;
+    }
+    .subtitle {
+      color: var(--muted);
+      font-size: 18px;
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .card {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      min-height: 145px;
+    }
+    .card.ok { border-color: rgba(45, 164, 78, .65); }
+    .card.warn { border-color: rgba(191, 135, 0, .75); }
+    .card.bad { border-color: rgba(209, 36, 47, .75); }
+    .card-label {
+      color: var(--muted);
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .card-value {
+      font-size: 30px;
+      font-weight: 800;
+      margin-top: 8px;
+    }
+    .card-note {
+      color: var(--muted);
+      font-size: 14px;
+      margin-top: 10px;
+    }
+    .bar {
+      height: 9px;
+      background: #30363d;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 12px;
+    }
+    .bar span {
+      display: block;
+      height: 100%;
+      background: var(--green);
+      border-radius: 999px;
+    }
+    .warn .bar span { background: var(--yellow); }
+    .bad .bar span { background: var(--red); }
+    .scorecard {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #0f1115;
+      margin-top: 16px;
+    }
+    .scenario {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      margin: 14px 0;
+    }
+    .scenario.failed {
+      border-color: rgba(209, 36, 47, .75);
+    }
+    code {
+      background: #0f1115;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 14px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+    }
+    th, td {
+      border-bottom: 1px solid var(--border);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      color: var(--muted);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      background: #0f1115;
+    }
+    tr:last-child td { border-bottom: none; }
+    .callout {
+      border-left: 4px solid var(--blue);
+      background: #0f1115;
+      padding: 16px 18px;
+      border-radius: 10px;
+      color: #c9d1d9;
+    }
+    .callout.success {
+      border-left-color: var(--green);
+    }
+    .callout.warning {
+      border-left-color: var(--yellow);
+    }
+    .failure-kind {
+      color: #ffa198;
+      font-weight: 700;
+      margin: 4px 0;
+    }
+    .ok-text { color: #7ee787; }
+    .bad-text { color: #ffa198; }
+    @media (max-width: 900px) {
+      .summary { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 560px) {
+      .summary { grid-template-columns: 1fr; }
+      h1 { font-size: 30px; }
+    }
+  </style>
+</head>
+<body>
+<main>
+  <section class="hero">
+    <h1>RepoGrounding-Eval: Codebase Context Benchmark</h1>
+    <div class="subtitle">Run <code>20260521_094148</code> · Dataset <code>repo_grounding_core.jsonl</code></div>
+    <p>
+      A focused benchmark for repository context recall, source-grounded QA,
+      negative grounding, multi-turn continuity, semantic comparison, routing discipline,
+      and internal artifact suppression.
+    </p>
+    <div class="summary">
+      
+            <section class="card ok">
+              <div class="card-label">Stable scenario score</div>
+              <div class="card-value">12 / 12</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Core non-stress scenarios</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Overall scenario score</div>
+              <div class="card-value">12 / 12</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">End-to-end scenario pass rate</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Repository QA turn score</div>
+              <div class="card-value">13 / 13</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Source-grounded assistant turns</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Bootstrap reliability</div>
+              <div class="card-value">12 / 12</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Repo ingest and root setup</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Context retention</div>
+              <div class="card-value">13 / 13</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">0 false context refusal(s)</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Repo route retention</div>
+              <div class="card-value">12 / 12</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">0 repo follow-up route loss(es)</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Artifact suppression</div>
+              <div class="card-value">13 / 13 clean</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">0 internal artifact leak(s)</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Diff-route discipline</div>
+              <div class="card-value">13 / 13 clean</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">0 patch/diff misroute(s)</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Negative grounding</div>
+              <div class="card-value">3 / 3</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Correctly identifies absent features</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Semantic comparison</div>
+              <div class="card-value">1 / 1</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Comparison without patch/diff misrouting</div>
+            </section>
+            
+
+            <section class="card ok">
+              <div class="card-label">Multi-turn continuity</div>
+              <div class="card-value">1 / 1</div>
+              <div class="bar"><span style="width: 100.0%"></span></div>
+              <div class="card-note">Follow-up turns retain repo context</div>
+            </section>
+            
+    </div>
+  </section>
+
+  <h2>Visual scorecard</h2>
+  <img class="scorecard" src="scorecard.svg" alt="RepoGrounding scorecard">
+
+  <h2>Benchmark framing</h2>
+  <div class="callout">
+    This is a <strong>codebase-context benchmark</strong>, not a full SWE-bench style autonomous issue-resolution test.
+    It measures whether the app can load a repository and answer useful engineering questions from source files
+    without losing context, inventing unsupported features, misrouting semantic questions into patch/diff mode,
+    or exposing internal trace machinery.
+  </div>
+
+  <h2>What this benchmark checks</h2>
+  <ul>
+    <li><strong>Repository bootstrap:</strong> Creates an isolated project, sets the repo root, and confirms file-context ingest before QA.</li>
+    <li><strong>Source-grounded repository QA:</strong> Answers questions using the current project files instead of generic assumptions.</li>
+    <li><strong>Execution and data-flow tracing:</strong> Explains cross-file paths such as startup, movement, rendering, and configuration usage.</li>
+    <li><strong>Semantic comparison:</strong> Compares files by responsibility without misrouting to patch/diff behavior.</li>
+    <li><strong>Negative grounding:</strong> Correctly says unsupported features are absent instead of hallucinating implementations.</li>
+    <li><strong>Multi-turn continuity:</strong> Keeps repository context across follow-up turns in the same scenario.</li>
+    <li><strong>Artifact suppression:</strong> Avoids exposing internal trace, vector, project, or agent storage paths.</li>
+  </ul>
+
+  <h2>Failures</h2>
+  
+        <div class="callout success">
+          No failed scenarios. All benchmark assertions passed.
+        </div>
+        
+
+  <h2>Route-retention diagnostics</h2>
+  
+        <div class="callout success">
+          No repository-scoped turns were silently routed as general chat / no-repo.
+        </div>
+        
+
+  <h2>Scenario table</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Status</th>
+        <th>Steps</th>
+        <th>Turns</th>
+        <th>Stress</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+            <tr>
+              <td><code>core_startup_flow</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: startup flow from entrypoint into the game loop.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_player_movement_path</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: trace how a movement command changes the player&#x27;s position.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_semantic_compare_game_world</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: semantic comparison of game.py and world.py responsibilities.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_config_usage_trace</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: trace map dimensions from constants into runtime use.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_input_normalization_flow</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: trace user input normalization into command handling.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_rendering_path</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: rendering logic with exact grid variables and player marker.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_player_lifecycle</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core repo-grounding: Player state and its use in the game loop.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_items_absence_in_runtime</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core negative grounding: item definitions exist but are not wired into runtime gameplay.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_no_save_load_negative_grounding</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core negative grounding: save/load persistence is absent.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_no_enemy_system_negative_grounding</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core negative grounding: enemies and combat mechanics are absent.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_multi_turn_movement_then_rendering</code></td>
+              <td class="ok-text">passed</td>
+              <td>6</td>
+              <td>2</td>
+              <td></td>
+              <td>Core multi-turn continuity: movement summary followed by rendering comparison.</td>
+            </tr>
+            
+
+            <tr>
+              <td><code>core_internal_artifact_suppression</code></td>
+              <td class="ok-text">passed</td>
+              <td>5</td>
+              <td>1</td>
+              <td></td>
+              <td>Core artifact suppression: answer should cite source files, not internal agent storage.</td>
+            </tr>
+            
+    </tbody>
+  </table>
+</main>
+</body>
+</html>
