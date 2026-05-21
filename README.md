@@ -1,128 +1,119 @@
 # Coeus AI — Project-Aware AI Desktop Workspace
 
-**Coeus AI** is a native C++ desktop AI workspace for working with software projects. It combines a custom Skia/SDL2 graphical interface, project-aware AI assistance, retrieval over local codebases, tool execution, workflow orchestration, structured telemetry, and a private headless evaluation harness used to test repository-grounded behavior.
+**Coeus AI** is a native C++ desktop AI workspace for working with software projects. It combines a custom Skia/SDL2 graphical interface, local project awareness, retrieval over codebases, tool/workflow execution, structured telemetry, and a private headless evaluation harness used to test repository-grounded behaviour.
 
-This public repository is a **portfolio/demo release**. The full source code remains private, but this package provides a compiled Windows GUI demo build, usage documentation, architecture notes, technical case-study material, screenshots/video placeholders, and benchmark reports generated from a private headless test harness.
+This public repository is a **portfolio/demo release**. The full source code remains private, but this package provides documentation, architecture notes, demo guidance, public evaluation reports, release material, and links to the compiled Windows GUI demo.
 
----
+## What this is
 
-## Contents
+Coeus AI was built around the idea that an assistant should understand the **currently loaded project**, not just answer as a generic chatbot.
 
-- [What This Is](#what-this-is)
-- [Why It Matters](#why-it-matters)
-- [Quick Review Path](#quick-review-path)
-- [Repository Contents](#repository-contents)
-- [Running the Demo](#running-the-demo)
-- [Demo Walkthrough](#demo-walkthrough)
-- [Key Features](#key-features)
-- [RepoGrounding Evaluation Reports](#repogrounding-evaluation-reports)
-- [Architecture Overview](#architecture-overview)
-- [Technical Highlights](#technical-highlights)
-- [Task and Workflow Orchestration](#task-and-workflow-orchestration)
-- [Retrieval and Context System](#retrieval-and-context-system)
-- [Telemetry and Evaluation](#telemetry-and-evaluation)
-- [Technology Stack](#technology-stack)
-- [Documentation Map](#documentation-map)
-- [Current Status](#current-status)
-- [Public Release Scope](#public-release-scope)
-- [Known Limitations](#known-limitations)
-- [Portfolio Summary](#portfolio-summary)
+The application is designed to:
 
----
-
-## What This Is
-
-Coeus AI is a local-first AI development workspace built around the idea that an assistant should understand the **currently loaded project**, not just answer as a generic chatbot.
-
-The application is designed to let a user:
-
-- open or work against a local software project,
-- ask questions about source files,
+- work against a local software project,
 - inspect project context,
-- request architecture and runtime-flow explanations,
+- retrieve relevant source files,
+- answer repository-aware engineering questions,
 - compare source files semantically,
-- ask whether features are actually implemented,
-- maintain project context across follow-up turns,
-- and interact through a native desktop interface rather than a browser chat window.
+- identify absent features without hallucinating implementation,
+- preserve context across follow-up turns,
+- and present all of this through a native desktop interface.
 
-The public package demonstrates the product direction and engineering work without exposing the private source code.
+## Why it matters
 
----
-
-## Why It Matters
-
-A common failure mode in AI coding assistants is that they sound confident while losing repository context, hallucinating unsupported features, or routing normal codebase questions into the wrong workflow.
+A common failure mode in AI coding tools is that they sound confident while losing repository context, hallucinating unsupported features, or routing normal source questions into the wrong workflow.
 
 Coeus AI explores a more structured approach:
 
 - separate local project inventory from source evidence,
-- assemble context from project files,
-- route different user intents differently,
-- distinguish semantic repository QA from patch/diff requests,
+- assemble answer context from actual project files,
+- route different user intents through different workflows,
+- distinguish semantic repository questions from patch/diff requests,
 - retain repository context across follow-up turns,
-- suppress internal trace/vector/project-storage details from user-facing answers,
-- and validate these behaviors through automated headless benchmark scenarios.
+- suppress internal trace/vector/project-storage artifacts from user-facing answers,
+- and validate repository-grounding behaviour through automated headless benchmark scenarios.
 
-The included **RepoGrounding** benchmark reports show this behavior being tested on repository-context tasks such as startup tracing, source-order tracing, semantic comparison, negative grounding, multi-turn continuity, and artifact suppression.
+## Architecture summary
 
----
+Coeus AI uses a policy-first, compiled-turn architecture. User input is normalized into canonical turn state before retrieval, prompt assembly, validation, telemetry export, and final response handling. This reduces drift between what the user asked, what context was packed, and what the assistant is allowed to claim.
 
-## Quick Review Path
+At a high level, the system separates:
 
-For reviewers, the fastest path through the project is:
+- native GUI surfaces,
+- project state and file inventory,
+- turn policy and routing,
+- retrieval/source evidence,
+- context assembly,
+- model/provider transport,
+- command/tool execution,
+- output validation and post-processing,
+- structured telemetry,
+- and private headless evaluation.
 
-1. Read this README for the overall summary.
-2. Open the portfolio case study:
-   - [`docs/PORTFOLIO_CASE_STUDY.md`](docs/PORTFOLIO_CASE_STUDY.md)
-3. Review the architecture overview:
-   - [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
-4. Run or inspect the GUI demo:
-   - [`bin/CoeusAI.exe`](bin/CoeusAI.exe)
-   - [`docs/DEMO_GUIDE.md`](docs/DEMO_GUIDE.md)
-5. Review the evaluation evidence:
-   - [`docs/evals/README.md`](docs/evals/README.md)
-   - [`docs/evals/repo_grounding_core/index.html`](docs/evals/repo_grounding_core/index.html)
-   - [`docs/evals/repo_grounding_plus/index.html`](docs/evals/repo_grounding_plus/index.html)
-6. Review the planned video walkthrough:
-   - [`docs/VIDEO_WALKTHROUGH_SCRIPT.md`](docs/VIDEO_WALKTHROUGH_SCRIPT.md)
-7. Check limitations and release scope:
-   - [`docs/KNOWN_LIMITATIONS.md`](docs/KNOWN_LIMITATIONS.md)
-   - [`docs/SECURITY_AND_PRIVACY.md`](docs/SECURITY_AND_PRIVACY.md)
-   - [`docs/PROJECT_STATUS.md`](docs/PROJECT_STATUS.md)
+## Public demo
 
----
+The compiled Windows GUI demo is distributed through **GitHub Releases**, not committed directly into the repository.
 
-## Repository Contents
-
-This repository is structured as a documentation and binary demo package.
+Download the latest release from:
 
 ```text
-.
-├── bin/
-│   └── CoeusAI.exe
-├── docs/
-│   ├── evals/
-│   │   ├── README.md
-│   │   ├── repo_grounding_core/
-│   │   │   ├── README.md
-│   │   │   ├── index.html
-│   │   │   └── scorecard.svg
-│   │   └── repo_grounding_plus/
-│   │       ├── README.md
-│   │       ├── index.html
-│   │       └── scorecard.svg
-│   ├── ARCHITECTURE.md
-│   ├── BUILD_WINDOWS.md
-│   ├── DEMO_GUIDE.md
-│   ├── DEPENDENCIES.md
-│   ├── FAQ.md
-│   ├── KNOWN_LIMITATIONS.md
-│   ├── PORTFOLIO_CASE_STUDY.md
-│   ├── PORTFOLIO_SUMMARY_SHORT.md
-│   ├── PROJECT_STATUS.md
-│   ├── RELEASE_NOTES.md
-│   ├── SCREENSHOTS.md
-│   ├── SECURITY_AND_PRIVACY.md
-│   ├── TROUBLESHOOTING.md
-│   └── VIDEO_WALKTHROUGH_SCRIPT.md
-└── README.md
+https://github.com/Joshsnz/coeus.ai/releases/latest
+```
+
+## RepoGrounding evaluation reports
+
+The included RepoGrounding reports are generated from a private headless evaluation harness. They are **codebase-context benchmarks**, not SWE-bench-style autonomous repair tests.
+
+They test behaviours such as:
+
+- repository bootstrap,
+- source-grounded codebase QA,
+- runtime/source-flow tracing,
+- semantic file comparison,
+- negative grounding,
+- multi-turn continuity,
+- patch/diff routing discipline,
+- and internal artifact suppression.
+
+## Private codebase review package
+
+A separate private review package is available on request. A clean local source scan of the private native C++ source tree, excluding generated parser code, static assets, build output, vendor folders, and environment files, reports:
+
+| Metric | Value |
+|---|---:|
+| Files analyzed | 364 |
+| Total lines | 181,781 |
+| Code lines | 144,110 |
+| Reported complexity | 36,717 |
+
+The private package can include:
+
+- clean `scc` codebase metrics,
+- source-tree/file-manifest evidence,
+- source-level architecture notes,
+- selected implementation evidence,
+- public evidence links,
+- selected screenshots,
+- RepoGrounding evaluation context,
+- and optional selected source or broader source access depending on review context.
+
+It excludes secrets, provider configuration, local traces, environment files, generated caches, build outputs, private project data, and unnecessary binaries.
+
+## Documentation map
+
+- `docs/ARCHITECTURE.md` — public architecture overview
+- `docs/PORTFOLIO_CASE_STUDY.md` — project story and technical case study
+- `docs/DEMO_GUIDE.md` — how to present the demo
+- `docs/evals/` — public RepoGrounding reports
+- `docs/SECURITY_AND_PRIVACY.md` — public/private boundary and data safety notes
+- `docs/KNOWN_LIMITATIONS.md` — honest scope boundaries
+- `docs/PROJECT_STATUS.md` — current status
+- `docs/FAQ.md` — common questions
+
+## Current status
+
+Coeus AI is currently presented as a portfolio/demo release. The GUI demo and public reports are available, while the full source, private headless harness, private traces, provider configuration, and implementation internals remain private.
+
+## Portfolio summary
+
+Coeus AI demonstrates native C++ application engineering, AI product architecture, project-aware retrieval, workflow/tool execution, source-grounding design, telemetry-driven debugging, and evaluation discipline.
