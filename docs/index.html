@@ -249,6 +249,34 @@
       overflow-x: auto;
     }
 
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .stat {
+      border: 1px solid var(--border);
+      background: var(--code);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .stat-label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .stat-value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--text);
+      margin-top: 4px;
+    }
+
     .toc {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -352,6 +380,7 @@
       <a href="#overview">Overview</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
+      <a href="#private-review">Private review</a>
       <a href="#evals">Evaluation</a>
       <a href="#docs">Docs</a>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub</a>
@@ -373,6 +402,7 @@
       <a class="button" href="#video">Watch Demo Video</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
       <a class="button" href="#architecture">Architecture Summary</a>
+      <a class="button" href="#private-review">Private Codebase Review</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai">View Repository</a>
     </div>
 
@@ -382,6 +412,11 @@
         this repository is a portfolio/demo package. The full source code remains private,
         but this public package provides documentation, architecture notes, demo guidance,
         benchmark reports, release material, and links to the compiled Windows GUI demo.
+      </p>
+      <p>
+        A private review package is available on request with codebase metrics, source-tree
+        structure, architecture notes, selected implementation evidence, screenshots, and
+        headless evaluation evidence.
       </p>
     </div>
   </header>
@@ -606,6 +641,88 @@
     </div>
   </section>
 
+  <section id="private-review">
+    <h2>Private codebase review package</h2>
+
+    <p class="lead">
+      The public repository is intentionally a demo and documentation package. For
+      code-level review, a separate private review package can be shared on request.
+    </p>
+
+    <div class="split">
+      <div class="card">
+        <h3>Clean application-code scan</h3>
+        <p>
+          A local <code>scc</code> scan of the private source tree, excluding generated
+          parser code, static assets, build output, vendor folders, and environment files,
+          reports a substantial native C/C++ application codebase.
+        </p>
+
+        <div class="stat-grid">
+          <div class="stat">
+            <div class="stat-label">Files analyzed</div>
+            <div class="stat-value">364</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Total lines</div>
+            <div class="stat-value">181,781</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Code lines</div>
+            <div class="stat-value">144,110</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat-label">Reported complexity</div>
+            <div class="stat-value">36,717</div>
+          </div>
+        </div>
+
+        <p>
+          These figures are used as codebase-scale evidence, not as a quality score. The
+          raw tooling also outputs COCOMO-style effort estimates, but those are heuristic
+          model estimates and are kept in the private metrics evidence rather than promoted
+          as actual project cost.
+        </p>
+      </div>
+
+      <div class="card">
+        <h3>What is available privately</h3>
+        <ul>
+          <li>Clean <code>scc</code> summary and by-file metrics.</li>
+          <li>Source tree / codebase structure report.</li>
+          <li>Architecture notes mapping files to subsystems.</li>
+          <li>RepoGrounding eval reports and supporting summaries.</li>
+          <li>Selected screenshots of GUI, telemetry, and evaluation surfaces.</li>
+          <li>Selected source files or broader source access depending on review context.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid two" style="margin-top: 18px;">
+      <article class="card">
+        <h3>Main private subsystems</h3>
+        <p>
+          The private source tree includes dedicated subsystems for agent runtime,
+          policy and prompting, context/retrieval, lattice/context assembly, memory,
+          project state, command/tool execution, telemetry/export, GUI surfaces, and
+          headless evaluation support.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Private boundary</h3>
+        <p>
+          Secrets, provider configuration, local traces, generated caches, build outputs,
+          private project data, environment files, and generated parser/static asset noise
+          are excluded from the review package.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section id="evals">
     <h2>RepoGrounding evaluation reports</h2>
 
@@ -709,6 +826,11 @@ Diff-route discipline: 14 / 14 clean</div>
         <span>Suggested flow for presenting the Windows GUI demo and project-aware assistant behaviour.</span>
       </a>
 
+      <a href="#private-review">
+        Private codebase review
+        <span>Summary of private codebase metrics and review material available on request.</span>
+      </a>
+
       <a href="#evals">
         Evaluation report cards
         <span>Core and Plus summaries with direct links to the generated HTML reports.</span>
@@ -802,12 +924,14 @@ Diff-route discipline: 14 / 14 clean</div>
       <p>
         It does not include the full private source code, private prompts, proprietary
         runtime internals, private traces, private provider configuration, private
-        project data, or the private headless runner.
+        project data, generated caches, or the private headless runner.
       </p>
 
       <p>
-        This keeps the public package focused on engineering presentation while
-        preserving the private implementation boundary.
+        A private codebase review package can be shared on request. That package contains
+        source-tree evidence, clean local metrics, architecture notes, selected implementation
+        evidence, screenshots, and evaluation material while excluding secrets, environment
+        files, local traces, and build artifacts.
       </p>
     </div>
   </section>
@@ -818,7 +942,8 @@ Diff-route discipline: 14 / 14 clean</div>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
       <a href="#evals">evaluation summaries</a> ·
-      <a href="#architecture">architecture summary</a>
+      <a href="#architecture">architecture summary</a> ·
+      <a href="#private-review">private review summary</a>
     </p>
     <p>
       Return to main portfolio:
