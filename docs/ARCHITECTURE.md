@@ -2,217 +2,136 @@
 
 ## Overview
 
-Coeus AI is structured as a native desktop AI workspace with a modular runtime core. The application is organized around a separation between the UI, project context systems, retrieval, tool execution, model/provider integration, and telemetry.
+Coeus AI is a native C++ project-aware AI desktop workspace. It is structured around a separation between the desktop UI, application state, agent runtime, project context, retrieval, tool execution, model/provider integration, validation, telemetry, and a private headless evaluation runtime.
 
-The public demo repository does not include private source code. This document explains the architecture at a professional overview level.
+The public release does not include the private source code. This document explains the architecture at a professional overview level.
 
-> **Important:** the public release contains the GUI desktop build only. A separate headless build exists in the private development environment for testing and automation, but it is not included in this package.
-
----
-
-## High-Level Architecture
+## High-level architecture
 
 ```text
 Coeus AI
 ├── Native GUI Layer
 │   ├── Skia rendering
 │   ├── SDL2/OpenGL backend
-│   ├── Panels, conversation UI, settings, evidence display
+│   ├── Conversation and context panels
+│   ├── Evidence / telemetry / settings surfaces
 │   └── User input and interaction surfaces
+│
+├── Application State Layer
+│   ├── Active project state
+│   ├── Conversation state
+│   ├── Selected context
+│   ├── Task/tool state
+│   └── Runtime configuration
 │
 ├── Agent Runtime Layer
 │   ├── Turn processing
-│   ├── Runtime orchestration
 │   ├── Request construction
+│   ├── Runtime orchestration
 │   ├── Output handling
 │   └── GUI bridge
+│
+├── Turn Policy / Compiled Turn Layer
+│   ├── User-turn normalization
+│   ├── Intent and request tagging
+│   ├── Target selection
+│   ├── Canonical answer contract
+│   └── Resolved turn state
 │
 ├── Project Context Layer
 │   ├── Project inventory
 │   ├── File context management
-│   ├── Searchable code/file records
-│   ├── Summaries and gists
-│   └── Memory/snapshot support
+│   ├── Searchable source records
+│   ├── Summaries / gists
+│   └── Memory / snapshot support
 │
-├── Retrieval Layer
-│   ├── Keyword-style search
-│   ├── Vector memory support
-│   ├── Ranked candidate selection
-│   └── Context assembly
+├── Retrieval and Context Assembly
+│   ├── File and chunk retrieval
+│   ├── Source evidence selection
+│   ├── Hybrid retrieval support
+│   ├── Context lattice / packed context
+│   └── Prompt-ready evidence assembly
 │
-├── Tool Layer
-│   ├── Built-in project tools
-│   ├── File-context tools
-│   ├── Search/retrieval tools
-│   ├── Planning/apply workflows
-│   └── Tool observation records
+├── Tool and Workflow Layer
+│   ├── Command handling
+│   ├── Built-in tools
+│   ├── Planning/apply-style flows
+│   ├── Tool observations
+│   └── Connector boundary
 │
-├── LLM / Provider Layer
-│   ├── Provider management
-│   ├── HTTP JSON runner
+├── Model / Provider Layer
+│   ├── Provider configuration
+│   ├── Remote HTTP model runner
 │   ├── Local process runner
-│   └── Request/response abstraction
+│   └── Model transport abstraction
 │
-└── Telemetry Layer
+├── Validation and Post-processing
+│   ├── Output validation
+│   ├── Answer-contract checks
+│   ├── Internal artifact suppression
+│   └── Presentation cleanup
+│
+└── Telemetry and Headless Evaluation
     ├── Run traces
-    ├── Activity feed
-    ├── Structured markers
-    ├── Artifact export
-    └── Debugging surfaces
+    ├── Exported bundles
+    ├── Tool traces
+    ├── Marker truth
+    └── Private headless test harness
 ```
 
----
+## Compiled-turn concept
 
-## Native GUI Layer
+Internally, Coeus uses a policy-first compiled-turn model. A user message is not treated as a raw prompt that every downstream layer reinterprets. Instead, the turn is normalized into canonical turn state before retrieval, prompt assembly, validation, telemetry export, and final response handling.
 
-The GUI is a custom native desktop interface built in C++.
+The goal is to reduce drift between:
 
-Primary responsibilities:
+- what the user asked,
+- what the app decided the turn means,
+- what context was retrieved,
+- what context was actually packed,
+- and what the assistant is allowed to claim.
 
-- Render the application shell
-- Display conversation history
-- Display project/context/evidence panels
-- Present settings and tool panels
-- Handle user input
-- Bridge user actions into the runtime layer
+## Key truth boundaries
 
-Technology used:
+Coeus is designed around separating several forms of truth/state:
 
-- Skia
-- SDL2
-- OpenGL
-- Custom C++ UI components
+| Boundary | Meaning |
+|---|---|
+| Policy truth | What the turn means and what workflows are allowed. |
+| Retrieval truth | What source/project material is actually indexed or retrieved. |
+| Packed truth | What evidence/context was actually included in the prompt. |
+| Continuity truth | Conversation/history state that may help route the turn but is not proof by itself. |
+| Claim truth | What the assistant may safely assert to the user. |
 
----
+This separation matters because source-grounded applications fail when summaries, memory, internal traces, or stale state silently become proof.
 
-## Agent Runtime Layer
+## GUI and headless dual surface
 
-The runtime layer coordinates each assistant interaction.
+Coeus has two important runtime surfaces:
 
-At a high level, it handles:
+1. **Native GUI desktop app** — the public product surface.
+2. **Private headless runtime** — a non-GUI automation and evaluation surface used by the private test harness.
 
-- Receiving user input
-- Building a structured request
-- Consulting project state and retrieval systems
-- Calling model/provider layers
-- Processing model output
-- Updating state and telemetry
-- Returning output to the GUI
+This distinction lets the project support manual product demos and repeatable automated evaluations.
 
-The private development architecture also supports a separate non-GUI/headless build for automated testing and evaluation. That build is not part of the public release.
+## Retrieval and context assembly
 
----
+The retrieval layer supports repository-aware answers by selecting relevant project files or chunks from the loaded project. The context assembly layer then packages selected evidence into the model request.
 
-## Project Context Layer
+The architecture is designed so the assistant can answer questions such as:
 
-The project context layer is responsible for making a local project understandable to the assistant.
+- how a feature is wired,
+- what file owns a responsibility,
+- how runtime flow moves across files,
+- whether a feature is absent,
+- and how two source files differ semantically.
 
-It manages:
+## Telemetry and evaluation
 
-- Project metadata
-- File inventory
-- File context records
-- Summaries
-- Gists
-- Memory snapshots
-- Context available for retrieval and prompt construction
+Structured telemetry supports debugging and private evaluation. The public RepoGrounding reports are generated from this private headless evaluation harness.
 
-This allows Coeus AI to answer questions based on project files rather than generic model knowledge alone.
+The reports test codebase-context behaviour such as repository bootstrap, source-grounded answers, negative grounding, multi-turn continuity, semantic comparison, routing discipline, and artifact suppression.
 
----
+## Public/private boundary
 
-## Retrieval Layer
-
-The retrieval layer helps locate relevant project information before an assistant response is generated.
-
-It includes support for:
-
-- Search over local project files
-- Ranked retrieval
-- Vector memory integration
-- Candidate selection
-- Context assembly for answering
-
-The user-facing goal is simple: when the assistant answers a project question, it should have access to relevant supporting material.
-
----
-
-## Tool Layer
-
-Coeus AI includes a tool system for project operations and internal workflows.
-
-Example tool categories:
-
-- Project inventory tools
-- Search tools
-- Retrieval tools
-- File-context tools
-- Planning/apply workflow tools
-- Artifact and telemetry tools
-
-Tool output can be surfaced to the user and recorded for debugging.
-
----
-
-## LLM / Provider Layer
-
-The provider layer abstracts model access. It supports remote and local-style execution paths through a provider management system.
-
-Responsibilities include:
-
-- Managing provider configuration
-- Preparing requests
-- Handling HTTP-based model calls
-- Supporting local process runners
-- Returning structured responses to the runtime
-
----
-
-## Telemetry Layer
-
-Telemetry is a central part of the architecture.
-
-It supports:
-
-- Activity feed
-- Run trace records
-- Structured markers
-- Exported artifacts
-- Debugging and evaluation diagnostics
-
-This makes the system inspectable and helps explain why a given answer or action occurred.
-
----
-
-## GUI Build vs Private Headless Build
-
-The public release includes:
-
-```powershell
-.\bin\CoeusAI.exe
-```
-
-That is the GUI desktop build.
-
-The private development environment also has a separate headless build path used for:
-
-- Automated evaluation
-- Regression testing
-- Runtime debugging
-- Non-GUI workflow checks
-
-This distinction matters because public users should not expect a headless executable or CLI workflow in this portfolio package.
-
----
-
-## Source Availability
-
-The public repository is a portfolio/demo release. It intentionally excludes:
-
-- Full source code
-- Private prompts
-- Proprietary runtime internals
-- API keys
-- Private evaluation datasets
-- Internal development scripts
-- Private headless executable
+The public repository includes documentation, generated evaluation reports, release material, and a demo build. It does not include the full private source code, private prompts, private traces, provider configuration, local caches, private project data, or the private headless runner.
