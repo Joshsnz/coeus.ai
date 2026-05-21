@@ -121,7 +121,7 @@
     }
 
     .lead {
-      max-width: 900px;
+      max-width: 920px;
       color: var(--muted);
       font-size: 1.14rem;
     }
@@ -277,6 +277,25 @@
       margin-top: 4px;
     }
 
+    .flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .flow-step {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .flow-step strong {
+      color: var(--accent);
+    }
+
     .toc {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -303,6 +322,50 @@
       color: var(--muted);
       font-size: 0.92rem;
       margin-top: 6px;
+    }
+
+    .doc-accordion {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    details.doc-section {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    details.doc-section summary {
+      cursor: pointer;
+      padding: 16px 18px;
+      color: var(--accent);
+      font-weight: 700;
+      list-style: none;
+    }
+
+    details.doc-section summary::-webkit-details-marker {
+      display: none;
+    }
+
+    details.doc-section summary::after {
+      content: " +";
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    details.doc-section[open] summary::after {
+      content: " −";
+    }
+
+    .doc-content {
+      padding: 0 18px 18px;
+      color: var(--muted);
+    }
+
+    .doc-content ul {
+      margin-top: 10px;
     }
 
     .scorecard-wrap {
@@ -380,6 +443,7 @@
       <a href="#overview">Overview</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
+      <a href="#turn-pipeline">Turn pipeline</a>
       <a href="#private-review">Private review</a>
       <a href="#evals">Evaluation</a>
       <a href="#docs">Docs</a>
@@ -393,8 +457,8 @@
     <p class="lead">
       A native C++ project-aware AI desktop workspace for working with software projects.
       Coeus AI combines a custom Skia/SDL2 GUI, local project context, retrieval over
-      codebases, workflow-style runtime operations, structured telemetry, and a private
-      headless evaluation harness used to test repository-grounded behaviour.
+      codebases, a policy-first compiled-turn runtime, tool/workflow execution, structured
+      telemetry, and a private headless evaluation harness used to test repository-grounded behaviour.
     </p>
 
     <div class="actions">
@@ -414,9 +478,9 @@
         benchmark reports, release material, and links to the compiled Windows GUI demo.
       </p>
       <p>
-        A private review package is available on request with codebase metrics, source-tree
-        structure, architecture notes, selected implementation evidence, screenshots, and
-        headless evaluation evidence.
+        A private review package is available on request with clean codebase metrics,
+        source-tree structure, architecture/study notes, selected implementation evidence,
+        screenshots, and headless evaluation evidence.
       </p>
     </div>
   </header>
@@ -437,8 +501,14 @@
         <p>
           The goal is not simply to wrap a model in a chat window. Coeus AI explores
           the application/runtime layer around AI-assisted software work: project state,
-          retrieval, context assembly, tool-style operations, workflow routing, telemetry,
-          and repeatable evaluation.
+          retrieval, context assembly, tool-style operations, workflow routing, validation,
+          telemetry, and repeatable evaluation.
+        </p>
+
+        <p>
+          Internally, the system is organized around a policy-first turn pipeline. A user
+          turn is compiled into canonical turn state before retrieval, prompt packing,
+          tool routing, validation, and telemetry export consume it.
         </p>
 
         <div class="tags">
@@ -448,8 +518,10 @@
           <span class="tag">OpenGL</span>
           <span class="tag">Retrieval</span>
           <span class="tag">Source grounding</span>
+          <span class="tag">Turn compiler</span>
+          <span class="tag">Tool runtime</span>
           <span class="tag">Telemetry</span>
-          <span class="tag">AI tooling</span>
+          <span class="tag">Headless evals</span>
         </div>
       </div>
 
@@ -458,9 +530,9 @@
         <ol>
           <li>Read this high-level overview.</li>
           <li>Watch the demo video once added.</li>
-          <li>Review the architecture summary below.</li>
+          <li>Review the architecture and turn-pipeline summaries below.</li>
           <li>Open the generated RepoGrounding reports.</li>
-          <li>Read the GitHub-rendered case study and supporting docs.</li>
+          <li>Use the documentation hub for deeper reading.</li>
           <li>Download the demo from GitHub Releases.</li>
         </ol>
       </div>
@@ -527,8 +599,8 @@
 
     <p class="lead">
       Coeus AI is structured as a native desktop AI workspace with a modular runtime core.
-      The architecture separates the GUI, application state, agent runtime, project context,
-      retrieval, workflow/tool operations, provider integration, and telemetry.
+      The architecture separates the GUI, compiled turn state, project context, retrieval,
+      tools/workflows, provider integration, validation, telemetry, and headless evaluation.
     </p>
 
     <div class="grid">
@@ -536,47 +608,47 @@
         <h3>Native GUI layer</h3>
         <p>
           Custom C++ desktop interface using Skia for rendering and SDL2/OpenGL for windowing,
-          with conversation, context, settings, tool, and diagnostic surfaces.
+          with conversation, context, settings, tool, evidence, and diagnostic surfaces.
         </p>
       </article>
 
       <article class="card">
-        <h3>Application state layer</h3>
+        <h3>Headless evaluation surface</h3>
         <p>
-          Tracks active project state, conversation state, selected context, tool/task state,
-          and runtime configuration.
+          A separate private headless runtime supports automation and repository-grounding
+          evals without requiring the GUI, while still exercising the same core runtime concepts.
         </p>
       </article>
 
       <article class="card">
-        <h3>Agent runtime layer</h3>
+        <h3>Policy-first turn compiler</h3>
         <p>
-          Coordinates turn processing, request construction, context assembly, routing,
-          provider calls, answer handling, and GUI bridge behaviour.
+          User input is normalized into canonical turn state before retrieval, prompt assembly,
+          tool routing, validation, and telemetry consume it.
         </p>
       </article>
 
       <article class="card">
-        <h3>Project context layer</h3>
+        <h3>Project context and retrieval</h3>
         <p>
-          Maintains project inventory, file context, searchable source records, summaries/gists,
-          memory/snapshot support, and source-evidence surfaces.
+          Maintains project inventory, file context, searchable source records, summaries,
+          memory/snapshot support, BM25/vector/hybrid retrieval, and source-evidence surfaces.
         </p>
       </article>
 
       <article class="card">
-        <h3>Retrieval layer</h3>
+        <h3>Workflow and tool layer</h3>
         <p>
-          Retrieves relevant files or chunks from the loaded project and supports source-grounded
-          repository answers rather than generic responses.
+          Supports command handling, project operations, file-context tools, planning/apply-style
+          flows, local/remote tool execution, and deterministic workflow routing.
         </p>
       </article>
 
       <article class="card">
-        <h3>Workflow, tools, and telemetry</h3>
+        <h3>Validation and telemetry</h3>
         <p>
-          Supports command handling, project operations, planning/apply-style flows, runtime
-          diagnostics, structured markers, trace output, and private headless evaluation.
+          Structured markers, traces, run bundles, answer post-processing, and validation rules
+          support debugging, route analysis, artifact suppression, and private eval reporting.
         </p>
       </article>
     </div>
@@ -584,6 +656,69 @@
     <div class="actions">
       <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">Read full architecture on GitHub</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">Read case study</a>
+    </div>
+  </section>
+
+  <section id="turn-pipeline">
+    <h2>How the turn pipeline works</h2>
+
+    <p class="lead">
+      The private source review shows that Coeus is organized around a compiled-turn
+      architecture rather than a prompt-only chatbot flow. The public summary below keeps
+      the idea high-level while preserving the private implementation boundary.
+    </p>
+
+    <div class="flow">
+      <div class="flow-step">
+        <strong>1. User turn enters the GUI or headless runtime.</strong>
+        The same project-aware assistant concepts are available through the desktop GUI
+        and through a private headless/eval surface.
+      </div>
+
+      <div class="flow-step">
+        <strong>2. Turn semantics are compiled into canonical state.</strong>
+        The system derives policy-level intent, request type, targets, scope, and answer
+        expectations before downstream layers act on the turn.
+      </div>
+
+      <div class="flow-step">
+        <strong>3. Project context and retrieval are selected.</strong>
+        File inventory, source slices, retrieval results, summaries, and memory/context
+        records are considered as separate forms of context rather than a single generic history.
+      </div>
+
+      <div class="flow-step">
+        <strong>4. Prompt/context packing consumes compiled truth.</strong>
+        Prompt construction projects the compiled turn state and selected evidence into the
+        model request instead of reclassifying the user request independently.
+      </div>
+
+      <div class="flow-step">
+        <strong>5. Tools and workflows route through deterministic layers.</strong>
+        Command and tool execution use explicit runners, registries, planning helpers,
+        and observation stores rather than arbitrary free-form model action.
+      </div>
+
+      <div class="flow-step">
+        <strong>6. Validation and post-processing check the output.</strong>
+        The answer layer is responsible for user-facing cleanliness, route discipline,
+        internal artifact suppression, and avoiding unsupported claims.
+      </div>
+
+      <div class="flow-step">
+        <strong>7. Telemetry and eval traces record what happened.</strong>
+        Structured traces and export bundles support debugging, private headless testing,
+        and the public RepoGrounding reports.
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Key distinction:</strong>
+        Coeus separates turn semantics, retrieval/source evidence, packed prompt context,
+        tool execution, validation, and telemetry. This is the main architectural reason
+        it is more than a simple model wrapper.
+      </p>
     </div>
   </section>
 
@@ -635,7 +770,7 @@
         <h3>Telemetry and diagnostics</h3>
         <p>
           Structured markers and traces support debugging, route analysis, context-packing
-          inspection, and private headless evaluation.
+          inspection, artifact suppression checks, and private headless evaluation.
         </p>
       </article>
     </div>
@@ -694,6 +829,7 @@
           <li>Clean <code>scc</code> summary and by-file metrics.</li>
           <li>Source tree / codebase structure report.</li>
           <li>Architecture notes mapping files to subsystems.</li>
+          <li>Private technical study notes covering the turn compiler, retrieval, summaries, tools, contracts, telemetry, and headless runtime.</li>
           <li>RepoGrounding eval reports and supporting summaries.</li>
           <li>Selected screenshots of GUI, telemetry, and evaluation surfaces.</li>
           <li>Selected source files or broader source access depending on review context.</li>
@@ -705,9 +841,9 @@
       <article class="card">
         <h3>Main private subsystems</h3>
         <p>
-          The private source tree includes dedicated subsystems for agent runtime,
-          policy and prompting, context/retrieval, lattice/context assembly, memory,
-          project state, command/tool execution, telemetry/export, GUI surfaces, and
+          The private source tree includes dedicated subsystems for GUI/rendering,
+          agent runtime, policy and prompting, context/retrieval, lattice/context assembly,
+          memory, summaries, project state, command/tool execution, telemetry/export, and
           headless evaluation support.
         </p>
       </article>
@@ -802,94 +938,114 @@ Diff-route discipline: 14 / 14 clean</div>
   </section>
 
   <section id="docs">
-    <h2>Documentation map</h2>
+    <h2>Documentation hub</h2>
 
     <p class="lead">
-      This page presents the important summary material directly. The links below open
-      the supporting Markdown documents through GitHub, where they render cleanly for
-      deeper reading.
+      The most important material is summarized directly on this page. The collapsible
+      sections below give a readable table of contents without requiring visitors to crawl
+      through repository files.
     </p>
 
-    <div class="toc">
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">
-        Portfolio case study
-        <span>Technical story, problem, solution, evaluation evidence, and skills demonstrated.</span>
-      </a>
+    <div class="doc-accordion">
+      <details class="doc-section" open>
+        <summary>Portfolio case study</summary>
+        <div class="doc-content">
+          <p>
+            Explains the problem, design goal, technical challenge, solution, evaluation
+            evidence, and engineering skills demonstrated by Coeus AI.
+          </p>
+          <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">
+            Open full case study on GitHub →
+          </a>
+        </div>
+      </details>
 
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">
-        Architecture overview
-        <span>GUI, application state, agent runtime, project context, retrieval, tools, telemetry.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Architecture overview</summary>
+        <div class="doc-content">
+          <p>
+            Summarizes the native GUI, application state, agent runtime, compiled-turn
+            pipeline, project context, retrieval, tools, telemetry, and headless eval runtime.
+          </p>
+          <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">
+            Open full architecture document →
+          </a>
+        </div>
+      </details>
 
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEMO_GUIDE.md">
-        Demo guide
-        <span>Suggested flow for presenting the Windows GUI demo and project-aware assistant behaviour.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Demo guide and release notes</summary>
+        <div class="doc-content">
+          <p>
+            Describes the Windows GUI demo release, suggested presentation path, runtime
+            expectations, limitations, and release boundaries.
+          </p>
+          <ul>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEMO_GUIDE.md">Demo guide</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/RELEASE_NOTES.md">Release notes</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a></li>
+          </ul>
+        </div>
+      </details>
 
-      <a href="#private-review">
-        Private codebase review
-        <span>Summary of private codebase metrics and review material available on request.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Evaluation reports</summary>
+        <div class="doc-content">
+          <p>
+            Links to the generated RepoGrounding reports and benchmark README. These are
+            codebase-context benchmarks for repository grounding, not autonomous repair claims.
+          </p>
+          <ul>
+            <li><a href="evals/repo_grounding_core/">RepoGrounding Core report</a></li>
+            <li><a href="evals/repo_grounding_plus/">RepoGrounding Plus report</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/evals/README.md">Benchmark README</a></li>
+          </ul>
+        </div>
+      </details>
 
-      <a href="#evals">
-        Evaluation report cards
-        <span>Core and Plus summaries with direct links to the generated HTML reports.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Screenshots and video walkthrough</summary>
+        <div class="doc-content">
+          <p>
+            Planned screenshot and video guidance for demonstrating the native GUI, source-grounded
+            answers, telemetry surfaces, and evaluation reports.
+          </p>
+          <ul>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SCREENSHOTS.md">Screenshots checklist</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">Video walkthrough script</a></li>
+          </ul>
+        </div>
+      </details>
 
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/evals/README.md">
-        Benchmark README
-        <span>What the RepoGrounding reports measure, what they do not measure, and how to interpret them.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Security, privacy, limitations, and status</summary>
+        <div class="doc-content">
+          <p>
+            Explains what is public, what remains private, what the demo does and does not
+            claim, and the current project status.
+          </p>
+          <ul>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SECURITY_AND_PRIVACY.md">Security and privacy</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/KNOWN_LIMITATIONS.md">Known limitations</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PROJECT_STATUS.md">Project status</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/FAQ.md">FAQ</a></li>
+          </ul>
+        </div>
+      </details>
 
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SCREENSHOTS.md">
-        Screenshots
-        <span>Planned screenshot checklist for the GUI, source-grounded answers, and eval reports.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">
-        Video walkthrough script
-        <span>Suggested 3–6 minute narration for a polished project demo video.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SECURITY_AND_PRIVACY.md">
-        Security and privacy
-        <span>Public/private boundary, local project context, provider caution, and demo safety notes.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/KNOWN_LIMITATIONS.md">
-        Known limitations
-        <span>Honest boundaries for the public demo package, private source, private harness, and benchmark scope.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PROJECT_STATUS.md">
-        Project status
-        <span>Current portfolio/demo status and clarification that active development is on hold.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/FAQ.md">
-        FAQ
-        <span>Common questions about the public package, private source, benchmarks, and demo scope.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/RELEASE_NOTES.md">
-        Release notes
-        <span>What is included in the public portfolio/demo release and what is intentionally excluded.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEPENDENCIES.md">
-        Dependencies
-        <span>High-level dependency categories: C++20, CMake, Skia, SDL2, SQLite, libcurl, OpenSSL, retrieval stack.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/BUILD_WINDOWS.md">
-        Build notes
-        <span>High-level private Windows build environment notes and public build limitations.</span>
-      </a>
-
-      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/TROUBLESHOOTING.md">
-        Troubleshooting
-        <span>Common runtime, release, provider, and report-viewing issues.</span>
-      </a>
+      <details class="doc-section">
+        <summary>Dependencies and build notes</summary>
+        <div class="doc-content">
+          <p>
+            High-level dependency and build-environment notes. The public repo does not
+            expose the full private build/source internals.
+          </p>
+          <ul>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEPENDENCIES.md">Dependencies</a></li>
+            <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/BUILD_WINDOWS.md">Build notes</a></li>
+          </ul>
+        </div>
+      </details>
     </div>
   </section>
 
@@ -929,9 +1085,9 @@ Diff-route discipline: 14 / 14 clean</div>
 
       <p>
         A private codebase review package can be shared on request. That package contains
-        source-tree evidence, clean local metrics, architecture notes, selected implementation
-        evidence, screenshots, and evaluation material while excluding secrets, environment
-        files, local traces, and build artifacts.
+        source-tree evidence, clean local metrics, architecture and technical study notes,
+        selected implementation evidence, screenshots, and evaluation material while
+        excluding secrets, environment files, local traces, and build artifacts.
       </p>
     </div>
   </section>
