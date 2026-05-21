@@ -1,0 +1,628 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coeus AI — Project-Aware AI Desktop Workspace</title>
+
+  <style>
+    :root {
+      --bg: #0f1115;
+      --panel: #171a20;
+      --panel-2: #12161d;
+      --text: #e8e8e8;
+      --muted: #b8b8b8;
+      --accent: #9bd18f;
+      --accent-soft: #162316;
+      --border: #303743;
+      --danger-soft: #211718;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 32rem),
+        var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    main {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 24px 84px;
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 10px;
+      letter-spacing: 0.02em;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 5vw, 4.4rem);
+      line-height: 1.04;
+      margin: 0 0 18px;
+    }
+
+    h2 {
+      font-size: 1.65rem;
+      margin: 0 0 16px;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
+    }
+
+    .hero {
+      padding: 26px 0 20px;
+    }
+
+    .lead {
+      max-width: 880px;
+      color: var(--muted);
+      font-size: 1.14rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 16px;
+      color: var(--text);
+      background: var(--panel-2);
+      text-decoration: none;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .button.primary {
+      border-color: #567a52;
+      background: var(--accent-soft);
+      color: var(--accent);
+    }
+
+    section {
+      margin-top: 52px;
+    }
+
+    .notice {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.85);
+      border-radius: 18px;
+      padding: 22px;
+      margin-top: 28px;
+    }
+
+    .notice strong {
+      color: var(--text);
+    }
+
+    .notice p:last-child {
+      margin-bottom: 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.9);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .card p,
+    .card li {
+      color: var(--muted);
+    }
+
+    .card p:last-child {
+      margin-bottom: 0;
+    }
+
+    .wide {
+      grid-column: 1 / -1;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 16px;
+    }
+
+    .tag {
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.85rem;
+      background: #101318;
+    }
+
+    .metric {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: #101318;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 16px;
+      white-space: pre-wrap;
+      color: #dcdcdc;
+      overflow-x: auto;
+    }
+
+    .toc {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 14px;
+    }
+
+    .toc a {
+      display: block;
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.9);
+      border-radius: 16px;
+      padding: 16px;
+      text-decoration: none;
+      color: var(--accent);
+      min-height: 116px;
+    }
+
+    .toc a:hover {
+      border-color: var(--accent);
+    }
+
+    .toc span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-top: 6px;
+    }
+
+    .scorecard-wrap {
+      margin-top: 16px;
+      padding: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: #f6f7f4;
+    }
+
+    .scorecard-wrap img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    @media (max-width: 820px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    footer {
+      margin-top: 64px;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    footer p:last-child {
+      margin-bottom: 0;
+    }
+  </style>
+</head>
+
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Portfolio / demo release</div>
+    <h1>Coeus AI</h1>
+    <p class="lead">
+      A native C++ project-aware AI desktop workspace for working with software projects.
+      Coeus AI combines a custom Skia/SDL2 GUI, local project context, retrieval over
+      codebases, workflow-style runtime operations, structured telemetry, and a private
+      headless evaluation harness used to test repository-grounded behaviour.
+    </p>
+
+    <div class="actions">
+      <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
+      <a class="button" href="evals/">View Evaluation Reports</a>
+      <a class="button" href="ARCHITECTURE.md">Read Architecture</a>
+      <a class="button" href="https://github.com/Joshsnz/coeus.ai">View GitHub Repo</a>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Public release scope:</strong>
+        this repository is a portfolio/demo package. The full source code remains private,
+        but this public package provides documentation, architecture notes, demo guidance,
+        benchmark reports, release material, and links to the compiled Windows GUI demo.
+      </p>
+    </div>
+  </header>
+
+  <section id="overview">
+    <h2>What this is</h2>
+
+    <div class="split">
+      <div class="card">
+        <p>
+          Coeus AI was built around the idea that an assistant should understand the
+          currently loaded project, not just answer as a generic chatbot. The app is
+          designed to work against local software projects, inspect project context,
+          retrieve relevant source files, answer repository-aware engineering questions,
+          compare files semantically, and preserve context across follow-up turns.
+        </p>
+
+        <p>
+          The goal is not simply to wrap a model in a chat window. Coeus AI explores
+          the application/runtime layer around AI-assisted software work: project state,
+          retrieval, context assembly, tool-style operations, workflow routing, telemetry,
+          and repeatable evaluation.
+        </p>
+
+        <div class="tags">
+          <span class="tag">C++20</span>
+          <span class="tag">Skia</span>
+          <span class="tag">SDL2</span>
+          <span class="tag">OpenGL</span>
+          <span class="tag">Retrieval</span>
+          <span class="tag">Source grounding</span>
+          <span class="tag">Telemetry</span>
+          <span class="tag">AI tooling</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Quick review path</h3>
+        <ol>
+          <li>Read this high-level overview.</li>
+          <li>Open the <a href="PORTFOLIO_CASE_STUDY.md">portfolio case study</a>.</li>
+          <li>Review the <a href="ARCHITECTURE.md">architecture overview</a>.</li>
+          <li>Open the <a href="evals/">evaluation reports</a>.</li>
+          <li>Download the demo from <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">GitHub Releases</a>.</li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <h2>Why it matters</h2>
+
+    <div class="card">
+      <p>
+        A common failure mode in AI coding tools is that they sound confident while
+        losing repository context, hallucinating unsupported features, or routing normal
+        codebase questions into the wrong workflow. Coeus AI explores a more structured
+        approach to project-aware assistance.
+      </p>
+
+      <ul>
+        <li>Separate local project inventory from source evidence.</li>
+        <li>Assemble answer context from actual project files.</li>
+        <li>Route different user intents through different workflows.</li>
+        <li>Distinguish semantic repository questions from patch/diff requests.</li>
+        <li>Retain repository context across follow-up turns.</li>
+        <li>Identify absent features without hallucinating implementation.</li>
+        <li>Suppress internal trace/vector/project-storage details from user-facing answers.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>Key features</h2>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Native desktop GUI</h3>
+        <p>
+          Custom Windows desktop application built with C++20, Skia rendering, and
+          SDL2/OpenGL windowing.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Project-aware assistant</h3>
+        <p>
+          Designed around the active local project, selected context, file inventory,
+          conversation state, and workflow state.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Retrieval and context assembly</h3>
+        <p>
+          Retrieves relevant project files or chunks and assembles context for
+          repository-grounded answers.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Semantic repository QA</h3>
+        <p>
+          Supports architecture questions, source-flow tracing, file responsibility
+          explanations, and semantic comparisons.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Workflow and tool layer</h3>
+        <p>
+          Runtime concepts for command handling, project operations, planning/apply-style
+          flows, task orchestration, and tool routing.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Telemetry and diagnostics</h3>
+        <p>
+          Structured markers and traces support debugging, route analysis, context-packing
+          inspection, and private headless evaluation.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="evals">
+    <h2>RepoGrounding evaluation reports</h2>
+
+    <p class="lead">
+      The included RepoGrounding reports were generated from a private headless
+      evaluation harness. They are codebase-context benchmarks, not SWE-bench-style
+      autonomous issue-repair tests.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>RepoGrounding Core</h3>
+        <p>
+          Focused benchmark for repository bootstrap, source-grounded QA, runtime
+          tracing, semantic comparison, negative grounding, multi-turn continuity,
+          route discipline, and artifact suppression.
+        </p>
+
+        <div class="metric">Stable scenarios:      12 / 12
+Repository QA turns:   13 / 13
+Context retention:     13 / 13
+Artifact suppression:  13 / 13 clean
+Diff-route discipline: 13 / 13 clean</div>
+
+        <div class="scorecard-wrap">
+          <img src="evals/repo_grounding_core/scorecard.svg"
+               alt="RepoGrounding Core scorecard"
+               onerror="this.closest('.scorecard-wrap').style.display='none'">
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="evals/repo_grounding_core/">Open Core Report</a>
+          <a class="button" href="evals/repo_grounding_core/README.md">Core Summary</a>
+        </div>
+      </article>
+
+      <article class="card">
+        <h3>RepoGrounding Plus</h3>
+        <p>
+          Harder benchmark covering source-order tracing, exact-symbol questions,
+          negative-grounding distractors, multi-turn continuity, semantic-to-diff
+          routing discipline, and artifact suppression under pressure.
+        </p>
+
+        <div class="metric">Stable scenarios:      12 / 12
+Repository QA turns:   14 / 14
+Context retention:     14 / 14
+Artifact suppression:  14 / 14 clean
+Diff-route discipline: 14 / 14 clean</div>
+
+        <div class="scorecard-wrap">
+          <img src="evals/repo_grounding_plus/scorecard.svg"
+               alt="RepoGrounding Plus scorecard"
+               onerror="this.closest('.scorecard-wrap').style.display='none'">
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="evals/repo_grounding_plus/">Open Plus Report</a>
+          <a class="button" href="evals/repo_grounding_plus/README.md">Plus Summary</a>
+        </div>
+      </article>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>What the reports show:</strong>
+        repository-context bootstrap, source-grounded answers, negative grounding,
+        semantic comparison, follow-up continuity, route retention, diff-route discipline,
+        and internal artifact suppression.
+      </p>
+      <p>
+        <strong>What they do not claim:</strong>
+        full autonomous software repair, SWE-bench performance, production deployment
+        readiness, pull-request quality, or broad benchmark generalization.
+      </p>
+    </div>
+  </section>
+
+  <section id="docs">
+    <h2>Documentation map</h2>
+
+    <p class="lead">
+      Use this section as the table of contents for the Coeus AI public portfolio/demo package.
+    </p>
+
+    <div class="toc">
+      <a href="PORTFOLIO_CASE_STUDY.md">
+        Portfolio case study
+        <span>Technical story, problem, solution, evaluation evidence, and skills demonstrated.</span>
+      </a>
+
+      <a href="ARCHITECTURE.md">
+        Architecture overview
+        <span>GUI, application state, agent runtime, project context, retrieval, tools, telemetry.</span>
+      </a>
+
+      <a href="DEMO_GUIDE.md">
+        Demo guide
+        <span>Suggested flow for presenting the Windows GUI demo and project-aware assistant behaviour.</span>
+      </a>
+
+      <a href="evals/">
+        Evaluation reports
+        <span>Rendered RepoGrounding report hub with Core and Plus benchmark summaries.</span>
+      </a>
+
+      <a href="evals/README.md">
+        Benchmark README
+        <span>What the RepoGrounding reports measure, what they do not measure, and how to interpret them.</span>
+      </a>
+
+      <a href="SCREENSHOTS.md">
+        Screenshots
+        <span>Planned screenshot checklist for the GUI, source-grounded answers, and eval reports.</span>
+      </a>
+
+      <a href="VIDEO_WALKTHROUGH_SCRIPT.md">
+        Video walkthrough script
+        <span>Suggested 3–6 minute narration for a polished project demo video.</span>
+      </a>
+
+      <a href="SECURITY_AND_PRIVACY.md">
+        Security and privacy
+        <span>Public/private boundary, local project context, provider caution, and demo safety notes.</span>
+      </a>
+
+      <a href="KNOWN_LIMITATIONS.md">
+        Known limitations
+        <span>Honest boundaries for the public demo package, private source, private harness, and benchmark scope.</span>
+      </a>
+
+      <a href="PROJECT_STATUS.md">
+        Project status
+        <span>Current portfolio/demo status and clarification that active development is on hold.</span>
+      </a>
+
+      <a href="FAQ.md">
+        FAQ
+        <span>Common questions about the public package, private source, benchmarks, and demo scope.</span>
+      </a>
+
+      <a href="RELEASE_NOTES.md">
+        Release notes
+        <span>What is included in the public portfolio/demo release and what is intentionally excluded.</span>
+      </a>
+
+      <a href="DEPENDENCIES.md">
+        Dependencies
+        <span>High-level dependency categories: C++20, CMake, Skia, SDL2, SQLite, libcurl, OpenSSL, retrieval stack.</span>
+      </a>
+
+      <a href="BUILD_WINDOWS.md">
+        Build notes
+        <span>High-level private Windows build environment notes and public build limitations.</span>
+      </a>
+
+      <a href="TROUBLESHOOTING.md">
+        Troubleshooting
+        <span>Common runtime, release, provider, and report-viewing issues.</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="release">
+    <h2>Demo release</h2>
+
+    <div class="card">
+      <p>
+        The compiled Windows GUI demo is distributed through GitHub Releases rather
+        than committed directly into the repository. Download the latest release,
+        extract it locally, and run the included executable from the extracted folder.
+      </p>
+
+      <div class="actions">
+        <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Latest Release</a>
+        <a class="button" href="DEMO_GUIDE.md">Read Demo Guide</a>
+        <a class="button" href="TROUBLESHOOTING.md">Troubleshooting</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="boundary">
+    <h2>Public / private boundary</h2>
+
+    <div class="card">
+      <p>
+        Coeus AI is currently presented as a portfolio/demo release. The public
+        repository includes documentation, generated evaluation reports, release
+        material, screenshots/video planning notes, and public-facing project notes.
+      </p>
+
+      <p>
+        It does not include the full private source code, private prompts, proprietary
+        runtime internals, private traces, private provider configuration, private
+        project data, or the private headless runner.
+      </p>
+
+      <p>
+        This keeps the public package focused on engineering presentation while
+        preserving the private implementation boundary.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      Coeus AI:
+      <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
+      <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
+      <a href="evals/">evaluation reports</a> ·
+      <a href="ARCHITECTURE.md">architecture</a>
+    </p>
+    <p>
+      Return to main portfolio:
+      <a href="https://joshsnz.github.io/Joshnzportfolio/">Joshua Skelton portfolio</a>
+    </p>
+  </footer>
+</main>
+</body>
+</html>
