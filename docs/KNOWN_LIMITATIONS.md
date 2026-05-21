@@ -1,29 +1,25 @@
 # Known Limitations
 
-## Public Demo Limitations
+## Public package scope
 
-The public Coeus AI package is a portfolio/demo release. Some functionality may be limited because the full source, private configuration, API keys, internal test builds, and internal datasets are not included.
+The public repository is not a full source release. It is a portfolio/demo package with documentation, public evaluation reports, and a compiled Windows GUI demo release.
 
-Known limitations may include:
+## Source availability
 
-- Model/provider functionality may require local configuration
-- Some project-aware features may require a loaded local project
-- Some advanced tool flows may be disabled or unavailable in the demo package
-- Runtime DLLs must remain beside `CoeusAI.exe`
-- The binary may be unsigned
-- The source code is not included
-- Headless mode is not included in this public release
+The full source remains private. A private codebase review package can be shared on request, but it is not public.
 
----
+## Platform scope
 
-## Intended Scope
+The demo release is currently Windows-focused.
 
-This release is intended to demonstrate:
+## Evaluation scope
 
-- The native GUI application build
-- The architecture
-- The documentation
-- The project scope
-- The engineering capability behind the system
+The RepoGrounding reports are codebase-context benchmarks. They are not SWE-bench-style autonomous repair benchmarks and should not be interpreted as broad benchmark generalization.
 
-It is not intended to be a fully open-source product release or a public CLI/headless testing package.
+## Private harness
+
+The headless evaluation harness exists in the private development environment and is not included in the public package.
+
+## Performance notes
+
+Performance measurements should be interpreted only when tied to a specific build, machine, and scenario. Public performance claims should not be inferred from source-size metrics alone.
