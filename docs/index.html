@@ -15,7 +15,6 @@
       --accent: #9bd18f;
       --accent-soft: #162316;
       --border: #303743;
-      --danger-soft: #211718;
     }
 
     * {
@@ -39,10 +38,42 @@
     main {
       max-width: 1120px;
       margin: 0 auto;
-      padding: 48px 24px 84px;
+      padding: 32px 24px 84px;
     }
 
     a {
+      color: var(--accent);
+    }
+
+    .topbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .brand {
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .nav a:hover {
       color: var(--accent);
     }
 
@@ -74,7 +105,7 @@
     }
 
     .hero {
-      padding: 26px 0 20px;
+      padding: 10px 0 20px;
     }
 
     .lead {
@@ -257,6 +288,18 @@
 
 <body>
 <main>
+  <div class="topbar">
+    <div class="brand">Coeus AI documentation</div>
+    <nav class="nav" aria-label="Primary navigation">
+      <a href="https://joshsnz.github.io/Joshnzportfolio/">Main portfolio</a>
+      <a href="#overview">Overview</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#evals">Evaluation</a>
+      <a href="#docs">Docs</a>
+      <a href="https://github.com/Joshsnz/coeus.ai">GitHub</a>
+    </nav>
+  </div>
+
   <header class="hero">
     <div class="eyebrow">Portfolio / demo release</div>
     <h1>Coeus AI</h1>
@@ -269,9 +312,9 @@
 
     <div class="actions">
       <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
-      <a class="button" href="evals/">View Evaluation Reports</a>
-      <a class="button" href="ARCHITECTURE.md">Read Architecture</a>
-      <a class="button" href="https://github.com/Joshsnz/coeus.ai">View GitHub Repo</a>
+      <a class="button" href="#evals">View Evaluation Reports</a>
+      <a class="button" href="#architecture">Architecture Summary</a>
+      <a class="button" href="https://joshsnz.github.io/Joshnzportfolio/">Return to Main Portfolio</a>
     </div>
 
     <div class="notice">
@@ -320,10 +363,10 @@
         <h3>Quick review path</h3>
         <ol>
           <li>Read this high-level overview.</li>
-          <li>Open the <a href="PORTFOLIO_CASE_STUDY.md">portfolio case study</a>.</li>
-          <li>Review the <a href="ARCHITECTURE.md">architecture overview</a>.</li>
-          <li>Open the <a href="evals/">evaluation reports</a>.</li>
-          <li>Download the demo from <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">GitHub Releases</a>.</li>
+          <li>Review the architecture summary below.</li>
+          <li>Open the generated RepoGrounding reports.</li>
+          <li>Read the GitHub-rendered case study and supporting docs.</li>
+          <li>Download the demo from GitHub Releases.</li>
         </ol>
       </div>
     </div>
@@ -349,6 +392,71 @@
         <li>Identify absent features without hallucinating implementation.</li>
         <li>Suppress internal trace/vector/project-storage details from user-facing answers.</li>
       </ul>
+    </div>
+  </section>
+
+  <section id="architecture">
+    <h2>Architecture summary</h2>
+
+    <p class="lead">
+      Coeus AI is structured as a native desktop AI workspace with a modular runtime core.
+      The architecture separates the GUI, application state, agent runtime, project context,
+      retrieval, workflow/tool operations, provider integration, and telemetry.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Native GUI layer</h3>
+        <p>
+          Custom C++ desktop interface using Skia for rendering and SDL2/OpenGL for windowing,
+          with conversation, context, settings, tool, and diagnostic surfaces.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Application state layer</h3>
+        <p>
+          Tracks active project state, conversation state, selected context, tool/task state,
+          and runtime configuration.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Agent runtime layer</h3>
+        <p>
+          Coordinates turn processing, request construction, context assembly, routing,
+          provider calls, answer handling, and GUI bridge behaviour.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Project context layer</h3>
+        <p>
+          Maintains project inventory, file context, searchable source records, summaries/gists,
+          memory/snapshot support, and source-evidence surfaces.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Retrieval layer</h3>
+        <p>
+          Retrieves relevant files or chunks from the loaded project and supports source-grounded
+          repository answers rather than generic responses.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Workflow, tools, and telemetry</h3>
+        <p>
+          Supports command handling, project operations, planning/apply-style flows, runtime
+          diagnostics, structured markers, trace output, and private headless evaluation.
+        </p>
+      </article>
+    </div>
+
+    <div class="actions">
+      <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">Read full architecture on GitHub</a>
+      <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">Read case study</a>
     </div>
   </section>
 
@@ -384,7 +492,7 @@
         <h3>Semantic repository QA</h3>
         <p>
           Supports architecture questions, source-flow tracing, file responsibility
-          explanations, and semantic comparisons.
+          explanations, semantic comparisons, and absent-feature analysis.
         </p>
       </article>
 
@@ -438,7 +546,7 @@ Diff-route discipline: 13 / 13 clean</div>
 
         <div class="actions">
           <a class="button primary" href="evals/repo_grounding_core/">Open Core Report</a>
-          <a class="button" href="evals/repo_grounding_core/README.md">Core Summary</a>
+          <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/evals/repo_grounding_core/README.md">Core Summary</a>
         </div>
       </article>
 
@@ -464,7 +572,7 @@ Diff-route discipline: 14 / 14 clean</div>
 
         <div class="actions">
           <a class="button primary" href="evals/repo_grounding_plus/">Open Plus Report</a>
-          <a class="button" href="evals/repo_grounding_plus/README.md">Plus Summary</a>
+          <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/evals/repo_grounding_plus/README.md">Plus Summary</a>
         </div>
       </article>
     </div>
@@ -489,80 +597,81 @@ Diff-route discipline: 14 / 14 clean</div>
 
     <p class="lead">
       Use this section as the table of contents for the Coeus AI public portfolio/demo package.
+      Markdown links open on GitHub so they render cleanly instead of appearing as raw text.
     </p>
 
     <div class="toc">
-      <a href="PORTFOLIO_CASE_STUDY.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">
         Portfolio case study
         <span>Technical story, problem, solution, evaluation evidence, and skills demonstrated.</span>
       </a>
 
-      <a href="ARCHITECTURE.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">
         Architecture overview
         <span>GUI, application state, agent runtime, project context, retrieval, tools, telemetry.</span>
       </a>
 
-      <a href="DEMO_GUIDE.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEMO_GUIDE.md">
         Demo guide
         <span>Suggested flow for presenting the Windows GUI demo and project-aware assistant behaviour.</span>
       </a>
 
-      <a href="evals/">
-        Evaluation reports
-        <span>Rendered RepoGrounding report hub with Core and Plus benchmark summaries.</span>
+      <a href="#evals">
+        Evaluation report cards
+        <span>Core and Plus summaries with direct links to the generated HTML reports.</span>
       </a>
 
-      <a href="evals/README.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/evals/README.md">
         Benchmark README
         <span>What the RepoGrounding reports measure, what they do not measure, and how to interpret them.</span>
       </a>
 
-      <a href="SCREENSHOTS.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SCREENSHOTS.md">
         Screenshots
         <span>Planned screenshot checklist for the GUI, source-grounded answers, and eval reports.</span>
       </a>
 
-      <a href="VIDEO_WALKTHROUGH_SCRIPT.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">
         Video walkthrough script
         <span>Suggested 3–6 minute narration for a polished project demo video.</span>
       </a>
 
-      <a href="SECURITY_AND_PRIVACY.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SECURITY_AND_PRIVACY.md">
         Security and privacy
         <span>Public/private boundary, local project context, provider caution, and demo safety notes.</span>
       </a>
 
-      <a href="KNOWN_LIMITATIONS.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/KNOWN_LIMITATIONS.md">
         Known limitations
         <span>Honest boundaries for the public demo package, private source, private harness, and benchmark scope.</span>
       </a>
 
-      <a href="PROJECT_STATUS.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PROJECT_STATUS.md">
         Project status
         <span>Current portfolio/demo status and clarification that active development is on hold.</span>
       </a>
 
-      <a href="FAQ.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/FAQ.md">
         FAQ
         <span>Common questions about the public package, private source, benchmarks, and demo scope.</span>
       </a>
 
-      <a href="RELEASE_NOTES.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/RELEASE_NOTES.md">
         Release notes
         <span>What is included in the public portfolio/demo release and what is intentionally excluded.</span>
       </a>
 
-      <a href="DEPENDENCIES.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEPENDENCIES.md">
         Dependencies
         <span>High-level dependency categories: C++20, CMake, Skia, SDL2, SQLite, libcurl, OpenSSL, retrieval stack.</span>
       </a>
 
-      <a href="BUILD_WINDOWS.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/BUILD_WINDOWS.md">
         Build notes
         <span>High-level private Windows build environment notes and public build limitations.</span>
       </a>
 
-      <a href="TROUBLESHOOTING.md">
+      <a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/TROUBLESHOOTING.md">
         Troubleshooting
         <span>Common runtime, release, provider, and report-viewing issues.</span>
       </a>
@@ -581,8 +690,8 @@ Diff-route discipline: 14 / 14 clean</div>
 
       <div class="actions">
         <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Latest Release</a>
-        <a class="button" href="DEMO_GUIDE.md">Read Demo Guide</a>
-        <a class="button" href="TROUBLESHOOTING.md">Troubleshooting</a>
+        <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/DEMO_GUIDE.md">Read Demo Guide</a>
+        <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/TROUBLESHOOTING.md">Troubleshooting</a>
       </div>
     </div>
   </section>
@@ -615,8 +724,8 @@ Diff-route discipline: 14 / 14 clean</div>
       Coeus AI:
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
-      <a href="evals/">evaluation reports</a> ·
-      <a href="ARCHITECTURE.md">architecture</a>
+      <a href="#evals">evaluation summaries</a> ·
+      <a href="#architecture">architecture summary</a>
     </p>
     <p>
       Return to main portfolio:
