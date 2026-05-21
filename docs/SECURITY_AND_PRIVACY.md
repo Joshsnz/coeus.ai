@@ -1,39 +1,33 @@
 # Security and Privacy
 
-## Public Release
+## Public release boundary
 
-This repository is a portfolio/demo release. It does not include:
+The public Coeus repository is a portfolio/demo package. It includes documentation, generated evaluation reports, release material, and public-facing project notes.
 
-- API keys
-- Private prompts
-- Private source code
-- Internal datasets
-- Customer data
-- Personal credentials
-- Private headless/evaluation binaries
+It does not include:
 
----
+- full private source code,
+- private prompts,
+- provider credentials,
+- private traces,
+- private project data,
+- local caches,
+- generated artifacts,
+- environment files,
+- or the private headless runner.
 
-## Local-First Design
+## Local project caution
 
-Coeus AI is designed around local project interaction. Project files and context are handled locally by the desktop application, subject to the user's configuration and model/provider setup.
+Coeus is designed around local project context. Users should avoid loading projects containing secrets unless they understand their model/provider configuration and data-flow risks.
 
----
+## Provider configuration
 
-## API Credentials
+No API keys are bundled in the public repository. Provider configuration and secrets are intentionally excluded.
 
-If a model provider is configured, users are responsible for managing their own credentials securely.
+## Telemetry and traces
 
-Do not commit API keys or provider secrets to a public repository.
+Telemetry exists to support debugging and private evaluation. Public reports are sanitized/generated artifacts. Raw private traces are not included in the public package.
 
----
+## Private review package
 
-## Demo Binary
-
-The public binary is provided for demonstration purposes. Reviewers should download it only from the official release page.
-
----
-
-## Source Code
-
-The full source code remains private because it contains proprietary implementation details and internal runtime architecture.
+A private codebase review package may be shared on request. That package excludes secrets, environment files, provider keys, local traces, generated caches, build output, and private project data.
