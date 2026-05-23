@@ -12,10 +12,17 @@
       --panel-2: #12161d;
       --text: #e8e8e8;
       --muted: #b8b8b8;
+      --muted-2: #8e98a6;
       --accent: #9bd18f;
       --accent-soft: #162316;
+      --accent-border: #567a52;
       --border: #303743;
+      --border-soft: #242a33;
       --code: #101318;
+      --warning: #f0c36a;
+      --blue: #86b7ff;
+      --violet: #bca7ff;
+      --cyan: #8dd9e8;
     }
 
     * {
@@ -47,6 +54,15 @@
       color: var(--accent);
     }
 
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      color: #d8e8d4;
+      background: rgba(155, 209, 143, 0.08);
+      border: 1px solid rgba(155, 209, 143, 0.16);
+      padding: 0.08rem 0.28rem;
+      border-radius: 0.35rem;
+    }
+
     .topbar {
       display: flex;
       flex-wrap: wrap;
@@ -60,7 +76,7 @@
 
     .portfolio-back {
       display: inline-block;
-      border: 1px solid #567a52;
+      border: 1px solid var(--accent-border);
       border-radius: 999px;
       padding: 9px 14px;
       color: var(--accent);
@@ -150,7 +166,7 @@
     }
 
     .button.primary {
-      border-color: #567a52;
+      border-color: var(--accent-border);
       background: var(--accent-soft);
       color: var(--accent);
     }
@@ -177,6 +193,13 @@
 
     .notice p:last-child {
       margin-bottom: 0;
+    }
+
+    .notice.public-private {
+      border-color: rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(23, 26, 32, 0.92)),
+        var(--panel);
     }
 
     .grid {
@@ -236,6 +259,12 @@
       color: var(--muted);
       font-size: 0.85rem;
       background: var(--code);
+    }
+
+    .tag.strong {
+      color: var(--accent);
+      border-color: rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
     }
 
     .metric {
@@ -384,7 +413,7 @@
     }
 
     .video-placeholder {
-      border: 1px dashed #567a52;
+      border: 1px dashed var(--accent-border);
       background:
         linear-gradient(135deg, rgba(155, 209, 143, 0.08), rgba(23, 26, 32, 0.82)),
         var(--panel);
@@ -408,7 +437,7 @@
     .video-play {
       width: 58px;
       height: 58px;
-      border: 1px solid #567a52;
+      border: 1px solid var(--accent-border);
       border-radius: 999px;
       display: grid;
       place-items: center;
@@ -416,6 +445,253 @@
       background: var(--accent-soft);
       margin: 0 auto 12px;
       font-size: 1.3rem;
+    }
+
+    /* Professional CLE visual system */
+
+    .cle-panel {
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(18, 22, 29, 0.96)),
+        var(--panel);
+      padding: 24px;
+    }
+
+    .pipeline-map {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    @media (max-width: 1000px) {
+      .pipeline-map {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .pipeline-map {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .pipeline-card {
+      position: relative;
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.92);
+      border-radius: 16px;
+      padding: 16px;
+      min-height: 150px;
+    }
+
+    .pipeline-card::after {
+      content: "";
+      position: absolute;
+      right: -12px;
+      top: 50%;
+      width: 12px;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .pipeline-card:last-child::after {
+      display: none;
+    }
+
+    @media (max-width: 1000px) {
+      .pipeline-card::after {
+        display: none;
+      }
+    }
+
+    .pipeline-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 999px;
+      border: 1px solid rgba(155, 209, 143, 0.35);
+      color: var(--accent);
+      background: rgba(155, 209, 143, 0.08);
+      font-weight: 800;
+      font-size: 0.82rem;
+      margin-bottom: 12px;
+    }
+
+    .pipeline-card h3 {
+      font-size: 1rem;
+      margin-bottom: 6px;
+    }
+
+    .pipeline-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0;
+    }
+
+    .truth-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(205px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .truth-card {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.86);
+      border-radius: 15px;
+      padding: 16px;
+    }
+
+    .truth-card h3 {
+      font-size: 0.98rem;
+      margin-bottom: 7px;
+    }
+
+    .truth-card p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 0;
+    }
+
+    .truth-line {
+      height: 4px;
+      width: 44px;
+      border-radius: 999px;
+      margin-bottom: 12px;
+      background: var(--accent);
+    }
+
+    .truth-line.blue { background: var(--blue); }
+    .truth-line.violet { background: var(--violet); }
+    .truth-line.cyan { background: var(--cyan); }
+    .truth-line.warning { background: var(--warning); }
+
+    .compiled-example {
+      display: grid;
+      gap: 18px;
+      margin-top: 18px;
+    }
+
+    .example-card {
+      border: 1px solid var(--border);
+      background: rgba(23, 26, 32, 0.92);
+      border-radius: 18px;
+      padding: 22px;
+    }
+
+    .example-question {
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background: rgba(155, 209, 143, 0.07);
+      border-radius: 14px;
+      padding: 14px 16px;
+      color: #e7f3e4;
+      margin: 14px 0 18px;
+    }
+
+    .stage-table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      font-size: 0.94rem;
+    }
+
+    .stage-table th,
+    .stage-table td {
+      text-align: left;
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .stage-table th {
+      color: var(--text);
+      background: rgba(16, 19, 24, 0.95);
+      font-weight: 700;
+    }
+
+    .stage-table td {
+      color: var(--muted);
+      background: rgba(16, 19, 24, 0.55);
+    }
+
+    .stage-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .stage-table code {
+      white-space: nowrap;
+    }
+
+    .mini-kv {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .mini-kv div {
+      border: 1px solid var(--border);
+      background: var(--code);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .mini-kv span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .mini-kv strong {
+      color: var(--text);
+      font-size: 0.98rem;
+    }
+
+    .boundary-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    .boundary-table th,
+    .boundary-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .boundary-table th {
+      background: var(--code);
+      color: var(--text);
+    }
+
+    .boundary-table td {
+      color: var(--muted);
+      background: rgba(23, 26, 32, 0.72);
+    }
+
+    .boundary-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .callout-title {
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 8px;
     }
 
     footer {
@@ -443,7 +719,8 @@
       <a href="#overview">Overview</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
-      <a href="#turn-pipeline">Turn pipeline</a>
+      <a href="#cle">CLE</a>
+      <a href="#compiled-examples">Examples</a>
       <a href="#private-review">Private review</a>
       <a href="#evals">Evaluation</a>
       <a href="#docs">Docs</a>
@@ -456,31 +733,33 @@
     <h1>Coeus AI</h1>
     <p class="lead">
       A native C++ project-aware AI desktop workspace for working with software projects.
-      Coeus AI combines a custom Skia/SDL2 GUI, local project context, retrieval over
-      codebases, a policy-first compiled-turn runtime, tool/workflow execution, structured
-      telemetry, and a private headless evaluation harness used to test repository-grounded behaviour.
+      Coeus AI combines a custom Skia/SDL2 GUI, local project context, source-grounded retrieval,
+      a policy-first compiled-turn runtime, tool/workflow execution, structured telemetry,
+      and a private headless evaluation harness used to test repository-grounded behaviour.
     </p>
 
     <div class="actions">
       <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
       <a class="button" href="#video">Watch Demo Video</a>
+      <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
       <a class="button" href="#architecture">Architecture Summary</a>
       <a class="button" href="#private-review">Private Codebase Review</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai">View Repository</a>
     </div>
 
-    <div class="notice">
+    <div class="notice public-private">
       <p>
         <strong>Public release scope:</strong>
-        this repository is a portfolio/demo package. The full source code remains private,
-        but this public package provides documentation, architecture notes, demo guidance,
-        benchmark reports, release material, and links to the compiled Windows GUI demo.
+        this repository is a portfolio/demo package. It presents the product idea, technical
+        architecture, compiled-turn design, demo release, evaluation summaries, screenshots/video
+        guidance, and generated public reports.
       </p>
       <p>
-        A private review package is available on request with clean codebase metrics,
-        source-tree structure, architecture/study notes, selected implementation evidence,
-        screenshots, and headless evaluation evidence.
+        <strong>Private boundary:</strong>
+        the full source code, private prompts, raw trace bundles, proprietary validation rules,
+        provider configuration, local project data, and private headless harness remain private.
+        A code-level review package can be shared on request.
       </p>
     </div>
   </header>
@@ -506,9 +785,9 @@
         </p>
 
         <p>
-          Internally, the system is organized around a policy-first turn pipeline. A user
-          turn is compiled into canonical turn state before retrieval, prompt packing,
-          tool routing, validation, and telemetry export consume it.
+          Internally, the system is organized around a policy-first compiled-turn architecture.
+          A user turn is converted into canonical turn state before retrieval, prompt packing,
+          execution, validation, and telemetry export consume it.
         </p>
 
         <div class="tags">
@@ -518,6 +797,7 @@
           <span class="tag">OpenGL</span>
           <span class="tag">Retrieval</span>
           <span class="tag">Source grounding</span>
+          <span class="tag strong">Context Lattice Engine</span>
           <span class="tag">Turn compiler</span>
           <span class="tag">Tool runtime</span>
           <span class="tag">Telemetry</span>
@@ -528,11 +808,11 @@
       <div class="card">
         <h3>Quick review path</h3>
         <ol>
-          <li>Read this high-level overview.</li>
+          <li>Read the high-level overview.</li>
           <li>Watch the demo video once added.</li>
-          <li>Review the architecture and turn-pipeline summaries below.</li>
+          <li>Review the Context Lattice Engine explanation.</li>
+          <li>Read the compiled-turn examples from eval traces.</li>
           <li>Open the generated RepoGrounding reports.</li>
-          <li>Use the documentation hub for deeper reading.</li>
           <li>Download the demo from GitHub Releases.</li>
         </ol>
       </div>
@@ -583,11 +863,11 @@
       </p>
 
       <ul>
-        <li>Separate local project inventory from source evidence.</li>
+        <li>Separate local project inventory from proof-bearing source evidence.</li>
         <li>Assemble answer context from actual project files.</li>
         <li>Route different user intents through different workflows.</li>
         <li>Distinguish semantic repository questions from patch/diff requests.</li>
-        <li>Retain repository context across follow-up turns.</li>
+        <li>Retain useful context across follow-up turns without treating continuity as proof.</li>
         <li>Identify absent features without hallucinating implementation.</li>
         <li>Suppress internal trace/vector/project-storage details from user-facing answers.</li>
       </ul>
@@ -659,13 +939,109 @@
     </div>
   </section>
 
+  <section id="cle">
+    <h2>Context Lattice Engine</h2>
+
+    <p class="lead">
+      The Context Lattice Engine is the runtime idea behind Coeus: every user turn is
+      compiled into a traceable unit before the model is asked to answer.
+    </p>
+
+    <div class="cle-panel">
+      <div class="callout-title">Professional framing</div>
+      <p>
+        Coeus does not treat retrieval as the owner of truth. Retrieval is one input into a
+        compiled-turn pipeline. The engine keeps policy truth, retrieval truth, packed prompt
+        truth, continuity state, and final claim validation separate.
+      </p>
+
+      <div class="pipeline-map" aria-label="Compiled turn pipeline">
+        <div class="pipeline-card">
+          <div class="pipeline-num">1</div>
+          <h3>Intent / contract</h3>
+          <p>What kind of answer is allowed, and what must be proven?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">2</div>
+          <h3>Retrieval policy</h3>
+          <p>Which source, summary, memory, or tool planes may enter?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">3</div>
+          <h3>Lattice packing</h3>
+          <p>Which admitted planes actually fit into the prompt budget?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">4</div>
+          <h3>Execution</h3>
+          <p>Was the turn served deterministically or through a model request?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">5</div>
+          <h3>Validation</h3>
+          <p>Did the final answer satisfy the evidence and output contract?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">6</div>
+          <h3>Export</h3>
+          <p>What trace bundle proves how the turn was handled?</p>
+        </div>
+      </div>
+
+      <div class="truth-grid">
+        <article class="truth-card">
+          <div class="truth-line"></div>
+          <h3>Policy truth</h3>
+          <p>The compiled contract: answer kind, output mode, evidence requirements, and route constraints.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line blue"></div>
+          <h3>Retrieval truth</h3>
+          <p>The files, chunks, and search results actually found from the current project surface.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line violet"></div>
+          <h3>Packed prompt truth</h3>
+          <p>The exact context planes that actually entered the model request after budgeting.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line cyan"></div>
+          <h3>Continuity truth</h3>
+          <p>Conversation and workflow state. Useful for routing, but not proof unless admitted as evidence.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line warning"></div>
+          <h3>Claim truth</h3>
+          <p>The final answer must match the compiled contract and available evidence.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Public-safe explanation:</strong>
+        describe the engine as a compiled-turn and context-packing architecture.
+        Avoid publishing the exact private algorithms, raw trace schema, private validator rules,
+        private prompts, or full implementation details.
+      </p>
+    </div>
+  </section>
+
   <section id="turn-pipeline">
     <h2>How the turn pipeline works</h2>
 
     <p class="lead">
-      The private source review shows that Coeus is organized around a compiled-turn
-      architecture rather than a prompt-only chatbot flow. The public summary below keeps
-      the idea high-level while preserving the private implementation boundary.
+      The public summary below keeps the idea high-level while preserving the private
+      implementation boundary.
     </p>
 
     <div class="flow">
@@ -718,6 +1094,220 @@
         Coeus separates turn semantics, retrieval/source evidence, packed prompt context,
         tool execution, validation, and telemetry. This is the main architectural reason
         it is more than a simple model wrapper.
+      </p>
+    </div>
+  </section>
+
+  <section id="compiled-examples">
+    <h2>Compiled-turn examples from evaluation traces</h2>
+
+    <p class="lead">
+      These examples are public-safe summaries derived from headless evaluation logs.
+      They show what the engine does without exposing raw proprietary traces or private source code.
+    </p>
+
+    <div class="compiled-example">
+      <article class="example-card">
+        <h3>Example 1 — Targeted file question</h3>
+
+        <div class="example-question">
+          using only the current project files, list the module-level constants defined in <code>config.py</code>
+        </div>
+
+        <table class="stage-table">
+          <thead>
+            <tr>
+              <th>Compiled stage</th>
+              <th>Public explanation</th>
+              <th>Trace-derived signal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Intent / contract</td>
+              <td>Compiled as a source-grounded file question.</td>
+              <td><code>ArchitectureOverview</code></td>
+            </tr>
+            <tr>
+              <td>Retrieval policy</td>
+              <td>Focused on the named project file instead of scanning broadly.</td>
+              <td><code>focused_hybrid</code>, target <code>config.py</code></td>
+            </tr>
+            <tr>
+              <td>Lattice packing</td>
+              <td>Admitted source evidence and compact supporting context.</td>
+              <td>1 source file visible</td>
+            </tr>
+            <tr>
+              <td>Execution</td>
+              <td>Model answered from the packed source context.</td>
+              <td>not served as deterministic command</td>
+            </tr>
+            <tr>
+              <td>Validation</td>
+              <td>Source-evidence requirement was present and satisfied.</td>
+              <td><code>requires_source_evidence=1</code></td>
+            </tr>
+            <tr>
+              <td>Export</td>
+              <td>Turn bundle was written for private audit and eval review.</td>
+              <td><code>.cle_traces/turns/...epoch3.json</code></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="mini-kv">
+          <div>
+            <span>Answer result</span>
+            <strong>Constants listed from <code>config.py</code></strong>
+          </div>
+          <div>
+            <span>Scope</span>
+            <strong>Local / targeted</strong>
+          </div>
+          <div>
+            <span>Public-safe takeaway</span>
+            <strong>Targeted retrieval, not generic chat</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="example-card">
+        <h3>Example 2 — Project-wide usage trace</h3>
+
+        <div class="example-question">
+          using only the current project files, where is player health used across the project?
+        </div>
+
+        <table class="stage-table">
+          <thead>
+            <tr>
+              <th>Compiled stage</th>
+              <th>Public explanation</th>
+              <th>Trace-derived signal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Intent / contract</td>
+              <td>Compiled as a source usage trace across the repository.</td>
+              <td><code>SourceUsageTrace</code></td>
+            </tr>
+            <tr>
+              <td>Retrieval policy</td>
+              <td>Broadened from a single target to cross-project source evidence.</td>
+              <td><code>hybrid</code>, source-led recall widened</td>
+            </tr>
+            <tr>
+              <td>Lattice packing</td>
+              <td>Packed proof-bearing source evidence and suppressed support-only summary context.</td>
+              <td>7 source files visible, 5 scan-evidence chunks</td>
+            </tr>
+            <tr>
+              <td>Execution</td>
+              <td>Model answered from current project evidence.</td>
+              <td>repository answer turn</td>
+            </tr>
+            <tr>
+              <td>Validation</td>
+              <td>Final answer satisfied the source-trace evidence contract.</td>
+              <td><code>source_evidence_satisfied=1</code></td>
+            </tr>
+            <tr>
+              <td>Export</td>
+              <td>Trace bundle recorded the policy, packed planes, evidence files, and validation result.</td>
+              <td>turn bundle + manifest written</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="mini-kv">
+          <div>
+            <span>Answer result</span>
+            <strong>Usage explained across relevant files</strong>
+          </div>
+          <div>
+            <span>Scope</span>
+            <strong>Global project scope</strong>
+          </div>
+          <div>
+            <span>Public-safe takeaway</span>
+            <strong>Different question, different compiled contract</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="example-card">
+        <h3>Example 3 — Ordered startup-flow trace</h3>
+
+        <div class="example-question">
+          only using the current project files, explain how the program starts and reaches the game loop
+        </div>
+
+        <table class="stage-table">
+          <thead>
+            <tr>
+              <th>Compiled stage</th>
+              <th>Public explanation</th>
+              <th>Trace-derived signal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Intent / contract</td>
+              <td>Compiled as an ordered source-flow explanation.</td>
+              <td><code>SourceOrderTrace</code></td>
+            </tr>
+            <tr>
+              <td>Retrieval policy</td>
+              <td>Used implementation-strict, source-only posture for runtime flow.</td>
+              <td><code>implementation_strict</code></td>
+            </tr>
+            <tr>
+              <td>Lattice packing</td>
+              <td>Packed source evidence across the project and omitted unsupported primer context.</td>
+              <td>7 source files visible, 2 scan-evidence chunks</td>
+            </tr>
+            <tr>
+              <td>Execution</td>
+              <td>Model produced a step-by-step explanation from source evidence.</td>
+              <td>model request with lattice trace attached</td>
+            </tr>
+            <tr>
+              <td>Validation</td>
+              <td>Validator confirmed the answer met the source-evidence contract.</td>
+              <td><code>requires_source_evidence=1</code></td>
+            </tr>
+            <tr>
+              <td>Export</td>
+              <td>Private trace export preserved enough detail for repeatable eval review.</td>
+              <td>turn artifact and final output reference</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="mini-kv">
+          <div>
+            <span>Answer result</span>
+            <strong>Startup path explained from entry point to loop</strong>
+          </div>
+          <div>
+            <span>Scope</span>
+            <strong>Global project scope</strong>
+          </div>
+          <div>
+            <span>Public-safe takeaway</span>
+            <strong>Ordered reasoning over source, not loose summarization</strong>
+          </div>
+        </div>
+      </article>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>What is intentionally not shown publicly:</strong>
+        raw trace payloads, private marker schema, internal prompt text, full source excerpts,
+        private validation rules, private eval harness code, and proprietary implementation details.
       </p>
     </div>
   </section>
@@ -937,6 +1527,60 @@ Diff-route discipline: 14 / 14 clean</div>
     </div>
   </section>
 
+  <section id="public-private">
+    <h2>Public vs private presentation boundary</h2>
+
+    <p class="lead">
+      The public page should earn attention by showing architecture, evidence, and outcomes.
+      The private package should preserve implementation detail and reproducibility material for
+      serious reviewers.
+    </p>
+
+    <table class="boundary-table">
+      <thead>
+        <tr>
+          <th>Safe to show publicly</th>
+          <th>Keep private or share only in review context</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>High-level architecture and subsystem map.</td>
+          <td>Full private source tree and exact implementation files.</td>
+        </tr>
+        <tr>
+          <td>Compiled-turn concept and Context Lattice Engine framing.</td>
+          <td>Exact prompts, validator rules, marker schema, and policy internals.</td>
+        </tr>
+        <tr>
+          <td>Public-safe examples from small evaluation fixtures.</td>
+          <td>Raw headless logs, raw trace bundles, and full eval harness code.</td>
+        </tr>
+        <tr>
+          <td>Evaluation scorecards, summary metrics, and benchmark scope.</td>
+          <td>Private datasets, internal debugging traces, and generated caches.</td>
+        </tr>
+        <tr>
+          <td>Demo binary, screenshots, video walkthrough, and docs.</td>
+          <td>Secrets, provider config, API keys, environment files, local project data.</td>
+        </tr>
+        <tr>
+          <td>Codebase-scale metrics and selected implementation evidence.</td>
+          <td>Anything that would allow direct reproduction of the proprietary runtime.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notice">
+      <p>
+        <strong>Recommended public posture:</strong>
+        “This is a portfolio/demo release. The public material shows what was built,
+        why it matters, how it behaves, and how it was evaluated. The full implementation
+        remains private but is available for serious technical review.”
+      </p>
+    </div>
+  </section>
+
   <section id="docs">
     <h2>Documentation hub</h2>
 
@@ -1068,7 +1712,7 @@ Diff-route discipline: 14 / 14 clean</div>
   </section>
 
   <section id="boundary">
-    <h2>Public / private boundary</h2>
+    <h2>Release boundary</h2>
 
     <div class="card">
       <p>
@@ -1098,7 +1742,7 @@ Diff-route discipline: 14 / 14 clean</div>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
       <a href="#evals">evaluation summaries</a> ·
-      <a href="#architecture">architecture summary</a> ·
+      <a href="#cle">Context Lattice Engine</a> ·
       <a href="#private-review">private review summary</a>
     </p>
     <p>
