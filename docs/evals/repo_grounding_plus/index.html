@@ -10,6 +10,7 @@
       --bg: #0f1115;
       --panel: #161b22;
       --panel2: #101318;
+      --panel3: #121821;
       --border: #303743;
       --text: #e6edf3;
       --muted: #9aa4b2;
@@ -19,10 +20,15 @@
       --yellow: #bf8700;
       --red: #d1242f;
       --blue: #2f81f7;
+      --code: #0b0f14;
     }
 
     * {
       box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
     }
 
     body {
@@ -30,6 +36,7 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background:
         radial-gradient(circle at top left, rgba(155, 209, 143, 0.08), transparent 32rem),
+        radial-gradient(circle at top right, rgba(47, 129, 247, 0.045), transparent 30rem),
         var(--bg);
       color: var(--text);
       line-height: 1.5;
@@ -94,6 +101,7 @@
       color: var(--accent);
       font-size: 0.95rem;
       margin-bottom: 8px;
+      letter-spacing: 0.02em;
     }
 
     h1 {
@@ -103,15 +111,30 @@
     }
 
     h2 {
-      margin-top: 38px;
+      margin-top: 42px;
       border-bottom: 1px solid var(--border);
       padding-bottom: 8px;
+    }
+
+    h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin-top: 0;
     }
 
     .subtitle {
       color: var(--muted);
       font-size: 1.05rem;
       margin-bottom: 18px;
+    }
+
+    .lead {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 900px;
     }
 
     .summary {
@@ -131,6 +154,10 @@
 
     .card.ok {
       border-color: rgba(45, 164, 78, .65);
+    }
+
+    .card.compact {
+      min-height: auto;
     }
 
     .card-label {
@@ -182,6 +209,12 @@
       color: var(--text);
       text-decoration: none;
       background: var(--panel2);
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+
+    .button:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
     }
 
     .button.primary {
@@ -200,10 +233,11 @@
     }
 
     code {
-      background: var(--panel2);
+      background: var(--code);
       border: 1px solid var(--border);
       border-radius: 6px;
       padding: 2px 6px;
+      color: #dce6ee;
     }
 
     table {
@@ -248,8 +282,143 @@
       border-left-color: var(--green);
     }
 
+    .callout.warning {
+      border-left-color: var(--yellow);
+    }
+
     .ok-text {
       color: #7ee787;
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+
+    .grid.two {
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    }
+
+    .plain-list {
+      margin-top: 10px;
+      padding-left: 20px;
+      color: var(--muted);
+    }
+
+    .plain-list li {
+      margin-bottom: 8px;
+    }
+
+    .process {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .process-step {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr);
+      gap: 16px;
+      align-items: start;
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .process-step strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .process-step span {
+      display: block;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .trace-example {
+      background: var(--panel2);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 18px;
+      margin-top: 16px;
+    }
+
+    .trace-grid {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.75fr) minmax(0, 1.25fr);
+      gap: 14px;
+      margin-top: 14px;
+    }
+
+    .trace-input {
+      background: var(--code);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px;
+      color: #dce6ee;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92rem;
+      overflow-wrap: anywhere;
+    }
+
+    .trace-output {
+      display: grid;
+      gap: 10px;
+    }
+
+    .trace-row {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr);
+      gap: 12px;
+      border: 1px solid rgba(48, 55, 67, 0.9);
+      background: var(--panel3);
+      border-radius: 12px;
+      padding: 12px;
+    }
+
+    .trace-row .label {
+      color: var(--muted);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .trace-row .value {
+      color: var(--text);
+    }
+
+    .trace-row .value small {
+      display: block;
+      color: var(--muted);
+      margin-top: 3px;
+      line-height: 1.45;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .pill {
+      border: 1px solid var(--border);
+      background: var(--code);
+      border-radius: 999px;
+      padding: 4px 9px;
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+
+    .boundary-table td:first-child {
+      width: 26%;
+      color: var(--text);
       font-weight: 700;
     }
 
@@ -265,6 +434,15 @@
       .summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
+
+      .trace-grid,
+      .process-step {
+        grid-template-columns: 1fr;
+      }
+
+      .trace-row {
+        grid-template-columns: 1fr;
+      }
     }
 
     @media (max-width: 560px) {
@@ -274,6 +452,10 @@
 
       h1 {
         font-size: 2rem;
+      }
+
+      .hero {
+        padding: 22px;
       }
     }
   </style>
@@ -287,6 +469,8 @@
     <nav class="nav" aria-label="Report navigation">
       <a href="../">Evaluation hub</a>
       <a href="../repo_grounding_core/">RepoGrounding Core</a>
+      <a href="#compiled-turn">Compiled turn</a>
+      <a href="#trace-examples">Trace examples</a>
       <a href="https://joshsnz.github.io/Joshnzportfolio/">Main portfolio</a>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a>
     </nav>
@@ -392,6 +576,12 @@
     </div>
   </section>
 
+  <h2>30-second summary</h2>
+  <div class="callout">
+    <strong>RepoGrounding Plus tests whether Coeus AI can answer harder repository questions using the current project files as evidence.</strong>
+    The benchmark focuses on source-grounded reasoning rather than autonomous code repair: it checks whether the assistant can trace runtime flow, identify exact symbols, compare source responsibilities, preserve context across follow-up turns, refuse unsupported claims about absent features, avoid accidental patch/diff routing, and keep private trace machinery out of user-facing answers.
+  </div>
+
   <h2>Visual scorecard</h2>
   <img class="scorecard" src="scorecard.svg" alt="RepoGrounding Plus scorecard">
 
@@ -403,8 +593,213 @@
     or exposing internal trace machinery.
   </div>
 
+  <h2 id="compiled-turn">Compiled-turn framing</h2>
+  <p class="lead">
+    The evaluation is backed by Coeus AI's compiled-turn runtime. Each user request is converted into a traceable unit before retrieval, prompt packing, model execution, validation, and export consume it.
+  </p>
+
+  <div class="process">
+    <div class="process-step">
+      <div>
+        <strong>1. Intent / contract</strong>
+        <span>What kind of answer is allowed?</span>
+      </div>
+      <div>
+        The turn is classified into an answer contract such as source-order tracing, source-usage tracing, architecture explanation, semantic comparison, or general chat. The contract decides whether source evidence is required and whether patch/diff behaviour is allowed.
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div>
+        <strong>2. Retrieval policy</strong>
+        <span>What evidence may enter?</span>
+      </div>
+      <div>
+        The retrieval layer receives policy truth from the turn compiler. It decides whether to use focused source files, broad project retrieval, strict source evidence, semantic primers, inventory, or scan-reinforced evidence.
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div>
+        <strong>3. Lattice packing</strong>
+        <span>Which planes actually entered the prompt?</span>
+      </div>
+      <div>
+        Coeus separates source evidence, inventory, plan/context, continuity, recent mutation state, and tool observations. The packed prompt records which planes were admitted and which were withheld.
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div>
+        <strong>4. Execution</strong>
+        <span>Model path or deterministic path?</span>
+      </div>
+      <div>
+        Host-control commands can be served deterministically. Repository QA turns are usually sent to the model with a contract, source evidence, and prompt markers attached.
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div>
+        <strong>5. Validation</strong>
+        <span>Did the answer satisfy the contract?</span>
+      </div>
+      <div>
+        The validator checks the final answer against the canonical contract. For source-required turns, it verifies that source evidence was present and satisfied rather than letting the answer rely on unsupported memory.
+      </div>
+    </div>
+
+    <div class="process-step">
+      <div>
+        <strong>6. Export</strong>
+        <span>What proves what happened?</span>
+      </div>
+      <div>
+        A private headless trace bundle records the compiled policy, retrieval posture, packed planes, source-evidence counts, validation outcome, and final answer reference. Public reports summarize the safe evaluation result without exposing private runtime internals.
+      </div>
+    </div>
+  </div>
+
+  <h2 id="trace-examples">Public-safe trace examples</h2>
+  <p class="lead">
+    The following examples show how a turn is transformed through the engine using public-safe descriptions derived from headless evaluation traces. Internal paths, trace bundle identifiers, and private implementation details are intentionally omitted.
+  </p>
+
+  <section class="trace-example">
+    <h3>Example A — exact source question</h3>
+    <div class="trace-grid">
+      <div>
+        <div class="card-label">User input</div>
+        <div class="trace-input">
+using only the current project files, list the module-level constants defined in config.py
+        </div>
+      </div>
+
+      <div class="trace-output">
+        <div class="trace-row">
+          <div class="label">Intent / contract</div>
+          <div class="value">
+            Source-grounded repository answer
+            <small>The answer must be based on current project files, not generic Python knowledge.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Retrieval policy</div>
+          <div class="value">
+            Focused source retrieval for <code>config.py</code>
+            <small>The system identifies a specific file target and uses source evidence for that file.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Packed planes</div>
+          <div class="value">
+            Source evidence + inventory + plan/turn-state markers
+            <small>Semantic primer material is not needed for the answer itself.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Execution</div>
+          <div class="value">
+            Model answer with source evidence visible
+            <small>The response lists concrete constants found in the project file.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Validation</div>
+          <div class="value">
+            Source evidence required and satisfied
+            <small>The final answer stays within the evidence contract.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">User-facing result</div>
+          <div class="value">
+            <code>STARTING_HEALTH</code>, <code>MAP_WIDTH</code>, and <code>MAP_HEIGHT</code>
+            <small>The answer contains repository facts, not internal trace details.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="trace-example">
+    <h3>Example B — source-order tracing</h3>
+    <div class="trace-grid">
+      <div>
+        <div class="card-label">User input</div>
+        <div class="trace-input">
+only using the current project files, explain how the program starts and reaches the game loop
+        </div>
+      </div>
+
+      <div class="trace-output">
+        <div class="trace-row">
+          <div class="label">Intent / contract</div>
+          <div class="value">
+            Source-order trace
+            <small>The expected answer is an ordered runtime explanation, not a patch or general architecture essay.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Retrieval policy</div>
+          <div class="value">
+            Broad source evidence across the current project
+            <small>The system widens retrieval and reinforces scan-confirmed files for better coverage.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Packed planes</div>
+          <div class="value">
+            Source evidence from multiple project files + inventory + plan/turn-state markers
+            <small>Conversation history and recent-mutation planes are withheld when not needed.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Execution</div>
+          <div class="value">
+            Model answer under source-required discipline
+            <small>The generated answer describes entry point, game construction, loop entry, and turn execution.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">Validation</div>
+          <div class="value">
+            Source evidence required and satisfied
+            <small>The validator confirms the answer was produced under a source-evidence contract.</small>
+          </div>
+        </div>
+
+        <div class="trace-row">
+          <div class="label">User-facing result</div>
+          <div class="value">
+            Ordered explanation from <code>main.py</code> into <code>Game.run()</code> and <code>play_turn()</code>
+            <small>No internal trace paths, vector records, or private evaluation artifacts are exposed.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pill-row">
+    <span class="pill">Compiled-turn runtime</span>
+    <span class="pill">Source evidence contract</span>
+    <span class="pill">Retrieval policy</span>
+    <span class="pill">Context lattice packing</span>
+    <span class="pill">Validator checks</span>
+    <span class="pill">Private trace export</span>
+  </div>
+
   <h2>What this benchmark checks</h2>
-  <ul>
+  <ul class="plain-list">
     <li><strong>Source-order tracing:</strong> follows execution from process entry through one completed runtime turn.</li>
     <li><strong>Exact-symbol grounding:</strong> checks details such as boundary guards, grid variables, and runtime state propagation.</li>
     <li><strong>Semantic comparison:</strong> compares source files by responsibility without treating the request as a diff.</li>
@@ -422,6 +817,36 @@
   <div class="callout success">
     No repository-scoped turns were silently routed as general chat / no-repo.
   </div>
+
+  <h2>Public / private boundary</h2>
+  <p class="lead">
+    This public report is designed to show engineering evidence without disclosing proprietary runtime details.
+  </p>
+
+  <table class="boundary-table">
+    <tbody>
+      <tr>
+        <td>Public here</td>
+        <td>
+          Scenario names, pass/fail outcomes, benchmark framing, public-safe scorecards, and sanitized examples of how user turns move through the compiled-turn pipeline.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Private by design</td>
+        <td>
+          Full source code, raw trace bundles, prompt internals, private runtime markers, provider configuration, local file paths, private test harness code, and implementation details that would expose proprietary architecture.
+        </td>
+      </tr>
+
+      <tr>
+        <td>Review available</td>
+        <td>
+          A private review package can be shared selectively with codebase metrics, architecture notes, selected source evidence, screenshots, and headless evaluation evidence.
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
   <h2>Scenario table</h2>
   <table>
