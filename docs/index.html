@@ -458,6 +458,61 @@
       padding: 24px;
     }
 
+    .diagram-wrap {
+      margin-top: 22px;
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.84);
+      border-radius: 18px;
+      padding: 16px;
+    }
+
+    .diagram-header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 14px;
+    }
+
+    .diagram-header h3 {
+      margin: 0;
+      font-size: 1.05rem;
+    }
+
+    .diagram-header p {
+      color: var(--muted);
+      max-width: 720px;
+      font-size: 0.94rem;
+      margin: 6px 0 0;
+    }
+
+    .diagram-shell {
+      overflow-x: auto;
+      border: 1px solid var(--border-soft);
+      border-radius: 14px;
+      background: #0f1115;
+    }
+
+    .diagram-shell img {
+      display: block;
+      width: 100%;
+      min-width: 980px;
+      height: auto;
+    }
+
+    .diagram-note {
+      color: var(--muted-2);
+      font-size: 0.9rem;
+      margin: 12px 0 0;
+    }
+
+    .diagram-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
     .pipeline-map {
       display: grid;
       grid-template-columns: repeat(6, minmax(120px, 1fr));
@@ -954,6 +1009,35 @@
         compiled-turn pipeline. The engine keeps policy truth, retrieval truth, packed prompt
         truth, continuity state, and final claim validation separate.
       </p>
+
+      <div class="diagram-wrap">
+        <div class="diagram-header">
+          <div>
+            <h3>Compiled-turn and lattice diagram</h3>
+            <p>
+              This visual shows the end-to-end path from raw user input to exported trace evidence.
+              The detailed lattice stack represents the context planes that may be admitted into a turn.
+            </p>
+          </div>
+
+          <div class="diagram-actions">
+            <a class="button" href="screenshots/cle_diagram.svg">
+              Open full-size SVG
+            </a>
+          </div>
+        </div>
+
+        <div class="diagram-shell">
+          <img
+            src="screenshots/cle_lattice_engine_diagram_refined.svg"
+            alt="Context Lattice Engine compiled-turn architecture diagram">
+        </div>
+
+        <p class="diagram-note">
+          Note: the diagram includes the raw user turn as part of the end-to-end system path.
+          The six cards below summarize the review checkpoints for each compiled turn.
+        </p>
+      </div>
 
       <div class="pipeline-map" aria-label="Compiled turn pipeline">
         <div class="pipeline-card">
@@ -1648,13 +1732,14 @@ Diff-route discipline: 14 / 14 clean</div>
       </details>
 
       <details class="doc-section">
-        <summary>Screenshots and video walkthrough</summary>
+        <summary>Screenshots, diagrams, and video walkthrough</summary>
         <div class="doc-content">
           <p>
             Planned screenshot and video guidance for demonstrating the native GUI, source-grounded
-            answers, telemetry surfaces, and evaluation reports.
+            answers, telemetry surfaces, Context Lattice Engine, and evaluation reports.
           </p>
           <ul>
+            <li><a href="screenshots/cle_lattice_engine_diagram_refined.svg">Context Lattice Engine diagram</a></li>
             <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SCREENSHOTS.md">Screenshots checklist</a></li>
             <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">Video walkthrough script</a></li>
           </ul>
