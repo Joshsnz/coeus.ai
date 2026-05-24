@@ -447,8 +447,6 @@
       font-size: 1.3rem;
     }
 
-    /* Professional CLE visual system */
-
     .cle-panel {
       border: 1px solid var(--border);
       border-radius: 22px;
@@ -494,11 +492,18 @@
       background: #0f1115;
     }
 
+    .diagram-shell object,
     .diagram-shell img {
       display: block;
       width: 100%;
       min-width: 980px;
+      min-height: 560px;
       height: auto;
+    }
+
+    .diagram-shell .diagram-fallback {
+      padding: 24px;
+      color: var(--muted);
     }
 
     .diagram-note {
@@ -1003,7 +1008,7 @@
     </p>
 
     <div class="cle-panel">
-      <div class="callout-title">Professional framing</div>
+      <div class="callout-title">Design principle</div>
       <p>
         Coeus does not treat retrieval as the owner of truth. Retrieval is one input into a
         compiled-turn pipeline. The engine keeps policy truth, retrieval truth, packed prompt
@@ -1028,9 +1033,15 @@
         </div>
 
         <div class="diagram-shell">
-          <img
-            src="screenshots/cle_lattice_engine_diagram_refined.svg"
-            alt="Context Lattice Engine compiled-turn architecture diagram">
+          <object
+            data="screenshots/cle_diagram.svg"
+            type="image/svg+xml"
+            aria-label="Context Lattice Engine compiled-turn architecture diagram">
+            <div class="diagram-fallback">
+              Diagram unavailable.
+              <a href="screenshots/cle_diagram.svg">Open the SVG directly</a>.
+            </div>
+          </object>
         </div>
 
         <p class="diagram-note">
@@ -1739,7 +1750,7 @@ Diff-route discipline: 14 / 14 clean</div>
             answers, telemetry surfaces, Context Lattice Engine, and evaluation reports.
           </p>
           <ul>
-            <li><a href="screenshots/cle_lattice_engine_diagram_refined.svg">Context Lattice Engine diagram</a></li>
+            <li><a href="screenshots/cle_diagram.svg">Context Lattice Engine diagram</a></li>
             <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SCREENSHOTS.md">Screenshots checklist</a></li>
             <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">Video walkthrough script</a></li>
           </ul>
