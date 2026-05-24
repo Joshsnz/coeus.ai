@@ -728,7 +728,7 @@
       <a href="#architecture">Architecture</a>
       <a href="#cle">CLE</a>
       <a href="#compiled-examples">Examples</a>
-      <a href="#private-review">Private review</a>
+      <a href="#private-review">Technical review</a>
       <a href="#evals">Evaluation</a>
       <a href="#docs">Docs</a>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub</a>
@@ -751,7 +751,7 @@
       <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
       <a class="button" href="#architecture">Architecture Summary</a>
-      <a class="button" href="#private-review">Private Codebase Review</a>
+      <a class="button" href="#private-review">Technical Review Material</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai">View Repository</a>
     </div>
 
@@ -763,10 +763,12 @@
         guidance, and generated public reports.
       </p>
       <p>
-        <strong>Code-level review:</strong>
-        the full source tree, prompt internals, raw trace bundles, validator internals,
+        <strong>Technical review scope:</strong>
+        the full proprietary source code, prompt internals, raw trace bundles, validator internals,
         provider configuration, local project data, and headless harness are not included in
-        the public repository. A review package can be shared separately for serious technical review.
+        the public repository. A review package can be shared separately with architecture notes,
+        source-tree structure, codebase metrics, selected implementation evidence, screenshots,
+        and evaluation material.
       </p>
     </div>
   </header>
@@ -1063,8 +1065,8 @@
       <p>
         <strong>Implementation boundary:</strong>
         this page describes the architecture and behaviour at a portfolio level. Exact algorithms,
-        trace schemas, validator internals, prompts, and full implementation files are reserved
-        for code-level review.
+        trace schemas, validator internals, prompts, complete implementation files, and the full
+        proprietary source code are not included in the public package.
       </p>
     </div>
   </section>
@@ -1339,11 +1341,12 @@
   </section>
 
   <section id="private-review">
-    <h2>Private codebase review package</h2>
+    <h2>Technical review package</h2>
 
     <p class="lead">
-      The public repository is intentionally a demo and documentation package. For
-      code-level review, a separate technical review package can be shared on request.
+      The public repository is intentionally a demo and documentation package. A separate
+      technical review package can be shared on request without handing over the full
+      proprietary source code.
     </p>
 
     <div class="split">
@@ -1389,12 +1392,12 @@
         <h3>What is available for review</h3>
         <ul>
           <li>Clean <code>scc</code> summary and by-file metrics.</li>
-          <li>Source tree / codebase structure report.</li>
-          <li>Architecture notes mapping files to subsystems.</li>
+          <li>Source-tree structure and subsystem map.</li>
+          <li>Architecture notes mapping major files and folders to subsystems.</li>
           <li>Technical study notes covering the turn compiler, retrieval, summaries, tools, contracts, telemetry, and headless runtime.</li>
           <li>RepoGrounding eval reports and supporting summaries.</li>
           <li>Selected screenshots of GUI, telemetry, and evaluation surfaces.</li>
-          <li>Selected source files or broader source access depending on review context.</li>
+          <li>Selected implementation excerpts or screenshots where appropriate, without disclosing the full source code.</li>
         </ul>
       </div>
     </div>
@@ -1412,9 +1415,10 @@
       <article class="card">
         <h3>Review boundary</h3>
         <p>
-          Secrets, provider configuration, local traces, generated caches, build outputs,
-          local project data, environment files, and generated parser/static asset noise
-          are excluded from the review package.
+          The full proprietary source code, prompts, raw trace schema, validator internals,
+          provider configuration, local traces, generated caches, build outputs, local project data,
+          environment files, and generated parser/static asset noise are excluded from the public
+          repository and are not part of the default review package.
         </p>
       </article>
     </div>
@@ -1502,20 +1506,22 @@ Diff-route discipline: 14 / 14 clean</div>
 
     <p class="lead">
       The public release shows the architecture, behaviour, demo release, and evaluation outcomes.
-      Deeper implementation material is available separately for serious technical review.
+      A separate technical review package can provide architecture evidence, source-tree structure,
+      metrics, selected implementation evidence, and evaluation material. The full proprietary
+      source code remains private.
     </p>
 
     <table class="boundary-table">
       <thead>
         <tr>
           <th>Included in the public demo package</th>
-          <th>Reserved for technical review</th>
+          <th>Reserved / not included publicly</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>High-level architecture and subsystem map.</td>
-          <td>Full source tree and exact implementation files.</td>
+          <td>Full proprietary source code and complete implementation files.</td>
         </tr>
         <tr>
           <td>Compiled-turn concept and Context Lattice Engine framing.</td>
@@ -1531,10 +1537,10 @@ Diff-route discipline: 14 / 14 clean</div>
         </tr>
         <tr>
           <td>Demo binary, screenshots, video walkthrough, and docs.</td>
-          <td>Secrets, provider config, API keys, environment files, local project data.</td>
+          <td>Secrets, provider config, API keys, environment files, and local project data.</td>
         </tr>
         <tr>
-          <td>Codebase-scale metrics and selected implementation evidence.</td>
+          <td>Codebase-scale metrics, source-tree structure, and selected implementation evidence.</td>
           <td>Anything that would allow direct reproduction of the proprietary runtime.</td>
         </tr>
       </tbody>
@@ -1683,15 +1689,16 @@ Diff-route discipline: 14 / 14 clean</div>
       </p>
 
       <p>
-        It does not include the full source code, prompt internals, raw traces, provider
-        configuration, local project data, generated caches, or the headless runner.
+        It does not include the full proprietary source code, prompt internals, raw traces,
+        provider configuration, local project data, generated caches, or the headless runner.
       </p>
 
       <p>
         A technical review package can be shared on request. That package contains
         source-tree evidence, clean local metrics, architecture and technical study notes,
         selected implementation evidence, screenshots, and evaluation material while
-        excluding secrets, environment files, local traces, and build artifacts.
+        excluding secrets, environment files, local traces, build artifacts, and the full
+        proprietary source code.
       </p>
     </div>
   </section>
@@ -1703,7 +1710,7 @@ Diff-route discipline: 14 / 14 clean</div>
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
       <a href="#evals">evaluation summaries</a> ·
       <a href="#cle">Context Lattice Engine</a> ·
-      <a href="#private-review">private review summary</a>
+      <a href="#private-review">technical review summary</a>
     </p>
     <p>
       Return to main portfolio:
