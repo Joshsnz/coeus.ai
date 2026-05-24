@@ -228,10 +228,6 @@
       margin-bottom: 0;
     }
 
-    .wide {
-      grid-column: 1 / -1;
-    }
-
     .split {
       display: grid;
       grid-template-columns: minmax(0, 1.16fr) minmax(300px, 0.84fr);
@@ -304,25 +300,6 @@
       font-weight: 800;
       color: var(--text);
       margin-top: 4px;
-    }
-
-    .flow {
-      display: grid;
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .flow-step {
-      border: 1px solid var(--border);
-      background:
-        linear-gradient(135deg, rgba(155, 209, 143, 0.045), rgba(16, 19, 24, 0.96)),
-        var(--code);
-      border-radius: 16px;
-      padding: 16px;
-    }
-
-    .flow-step strong {
-      color: var(--accent);
     }
 
     .doc-accordion {
@@ -469,6 +446,11 @@
       width: 100%;
       min-width: 980px;
       height: auto;
+    }
+
+    .diagram-fallback {
+      padding: 24px;
+      color: var(--muted);
     }
 
     .diagram-note {
@@ -760,7 +742,7 @@
       A native C++ project-aware AI desktop workspace for working with software projects.
       Coeus AI combines a custom Skia/SDL2 GUI, local project context, source-grounded retrieval,
       a policy-first compiled-turn runtime, tool/workflow execution, structured telemetry,
-      and a private headless evaluation harness used to test repository-grounded behaviour.
+      and a headless evaluation workflow used to test repository-grounded behaviour.
     </p>
 
     <div class="actions">
@@ -781,10 +763,10 @@
         guidance, and generated public reports.
       </p>
       <p>
-        <strong>Private review scope:</strong>
-        the full source code, private prompts, raw trace bundles, proprietary validation rules,
-        provider configuration, local project data, and private headless harness remain outside the
-        public repository. A code-level review package can be shared on request.
+        <strong>Code-level review:</strong>
+        the full source tree, prompt internals, raw trace bundles, validator internals,
+        provider configuration, local project data, and headless harness are not included in
+        the public repository. A review package can be shared separately for serious technical review.
       </p>
     </div>
   </header>
@@ -848,19 +830,18 @@
     <h2>Demo video</h2>
 
     <div class="video-placeholder">
-      <h3>Video walkthrough placeholder</h3>
+      <h3>Video walkthrough coming soon</h3>
       <p>
-        A short project walkthrough video will be added here. The planned video should
-        show the native GUI, project loading, source-grounded repository QA, negative
-        grounding, evaluation reports, and the public/private release boundary.
+        The planned walkthrough will show the native GUI, project loading, source-grounded
+        repository QA, negative grounding, evaluation reports, and the release boundary.
       </p>
 
       <div class="video-box">
         <div>
           <div class="video-play">▶</div>
-          <strong>Demo video coming soon</strong>
+          <strong>Demo video will be added here</strong>
           <p style="margin: 8px 0 0;">
-            Replace this placeholder with a YouTube, Loom, or GitHub-hosted video link.
+            Until then, the compiled Windows demo is available through GitHub Releases.
           </p>
         </div>
       </div>
@@ -870,7 +851,7 @@
           View walkthrough script
         </a>
         <a class="button muted" href="https://github.com/Joshsnz/coeus.ai/releases/latest">
-          Download demo release instead
+          Download demo release
         </a>
       </div>
     </div>
@@ -920,8 +901,8 @@
       <article class="card">
         <h3>Headless evaluation surface</h3>
         <p>
-          A separate private headless runtime supports automation and repository-grounding
-          evals without requiring the GUI, while still exercising the same core runtime concepts.
+          A separate headless runtime supports automation and repository-grounding evals without
+          requiring the GUI, while still exercising the same core runtime concepts.
         </p>
       </article>
 
@@ -1081,71 +1062,9 @@
     <div class="notice">
       <p>
         <strong>Implementation boundary:</strong>
-        this page describes the architecture and behaviour at a portfolio level. Exact private
-        algorithms, raw trace schemas, validator internals, prompts, and full implementation files
-        are reserved for code-level review.
-      </p>
-    </div>
-  </section>
-
-  <section id="turn-pipeline">
-    <h2>How the turn pipeline works</h2>
-
-    <p class="lead">
-      The pipeline keeps turn semantics, context selection, prompt packing, execution, validation,
-      and telemetry as separate responsibilities.
-    </p>
-
-    <div class="flow">
-      <div class="flow-step">
-        <strong>1. User turn enters the GUI or headless runtime.</strong>
-        The same project-aware assistant concepts are available through the desktop GUI
-        and through a private headless/eval surface.
-      </div>
-
-      <div class="flow-step">
-        <strong>2. Turn semantics are compiled into canonical state.</strong>
-        The system derives policy-level intent, request type, targets, scope, and answer
-        expectations before downstream layers act on the turn.
-      </div>
-
-      <div class="flow-step">
-        <strong>3. Project context and retrieval are selected.</strong>
-        File inventory, source slices, retrieval results, summaries, and memory/context
-        records are considered as separate forms of context rather than a single generic history.
-      </div>
-
-      <div class="flow-step">
-        <strong>4. Prompt/context packing consumes compiled truth.</strong>
-        Prompt construction projects the compiled turn state and selected evidence into the
-        model request instead of reclassifying the user request independently.
-      </div>
-
-      <div class="flow-step">
-        <strong>5. Tools and workflows route through deterministic layers.</strong>
-        Command and tool execution use explicit runners, registries, planning helpers,
-        and observation stores rather than arbitrary free-form model action.
-      </div>
-
-      <div class="flow-step">
-        <strong>6. Validation and post-processing check the output.</strong>
-        The answer layer is responsible for user-facing cleanliness, route discipline,
-        internal artifact suppression, and avoiding unsupported claims.
-      </div>
-
-      <div class="flow-step">
-        <strong>7. Telemetry and eval traces record what happened.</strong>
-        Structured traces and export bundles support debugging, private headless testing,
-        and the public RepoGrounding reports.
-      </div>
-    </div>
-
-    <div class="notice">
-      <p>
-        <strong>Key distinction:</strong>
-        Coeus separates turn semantics, retrieval/source evidence, packed prompt context,
-        tool execution, validation, and telemetry. This is the main architectural reason
-        it is more than a simple model wrapper.
+        this page describes the architecture and behaviour at a portfolio level. Exact algorithms,
+        trace schemas, validator internals, prompts, and full implementation files are reserved
+        for code-level review.
       </p>
     </div>
   </section>
@@ -1413,7 +1332,7 @@
         <h3>Telemetry and diagnostics</h3>
         <p>
           Structured markers and traces support debugging, route analysis, context-packing
-          inspection, artifact suppression checks, and private headless evaluation.
+          inspection, artifact suppression checks, and headless evaluation.
         </p>
       </article>
     </div>
@@ -1424,7 +1343,7 @@
 
     <p class="lead">
       The public repository is intentionally a demo and documentation package. For
-      code-level review, a separate private review package can be shared on request.
+      code-level review, a separate technical review package can be shared on request.
     </p>
 
     <div class="split">
@@ -1467,12 +1386,12 @@
       </div>
 
       <div class="card">
-        <h3>What is available privately</h3>
+        <h3>What is available for review</h3>
         <ul>
           <li>Clean <code>scc</code> summary and by-file metrics.</li>
           <li>Source tree / codebase structure report.</li>
           <li>Architecture notes mapping files to subsystems.</li>
-          <li>Private technical study notes covering the turn compiler, retrieval, summaries, tools, contracts, telemetry, and headless runtime.</li>
+          <li>Technical study notes covering the turn compiler, retrieval, summaries, tools, contracts, telemetry, and headless runtime.</li>
           <li>RepoGrounding eval reports and supporting summaries.</li>
           <li>Selected screenshots of GUI, telemetry, and evaluation surfaces.</li>
           <li>Selected source files or broader source access depending on review context.</li>
@@ -1484,18 +1403,17 @@
       <article class="card">
         <h3>Main private subsystems</h3>
         <p>
-          The private source tree includes dedicated subsystems for GUI/rendering,
-          agent runtime, policy and prompting, context/retrieval, lattice/context assembly,
-          memory, summaries, project state, command/tool execution, telemetry/export, and
-          headless evaluation support.
+          The source tree includes dedicated subsystems for GUI/rendering, agent runtime,
+          policy and prompting, context/retrieval, lattice/context assembly, memory, summaries,
+          project state, command/tool execution, telemetry/export, and headless evaluation support.
         </p>
       </article>
 
       <article class="card">
-        <h3>Private boundary</h3>
+        <h3>Review boundary</h3>
         <p>
           Secrets, provider configuration, local traces, generated caches, build outputs,
-          private project data, environment files, and generated parser/static asset noise
+          local project data, environment files, and generated parser/static asset noise
           are excluded from the review package.
         </p>
       </article>
@@ -1506,9 +1424,8 @@
     <h2>RepoGrounding evaluation reports</h2>
 
     <p class="lead">
-      The included RepoGrounding reports were generated from a private headless
-      evaluation harness. They are codebase-context benchmarks, not SWE-bench-style
-      autonomous issue-repair tests.
+      The included RepoGrounding reports were generated from a headless evaluation harness.
+      They are codebase-context benchmarks, not SWE-bench-style autonomous issue-repair tests.
     </p>
 
     <div class="grid two">
@@ -1581,7 +1498,7 @@ Diff-route discipline: 14 / 14 clean</div>
   </section>
 
   <section id="public-private">
-    <h2>Public and private material</h2>
+    <h2>Public and review material</h2>
 
     <p class="lead">
       The public release shows the architecture, behaviour, demo release, and evaluation outcomes.
@@ -1592,13 +1509,13 @@ Diff-route discipline: 14 / 14 clean</div>
       <thead>
         <tr>
           <th>Included in the public demo package</th>
-          <th>Reserved for private technical review</th>
+          <th>Reserved for technical review</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>High-level architecture and subsystem map.</td>
-          <td>Full private source tree and exact implementation files.</td>
+          <td>Full source tree and exact implementation files.</td>
         </tr>
         <tr>
           <td>Compiled-turn concept and Context Lattice Engine framing.</td>
@@ -1610,7 +1527,7 @@ Diff-route discipline: 14 / 14 clean</div>
         </tr>
         <tr>
           <td>Evaluation scorecards, summary metrics, and benchmark scope.</td>
-          <td>Private datasets, internal debugging traces, and generated caches.</td>
+          <td>Internal debugging traces, generated caches, and private datasets.</td>
         </tr>
         <tr>
           <td>Demo binary, screenshots, video walkthrough, and docs.</td>
@@ -1709,8 +1626,8 @@ Diff-route discipline: 14 / 14 clean</div>
         <summary>Security, privacy, limitations, and status</summary>
         <div class="doc-content">
           <p>
-            Explains what is public, what remains private, what the demo does and does not
-            claim, and the current project status.
+            Explains what is public, what remains outside the public package, what the demo
+            does and does not claim, and the current project status.
           </p>
           <ul>
             <li><a href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/SECURITY_AND_PRIVACY.md">Security and privacy</a></li>
@@ -1766,13 +1683,12 @@ Diff-route discipline: 14 / 14 clean</div>
       </p>
 
       <p>
-        It does not include the full private source code, private prompts, proprietary
-        runtime internals, private traces, private provider configuration, private
-        project data, generated caches, or the private headless runner.
+        It does not include the full source code, prompt internals, raw traces, provider
+        configuration, local project data, generated caches, or the headless runner.
       </p>
 
       <p>
-        A private codebase review package can be shared on request. That package contains
+        A technical review package can be shared on request. That package contains
         source-tree evidence, clean local metrics, architecture and technical study notes,
         selected implementation evidence, screenshots, and evaluation material while
         excluding secrets, environment files, local traces, and build artifacts.
