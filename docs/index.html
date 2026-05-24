@@ -325,34 +325,6 @@
       color: var(--accent);
     }
 
-    .toc {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
-      gap: 14px;
-    }
-
-    .toc a {
-      display: block;
-      border: 1px solid var(--border);
-      background: rgba(23, 26, 32, 0.92);
-      border-radius: 16px;
-      padding: 16px;
-      text-decoration: none;
-      color: var(--accent);
-      min-height: 116px;
-    }
-
-    .toc a:hover {
-      border-color: var(--accent);
-    }
-
-    .toc span {
-      display: block;
-      color: var(--muted);
-      font-size: 0.92rem;
-      margin-top: 6px;
-    }
-
     .doc-accordion {
       display: grid;
       gap: 12px;
@@ -492,18 +464,11 @@
       background: #0f1115;
     }
 
-    .diagram-shell object,
     .diagram-shell img {
       display: block;
       width: 100%;
       min-width: 980px;
-      min-height: 560px;
       height: auto;
-    }
-
-    .diagram-shell .diagram-fallback {
-      padding: 24px;
-      color: var(--muted);
     }
 
     .diagram-note {
@@ -816,10 +781,10 @@
         guidance, and generated public reports.
       </p>
       <p>
-        <strong>Private boundary:</strong>
+        <strong>Private review scope:</strong>
         the full source code, private prompts, raw trace bundles, proprietary validation rules,
-        provider configuration, local project data, and private headless harness remain private.
-        A code-level review package can be shared on request.
+        provider configuration, local project data, and private headless harness remain outside the
+        public repository. A code-level review package can be shared on request.
       </p>
     </div>
   </header>
@@ -1003,7 +968,7 @@
     <h2>Context Lattice Engine</h2>
 
     <p class="lead">
-      The Context Lattice Engine is the runtime idea behind Coeus: every user turn is
+      The Context Lattice Engine is the runtime design behind Coeus: every user turn is
       compiled into a traceable unit before the model is asked to answer.
     </p>
 
@@ -1021,32 +986,24 @@
             <h3>Compiled-turn and lattice diagram</h3>
             <p>
               This visual shows the end-to-end path from raw user input to exported trace evidence.
-              The detailed lattice stack represents the context planes that may be admitted into a turn.
+              The lattice stack represents the context planes that may be admitted into a turn.
             </p>
           </div>
 
           <div class="diagram-actions">
-            <a class="button" href="screenshots/cle_diagram.svg">
-              Open full-size SVG
-            </a>
+            <a class="button" href="screenshots/cle_diagram.svg">Open full-size SVG</a>
           </div>
         </div>
 
         <div class="diagram-shell">
-          <object
-            data="screenshots/cle_diagram.svg"
-            type="image/svg+xml"
-            aria-label="Context Lattice Engine compiled-turn architecture diagram">
-            <div class="diagram-fallback">
-              Diagram unavailable.
-              <a href="screenshots/cle_diagram.svg">Open the SVG directly</a>.
-            </div>
-          </object>
+          <img
+            src="screenshots/cle_diagram.svg"
+            alt="Context Lattice Engine compiled-turn architecture diagram"
+            onerror="this.closest('.diagram-shell').innerHTML='<div class=&quot;diagram-fallback&quot;>Diagram unavailable. <a href=&quot;screenshots/cle_diagram.svg&quot;>Open the SVG directly</a>.</div>'">
         </div>
 
         <p class="diagram-note">
-          Note: the diagram includes the raw user turn as part of the end-to-end system path.
-          The six cards below summarize the review checkpoints for each compiled turn.
+          The six cards below summarize the operational checkpoints that each compiled turn passes through.
         </p>
       </div>
 
@@ -1123,10 +1080,10 @@
 
     <div class="notice">
       <p>
-        <strong>Public-safe explanation:</strong>
-        describe the engine as a compiled-turn and context-packing architecture.
-        Avoid publishing the exact private algorithms, raw trace schema, private validator rules,
-        private prompts, or full implementation details.
+        <strong>Implementation boundary:</strong>
+        this page describes the architecture and behaviour at a portfolio level. Exact private
+        algorithms, raw trace schemas, validator internals, prompts, and full implementation files
+        are reserved for code-level review.
       </p>
     </div>
   </section>
@@ -1135,8 +1092,8 @@
     <h2>How the turn pipeline works</h2>
 
     <p class="lead">
-      The public summary below keeps the idea high-level while preserving the private
-      implementation boundary.
+      The pipeline keeps turn semantics, context selection, prompt packing, execution, validation,
+      and telemetry as separate responsibilities.
     </p>
 
     <div class="flow">
@@ -1197,8 +1154,8 @@
     <h2>Compiled-turn examples from evaluation traces</h2>
 
     <p class="lead">
-      These examples are public-safe summaries derived from headless evaluation logs.
-      They show what the engine does without exposing raw proprietary traces or private source code.
+      These examples summarize representative headless evaluation turns. They show how different
+      questions produce different contracts, retrieval choices, packed planes, and validation results.
     </p>
 
     <div class="compiled-example">
@@ -1213,7 +1170,7 @@
           <thead>
             <tr>
               <th>Compiled stage</th>
-              <th>Public explanation</th>
+              <th>Explanation</th>
               <th>Trace-derived signal</th>
             </tr>
           </thead>
@@ -1245,7 +1202,7 @@
             </tr>
             <tr>
               <td>Export</td>
-              <td>Turn bundle was written for private audit and eval review.</td>
+              <td>Turn bundle was written for audit and eval review.</td>
               <td><code>.cle_traces/turns/...epoch3.json</code></td>
             </tr>
           </tbody>
@@ -1261,7 +1218,7 @@
             <strong>Local / targeted</strong>
           </div>
           <div>
-            <span>Public-safe takeaway</span>
+            <span>Engineering takeaway</span>
             <strong>Targeted retrieval, not generic chat</strong>
           </div>
         </div>
@@ -1278,7 +1235,7 @@
           <thead>
             <tr>
               <th>Compiled stage</th>
-              <th>Public explanation</th>
+              <th>Explanation</th>
               <th>Trace-derived signal</th>
             </tr>
           </thead>
@@ -1326,7 +1283,7 @@
             <strong>Global project scope</strong>
           </div>
           <div>
-            <span>Public-safe takeaway</span>
+            <span>Engineering takeaway</span>
             <strong>Different question, different compiled contract</strong>
           </div>
         </div>
@@ -1343,7 +1300,7 @@
           <thead>
             <tr>
               <th>Compiled stage</th>
-              <th>Public explanation</th>
+              <th>Explanation</th>
               <th>Trace-derived signal</th>
             </tr>
           </thead>
@@ -1375,7 +1332,7 @@
             </tr>
             <tr>
               <td>Export</td>
-              <td>Private trace export preserved enough detail for repeatable eval review.</td>
+              <td>Trace export preserved enough detail for repeatable eval review.</td>
               <td>turn artifact and final output reference</td>
             </tr>
           </tbody>
@@ -1391,7 +1348,7 @@
             <strong>Global project scope</strong>
           </div>
           <div>
-            <span>Public-safe takeaway</span>
+            <span>Engineering takeaway</span>
             <strong>Ordered reasoning over source, not loose summarization</strong>
           </div>
         </div>
@@ -1400,9 +1357,10 @@
 
     <div class="notice">
       <p>
-        <strong>What is intentionally not shown publicly:</strong>
-        raw trace payloads, private marker schema, internal prompt text, full source excerpts,
-        private validation rules, private eval harness code, and proprietary implementation details.
+        <strong>Implementation boundary:</strong>
+        raw trace payloads, marker schemas, internal prompt text, full source excerpts,
+        validator internals, eval harness code, and proprietary implementation details are
+        not included in the public repository.
       </p>
     </div>
   </section>
@@ -1623,19 +1581,18 @@ Diff-route discipline: 14 / 14 clean</div>
   </section>
 
   <section id="public-private">
-    <h2>Public vs private presentation boundary</h2>
+    <h2>Public and private material</h2>
 
     <p class="lead">
-      The public page should earn attention by showing architecture, evidence, and outcomes.
-      The private package should preserve implementation detail and reproducibility material for
-      serious reviewers.
+      The public release shows the architecture, behaviour, demo release, and evaluation outcomes.
+      Deeper implementation material is available separately for serious technical review.
     </p>
 
     <table class="boundary-table">
       <thead>
         <tr>
-          <th>Safe to show publicly</th>
-          <th>Keep private or share only in review context</th>
+          <th>Included in the public demo package</th>
+          <th>Reserved for private technical review</th>
         </tr>
       </thead>
       <tbody>
@@ -1648,7 +1605,7 @@ Diff-route discipline: 14 / 14 clean</div>
           <td>Exact prompts, validator rules, marker schema, and policy internals.</td>
         </tr>
         <tr>
-          <td>Public-safe examples from small evaluation fixtures.</td>
+          <td>Representative examples from small evaluation fixtures.</td>
           <td>Raw headless logs, raw trace bundles, and full eval harness code.</td>
         </tr>
         <tr>
@@ -1665,15 +1622,6 @@ Diff-route discipline: 14 / 14 clean</div>
         </tr>
       </tbody>
     </table>
-
-    <div class="notice">
-      <p>
-        <strong>Recommended public posture:</strong>
-        “This is a portfolio/demo release. The public material shows what was built,
-        why it matters, how it behaves, and how it was evaluated. The full implementation
-        remains private but is available for serious technical review.”
-      </p>
-    </div>
   </section>
 
   <section id="docs">
@@ -1746,7 +1694,7 @@ Diff-route discipline: 14 / 14 clean</div>
         <summary>Screenshots, diagrams, and video walkthrough</summary>
         <div class="doc-content">
           <p>
-            Planned screenshot and video guidance for demonstrating the native GUI, source-grounded
+            Screenshot and video guidance for demonstrating the native GUI, source-grounded
             answers, telemetry surfaces, Context Lattice Engine, and evaluation reports.
           </p>
           <ul>
