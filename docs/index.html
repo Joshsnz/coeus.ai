@@ -302,6 +302,7 @@
       margin-top: 4px;
     }
 
+    .impact-grid,
     .grounding-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -309,6 +310,7 @@
       margin-top: 18px;
     }
 
+    .impact-card,
     .grounding-card {
       border: 1px solid rgba(155, 209, 143, 0.28);
       background:
@@ -318,6 +320,7 @@
       padding: 18px;
     }
 
+    .impact-card span,
     .grounding-card span {
       display: block;
       color: var(--muted-2);
@@ -327,6 +330,7 @@
       margin-bottom: 6px;
     }
 
+    .impact-card strong,
     .grounding-card strong {
       display: block;
       color: var(--text);
@@ -335,6 +339,7 @@
       margin-bottom: 8px;
     }
 
+    .impact-card p,
     .grounding-card p {
       color: var(--muted);
       font-size: 0.94rem;
@@ -806,6 +811,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#impact">Impact</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
       <a href="#grounding">Grounding</a>
@@ -831,6 +837,7 @@
     <div class="actions">
       <a class="button primary" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
+      <a class="button" href="#impact">View Impact Metrics</a>
       <a class="button" href="#grounding">View Grounding Evidence</a>
       <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
@@ -902,6 +909,7 @@
         <h3>Quick review path</h3>
         <ol>
           <li>Read the high-level overview.</li>
+          <li>Review the impact metrics and codebase-scale evidence.</li>
           <li>Watch the demo video.</li>
           <li>Review the grounding evidence from a small Python adventure-game fixture.</li>
           <li>Review the Context Lattice Engine explanation.</li>
@@ -910,6 +918,81 @@
           <li>Download the demo from GitHub Releases.</li>
         </ol>
       </div>
+    </div>
+  </section>
+
+  <section id="impact">
+    <h2>Impact metrics</h2>
+
+    <p class="lead">
+      Coeus AI is a substantial native AI tooling project, with measurable evaluation outputs,
+      public demo material, and private technical-review evidence available on request.
+    </p>
+
+    <div class="impact-grid">
+      <div class="impact-card">
+        <span>Runtime architecture</span>
+        <strong>Compiled-turn runtime</strong>
+        <p>
+          Built a policy-first runtime that routes each turn through canonical state,
+          retrieval, context packing, validation, telemetry, and export.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Controlled retrieval run</span>
+        <strong>3 / 3 passed</strong>
+        <p>
+          Passed targeted constants lookup, cross-file health usage tracing, and ordered
+          startup-flow explanation on a small Python adventure-game fixture.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Continuity run</span>
+        <strong>2 / 2 passed</strong>
+        <p>
+          Passed follow-up and architecture-continuity scenarios covering project inventory,
+          targeted file understanding, broad architecture, and file comparison.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Source-grounding discipline</span>
+        <strong>Evidence required + satisfied</strong>
+        <p>
+          Repo-aware turns recorded packed source evidence and validation signals showing
+          source evidence was required and satisfied.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Private codebase scale</span>
+        <strong>144k+ code lines</strong>
+        <p>
+          Clean private source scan reports 364 analyzed files and 144,110 code lines
+          after excluding generated/vendor/build noise.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Demo distribution</span>
+        <strong>GitHub Release</strong>
+        <p>
+          Compiled Windows GUI demo is distributed through GitHub Releases rather than
+          checked directly into the repository.
+        </p>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Metric boundary:</strong>
+        the public metrics on this page are based on visible portfolio material,
+        controlled fixture evaluations, and clean private codebase metrics. Baseline claims
+        against third-party tools or models are not promoted publicly unless backed by a
+        reproducible comparison report.
+      </p>
     </div>
   </section>
 
@@ -1958,6 +2041,7 @@ Diff-route discipline: 14 / 14 clean</div>
       Coeus AI:
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
+      <a href="#impact">impact metrics</a> ·
       <a href="#evals">evaluation summaries</a> ·
       <a href="#grounding">grounding evidence</a> ·
       <a href="#cle">Context Lattice Engine</a> ·
