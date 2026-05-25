@@ -302,6 +302,89 @@
       margin-top: 4px;
     }
 
+    .grounding-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .grounding-card {
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.95)),
+        var(--code);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .grounding-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .grounding-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.35rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .grounding-card p {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-bottom: 0;
+    }
+
+    .grounding-table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      margin-top: 18px;
+      font-size: 0.95rem;
+    }
+
+    .grounding-table th,
+    .grounding-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .grounding-table th {
+      background: var(--code);
+      color: var(--text);
+    }
+
+    .grounding-table td {
+      color: var(--muted);
+      background: rgba(23, 26, 32, 0.72);
+    }
+
+    .grounding-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .result-pill {
+      display: inline-block;
+      color: var(--accent);
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background: rgba(155, 209, 143, 0.08);
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
     .doc-accordion {
       display: grid;
       gap: 12px;
@@ -725,6 +808,7 @@
       <a href="#overview">Overview</a>
       <a href="#video">Video</a>
       <a href="#architecture">Architecture</a>
+      <a href="#grounding">Grounding</a>
       <a href="#cle">CLE</a>
       <a href="#compiled-examples">Examples</a>
       <a href="#private-review">Technical review</a>
@@ -747,6 +831,7 @@
     <div class="actions">
       <a class="button primary" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
+      <a class="button" href="#grounding">View Grounding Evidence</a>
       <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
       <a class="button" href="#architecture">Architecture Summary</a>
@@ -818,6 +903,7 @@
         <ol>
           <li>Read the high-level overview.</li>
           <li>Watch the demo video.</li>
+          <li>Review the grounding evidence from the headless run.</li>
           <li>Review the Context Lattice Engine explanation.</li>
           <li>Read the compiled-turn examples from eval traces.</li>
           <li>Open the generated RepoGrounding reports.</li>
@@ -949,6 +1035,104 @@
     <div class="actions">
       <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">Read full architecture on GitHub</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">Read case study</a>
+    </div>
+  </section>
+
+  <section id="grounding">
+    <h2>Grounding evidence from headless evaluation</h2>
+
+    <p class="lead">
+      A recent headless retrieval run in May 2026 tested Coeus on a controlled Python
+      adventure-game fixture. The run exercised repository setup, root selection, file scanning,
+      embedding, retrieval, prompt packing, source-evidence validation, and final answer generation.
+    </p>
+
+    <div class="grounding-grid">
+      <div class="grounding-card">
+        <span>Retrieval scenarios</span>
+        <strong>3 / 3 passed</strong>
+        <p>Structured retrieval scenarios completed successfully in the shown headless run.</p>
+      </div>
+
+      <div class="grounding-card">
+        <span>Source evidence discipline</span>
+        <strong>100%</strong>
+        <p>Repo-aware answer turns recorded <code>source_evidence_satisfied=1</code>.</p>
+      </div>
+
+      <div class="grounding-card">
+        <span>Prompt evidence packing</span>
+        <strong>Present on all repo turns</strong>
+        <p>Repo-aware turns recorded <code>packed_source_evidence_present=1</code>.</p>
+      </div>
+
+      <div class="grounding-card">
+        <span>Runtime surface</span>
+        <strong>headless_v2</strong>
+        <p>The same project-aware concepts can be exercised without the GUI for repeatable evals.</p>
+      </div>
+    </div>
+
+    <table class="grounding-table">
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Question tested</th>
+          <th>What Coeus answered</th>
+          <th>Grounding signal</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>retrieval_config_constants</code></td>
+          <td>List module-level constants in <code>config.py</code>.</td>
+          <td>
+            Correctly returned <code>STARTING_HEALTH = 100</code>,
+            <code>MAP_WIDTH = 5</code>, and <code>MAP_HEIGHT = 5</code>.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Focused retrieval on <code>config.py</code>; source evidence required and satisfied.
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>retrieval_player_health</code></td>
+          <td>Find where player health is used across the project.</td>
+          <td>
+            Traced health usage across <code>player.py</code>, <code>game.py</code>,
+            and <code>config.py</code>, and reported no other direct usage.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Broad source-usage trace with seven source files visible and evidence validation satisfied.
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>retrieval_startup_flow</code></td>
+          <td>Explain how the program starts and reaches the game loop.</td>
+          <td>
+            Correctly explained the flow from <code>main.py</code> into <code>Game()</code>,
+            initialization, <code>run()</code>, <code>play_turn()</code>, rendering, input,
+            movement, and loop exit conditions.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Ordered source-flow trace with source evidence required, packed, and satisfied.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="notice">
+      <p>
+        <strong>Interpretation:</strong>
+        these results are not broad benchmark generalization claims. They are concrete evidence
+        that Coeus can run controlled headless repository-grounding scenarios, retrieve current
+        project files, pack source evidence, answer from those files, and record validation signals
+        showing that source evidence was required and satisfied.
+      </p>
     </div>
   </section>
 
