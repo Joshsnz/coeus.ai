@@ -903,7 +903,7 @@
         <ol>
           <li>Read the high-level overview.</li>
           <li>Watch the demo video.</li>
-          <li>Review the grounding evidence from headless evaluation.</li>
+          <li>Review the grounding evidence from a small Python adventure-game fixture.</li>
           <li>Review the Context Lattice Engine explanation.</li>
           <li>Read the compiled-turn examples from eval traces.</li>
           <li>Open the generated RepoGrounding reports.</li>
@@ -1042,14 +1042,26 @@
     <h2>Grounding evidence from headless evaluation</h2>
 
     <p class="lead">
-      Coeus is tested with a headless evaluation harness that runs controlled repository-grounding
-      and continuity scenarios against small software fixtures. These tests check whether the
-      assistant can load a project, retrieve relevant source files, pack source evidence, answer
-      from the current codebase, preserve useful follow-up context, and record validation signals
-      showing whether source evidence was required and satisfied.
+      The public grounding evidence below comes from a controlled small Python adventure-game
+      fixture, not from exposing the private Coeus source tree. This fixture is useful because it
+      gives the evaluator a known codebase where repository answers can be checked for source
+      grounding, retrieval coverage, file responsibility, follow-up continuity, and hallucination
+      resistance.
+    </p>
+
+    <p class="lead">
+      The headless evaluation harness loads the fixture as a project, scans the files, builds
+      retrieval context, asks repository-aware questions, packs source evidence into the turn,
+      and records validation signals showing whether source evidence was required and satisfied.
     </p>
 
     <div class="grounding-grid">
+      <div class="grounding-card">
+        <span>Evaluation fixture</span>
+        <strong>Small Python adventure game</strong>
+        <p>Seven-file toy repository used to test source-grounded project understanding.</p>
+      </div>
+
       <div class="grounding-card">
         <span>Structured retrieval suite</span>
         <strong>3 / 3 passed</strong>
@@ -1169,10 +1181,11 @@
     <div class="notice">
       <p>
         <strong>Interpretation:</strong>
-        these are controlled repository-grounding and continuity tests, not broad benchmark
-        claims. They show that Coeus can run repeatable headless scenarios, retrieve current
-        project files, pack source evidence, answer from those files, preserve useful follow-up
-        context, and record validation signals for source-grounded turns.
+        these are controlled repository-grounding and continuity tests against a small Python
+        adventure-game project. They are not broad benchmark claims and they are not a substitute
+        for reviewing the private Coeus source. They demonstrate that Coeus can run repeatable
+        headless scenarios, retrieve current project files, pack source evidence, answer from those
+        files, preserve useful follow-up context, and record validation signals for source-grounded turns.
       </p>
       <p>
         <strong>Internal hard-mode testing:</strong>
@@ -1310,8 +1323,9 @@
     <h2>Compiled-turn examples from evaluation traces</h2>
 
     <p class="lead">
-      These examples summarize representative headless evaluation turns. They show how different
-      questions produce different contracts, retrieval choices, packed planes, and validation results.
+      These examples summarize representative headless evaluation turns from the small Python
+      adventure-game fixture. They show how different questions produce different contracts,
+      retrieval choices, packed planes, and validation results.
     </p>
 
     <div class="compiled-example">
