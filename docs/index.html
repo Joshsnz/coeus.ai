@@ -903,7 +903,7 @@
         <ol>
           <li>Read the high-level overview.</li>
           <li>Watch the demo video.</li>
-          <li>Review the grounding evidence from the headless run.</li>
+          <li>Review the grounding evidence from headless evaluation.</li>
           <li>Review the Context Lattice Engine explanation.</li>
           <li>Read the compiled-turn examples from eval traces.</li>
           <li>Open the generated RepoGrounding reports.</li>
@@ -1042,34 +1042,36 @@
     <h2>Grounding evidence from headless evaluation</h2>
 
     <p class="lead">
-      A recent headless retrieval run in May 2026 tested Coeus on a controlled Python
-      adventure-game fixture. The run exercised repository setup, root selection, file scanning,
-      embedding, retrieval, prompt packing, source-evidence validation, and final answer generation.
+      Coeus is tested with a headless evaluation harness that runs controlled repository-grounding
+      and continuity scenarios against small software fixtures. These tests check whether the
+      assistant can load a project, retrieve relevant source files, pack source evidence, answer
+      from the current codebase, preserve useful follow-up context, and record validation signals
+      showing whether source evidence was required and satisfied.
     </p>
 
     <div class="grounding-grid">
       <div class="grounding-card">
-        <span>Retrieval scenarios</span>
+        <span>Structured retrieval suite</span>
         <strong>3 / 3 passed</strong>
-        <p>Structured retrieval scenarios completed successfully in the shown headless run.</p>
+        <p>Targeted file lookup, cross-file usage tracing, and ordered startup-flow explanation.</p>
+      </div>
+
+      <div class="grounding-card">
+        <span>Continuity suite</span>
+        <strong>2 / 2 passed</strong>
+        <p>Follow-up context, project architecture review, file comparison, and targeted repo answers.</p>
       </div>
 
       <div class="grounding-card">
         <span>Source evidence discipline</span>
-        <strong>100%</strong>
-        <p>Repo-aware answer turns recorded <code>source_evidence_satisfied=1</code>.</p>
+        <strong>Required + satisfied</strong>
+        <p>Repo-aware answer turns recorded source evidence as packed, required, and satisfied.</p>
       </div>
 
       <div class="grounding-card">
-        <span>Prompt evidence packing</span>
-        <strong>Present on all repo turns</strong>
-        <p>Repo-aware turns recorded <code>packed_source_evidence_present=1</code>.</p>
-      </div>
-
-      <div class="grounding-card">
-        <span>Runtime surface</span>
-        <strong>headless_v2</strong>
-        <p>The same project-aware concepts can be exercised without the GUI for repeatable evals.</p>
+        <span>Evaluation surface</span>
+        <strong>Headless</strong>
+        <p>The same runtime concepts can be exercised without the GUI for repeatable evaluation.</p>
       </div>
     </div>
 
@@ -1078,14 +1080,14 @@
         <tr>
           <th>Scenario</th>
           <th>Question tested</th>
-          <th>What Coeus answered</th>
-          <th>Grounding signal</th>
+          <th>Observed result</th>
+          <th>Grounding evidence</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td><code>retrieval_config_constants</code></td>
-          <td>List module-level constants in <code>config.py</code>.</td>
+          <td><code>config constants</code></td>
+          <td>List constants defined in <code>config.py</code>.</td>
           <td>
             Correctly returned <code>STARTING_HEALTH = 100</code>,
             <code>MAP_WIDTH = 5</code>, and <code>MAP_HEIGHT = 5</code>.
@@ -1097,29 +1099,68 @@
         </tr>
 
         <tr>
-          <td><code>retrieval_player_health</code></td>
-          <td>Find where player health is used across the project.</td>
+          <td><code>player health usage</code></td>
+          <td>Trace where player health is used across the project.</td>
           <td>
-            Traced health usage across <code>player.py</code>, <code>game.py</code>,
-            and <code>config.py</code>, and reported no other direct usage.
+            Identified usage through <code>player.py</code>, <code>game.py</code>,
+            and <code>config.py</code>.
           </td>
           <td>
             <span class="result-pill">passed</span><br>
-            Broad source-usage trace with seven source files visible and evidence validation satisfied.
+            Cross-file source trace with packed source evidence across the current fixture.
           </td>
         </tr>
 
         <tr>
-          <td><code>retrieval_startup_flow</code></td>
+          <td><code>startup flow</code></td>
           <td>Explain how the program starts and reaches the game loop.</td>
           <td>
-            Correctly explained the flow from <code>main.py</code> into <code>Game()</code>,
-            initialization, <code>run()</code>, <code>play_turn()</code>, rendering, input,
-            movement, and loop exit conditions.
+            Explained the flow from <code>main.py</code> into game construction,
+            initialization, loop execution, input handling, turn processing, and exit conditions.
           </td>
           <td>
             <span class="result-pill">passed</span><br>
             Ordered source-flow trace with source evidence required, packed, and satisfied.
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>file follow-up</code></td>
+          <td>Ask what <code>game.py</code> does, then ask how that connects to the rest of the program.</td>
+          <td>
+            Maintained project context and expanded from a targeted <code>game.py</code>
+            explanation to the broader relationship between <code>main.py</code>,
+            <code>game.py</code>, <code>player.py</code>, <code>world.py</code>, and <code>utils.py</code>.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Follow-up turn reused conversation context while retrieving broader project evidence.
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>architecture overview</code></td>
+          <td>Describe the architecture of the adventure game project.</td>
+          <td>
+            Produced a module-level architecture summary covering entry point, game controller,
+            player state, world/map management, items, utilities, and configuration.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Packed evidence from all seven fixture files and generated a source-grounded project overview.
+          </td>
+        </tr>
+
+        <tr>
+          <td><code>file comparison</code></td>
+          <td>Compare <code>main.py</code> and <code>game.py</code>.</td>
+          <td>
+            Correctly separated <code>main.py</code> as the launcher/entry point from
+            <code>game.py</code> as the core gameplay controller.
+          </td>
+          <td>
+            <span class="result-pill">passed</span><br>
+            Focused compare-pair retrieval packed both target files as source evidence.
           </td>
         </tr>
       </tbody>
@@ -1128,10 +1169,15 @@
     <div class="notice">
       <p>
         <strong>Interpretation:</strong>
-        these results are not broad benchmark generalization claims. They are concrete evidence
-        that Coeus can run controlled headless repository-grounding scenarios, retrieve current
-        project files, pack source evidence, answer from those files, and record validation signals
-        showing that source evidence was required and satisfied.
+        these are controlled repository-grounding and continuity tests, not broad benchmark
+        claims. They show that Coeus can run repeatable headless scenarios, retrieve current
+        project files, pack source evidence, answer from those files, preserve useful follow-up
+        context, and record validation signals for source-grounded turns.
+      </p>
+      <p>
+        <strong>Internal hard-mode testing:</strong>
+        stricter experimental retrieval suites are also used privately to expose formatting,
+        evidence-shape, and source-status issues before promoting results publicly.
       </p>
     </div>
   </section>
@@ -1899,6 +1945,7 @@ Diff-route discipline: 14 / 14 clean</div>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub repo</a> ·
       <a href="https://github.com/Joshsnz/coeus.ai/releases/latest">latest release</a> ·
       <a href="#evals">evaluation summaries</a> ·
+      <a href="#grounding">grounding evidence</a> ·
       <a href="#cle">Context Lattice Engine</a> ·
       <a href="#private-review">technical review summary</a>
     </p>
