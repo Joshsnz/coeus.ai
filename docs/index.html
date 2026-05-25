@@ -361,8 +361,8 @@
       border-radius: 8px;
     }
 
-    .video-placeholder {
-      border: 1px dashed var(--accent-border);
+    .video-card {
+      border: 1px solid var(--accent-border);
       background:
         linear-gradient(135deg, rgba(155, 209, 143, 0.08), rgba(23, 26, 32, 0.82)),
         var(--panel);
@@ -370,30 +370,29 @@
       padding: 24px;
     }
 
-    .video-box {
-      display: grid;
-      place-items: center;
-      min-height: 190px;
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
       border: 1px solid var(--border);
       border-radius: 16px;
+      overflow: hidden;
       background: #0c0f13;
-      color: var(--muted);
-      text-align: center;
-      padding: 20px;
-      margin-top: 16px;
+      margin-top: 18px;
     }
 
-    .video-play {
-      width: 58px;
-      height: 58px;
-      border: 1px solid var(--accent-border);
-      border-radius: 999px;
-      display: grid;
-      place-items: center;
-      color: var(--accent);
-      background: var(--accent-soft);
-      margin: 0 auto 12px;
-      font-size: 1.3rem;
+    .video-frame iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .video-caption {
+      color: var(--muted);
+      margin-top: 12px;
+      font-size: 0.95rem;
     }
 
     .cle-panel {
@@ -746,8 +745,8 @@
     </p>
 
     <div class="actions">
-      <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
-      <a class="button" href="#video">Watch Demo Video</a>
+      <a class="button primary" href="#video">Watch Demo Video</a>
+      <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
       <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#evals">View Evaluation Reports</a>
       <a class="button" href="#architecture">Architecture Summary</a>
@@ -818,7 +817,7 @@
         <h3>Quick review path</h3>
         <ol>
           <li>Read the high-level overview.</li>
-          <li>Watch the demo video once added.</li>
+          <li>Watch the demo video.</li>
           <li>Review the Context Lattice Engine explanation.</li>
           <li>Read the compiled-turn examples from eval traces.</li>
           <li>Open the generated RepoGrounding reports.</li>
@@ -831,28 +830,34 @@
   <section id="video">
     <h2>Demo video</h2>
 
-    <div class="video-placeholder">
-      <h3>Video walkthrough coming soon</h3>
+    <div class="video-card">
+      <h3>Coeus AI walkthrough</h3>
       <p>
-        The planned walkthrough will show the native GUI, project loading, source-grounded
-        repository QA, negative grounding, evaluation reports, and the release boundary.
+        This demo shows Coeus as a native project-aware AI workspace: normal chat,
+        profile/context controls, local project connection, plan/apply file creation,
+        source-aware repository QA, retrieval, controlled edits, recent-change continuity,
+        and evaluation evidence.
       </p>
 
-      <div class="video-box">
-        <div>
-          <div class="video-play">▶</div>
-          <strong>Demo video will be added here</strong>
-          <p style="margin: 8px 0 0;">
-            Until then, the compiled Windows demo is available through GitHub Releases.
-          </p>
-        </div>
+      <div class="video-frame">
+        <iframe
+          src="https://www.youtube.com/embed/7kQrOF-Jork"
+          title="Coeus AI demo video"
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen>
+        </iframe>
       </div>
 
+      <p class="video-caption">
+        The walkthrough demonstrates the public demo workflow and the project-aware assistant behaviour.
+      </p>
+
       <div class="actions">
-        <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/VIDEO_WALKTHROUGH_SCRIPT.md">
-          View walkthrough script
+        <a class="button primary" href="https://www.youtube.com/watch?v=7kQrOF-Jork" target="_blank" rel="noopener noreferrer">
+          Open on YouTube
         </a>
-        <a class="button muted" href="https://github.com/Joshsnz/coeus.ai/releases/latest">
+        <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">
           Download demo release
         </a>
       </div>
