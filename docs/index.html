@@ -142,6 +142,17 @@
       font-size: 1.14rem;
     }
 
+    .timeline-pill {
+      display: inline-block;
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background: rgba(155, 209, 143, 0.08);
+      color: var(--accent);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 0.9rem;
+      margin-bottom: 18px;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -239,6 +250,32 @@
       .split {
         grid-template-columns: 1fr;
       }
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .story-card {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.86);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .story-card h3 {
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 7px;
+    }
+
+    .story-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
     }
 
     .tags {
@@ -494,8 +531,10 @@
 
     .diagram-wrap {
       margin-top: 22px;
-      border: 1px solid var(--border);
-      background: rgba(16, 19, 24, 0.84);
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.92)),
+        rgba(16, 19, 24, 0.84);
       border-radius: 18px;
       padding: 16px;
     }
@@ -811,11 +850,11 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#cle">Diagram</a>
       <a href="#impact">Impact</a>
       <a href="#video">Video</a>
-      <a href="#architecture">Architecture</a>
       <a href="#grounding">Grounding</a>
-      <a href="#cle">CLE</a>
+      <a href="#architecture">Architecture</a>
       <a href="#compiled-examples">Examples</a>
       <a href="#private-review">Technical review</a>
       <a href="#evals">Evaluation</a>
@@ -826,22 +865,28 @@
 
   <header class="hero">
     <div class="eyebrow">Portfolio / demo release</div>
+    <div class="timeline-pill">Nov 2024 – May 2026 demo release · ongoing refinement</div>
     <h1>Coeus AI</h1>
     <p class="lead">
-      A native C++ project-aware AI desktop workspace for working with software projects.
-      Coeus AI combines a custom Skia/SDL2 GUI, local project context, source-grounded retrieval,
-      a policy-first compiled-turn runtime, tool/workflow execution, structured telemetry,
-      and a headless evaluation workflow used to test repository-grounded behaviour.
+      A model-agnostic, configurable AI desktop workspace for working with software projects.
+      Coeus was built to make LLM usage more transparent, adaptable, private, and efficient:
+      local project context, source-grounded answers, configurable provider choices, and
+      less dependence on slow web chat workflows or giant unstructured conversations.
+    </p>
+    <p class="lead">
+      Instead of treating an LLM as a generic chat box, Coeus turns each request into a
+      structured project-aware turn: what is the user asking, what files are relevant,
+      what evidence is allowed, what workflow should run, and what telemetry proves how
+      the answer was produced.
     </p>
 
     <div class="actions">
-      <a class="button primary" href="#video">Watch Demo Video</a>
+      <a class="button primary" href="#cle">See How Grounding Works</a>
+      <a class="button" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
       <a class="button" href="#impact">View Impact Metrics</a>
       <a class="button" href="#grounding">View Grounding Evidence</a>
       <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
-      <a class="button" href="#evals">View Evaluation Reports</a>
-      <a class="button" href="#architecture">Architecture Summary</a>
       <a class="button" href="#private-review">Technical Review Material</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai">View Repository</a>
     </div>
@@ -849,9 +894,9 @@
     <div class="notice public-private">
       <p>
         <strong>Public release scope:</strong>
-        this repository is a portfolio/demo package. It presents the product idea, technical
-        architecture, compiled-turn design, demo release, evaluation summaries, screenshots/video
-        guidance, and generated public reports.
+        this is a portfolio/demo package. It presents the product idea, user problem,
+        technical architecture, Context Lattice Engine diagram, demo release, evaluation
+        summaries, screenshots/video guidance, and generated public reports.
       </p>
       <p>
         <strong>Technical review scope:</strong>
@@ -865,40 +910,40 @@
   </header>
 
   <section id="overview">
-    <h2>What this is</h2>
+    <h2>Problem and solution</h2>
 
     <div class="split">
       <div class="card">
+        <h3>The user problem</h3>
         <p>
-          Coeus AI was built around the idea that an assistant should understand the
-          currently loaded project, not just answer as a generic chatbot. The app is
-          designed to work against local software projects, inspect project context,
-          retrieve relevant source files, answer repository-aware engineering questions,
-          compare files semantically, and preserve context across follow-up turns.
+          AI coding assistants are powerful, but they often become opaque. They can lose
+          track of the current project, answer confidently without showing what files they
+          used, mix memory with evidence, and force users into slow web-chat workflows
+          where context becomes huge and hard to verify.
         </p>
 
         <p>
-          The goal is not simply to wrap a model in a chat window. Coeus AI explores
-          the application/runtime layer around AI-assisted software work: project state,
-          retrieval, context assembly, tool-style operations, workflow routing, validation,
-          telemetry, and repeatable evaluation.
+          Coeus AI was built as a desktop-first alternative: a transparent workspace where
+          project context, retrieval, model choice, workflow routing, and telemetry are part
+          of the product, not hidden behind a single chat prompt.
         </p>
 
         <p>
-          Internally, the system is organized around a policy-first compiled-turn architecture.
-          A user turn is converted into canonical turn state before retrieval, prompt packing,
-          execution, validation, and telemetry export consume it.
+          The goal is practical: give developers better control over how LLMs are used,
+          make answers easier to verify, support local/private project workflows, and keep
+          the assistant adaptable as models and providers change.
         </p>
 
         <div class="tags">
+          <span class="tag strong">Model-agnostic</span>
+          <span class="tag strong">Source-grounded</span>
+          <span class="tag strong">Configurable</span>
           <span class="tag">C++20</span>
           <span class="tag">Skia</span>
           <span class="tag">SDL2</span>
           <span class="tag">OpenGL</span>
           <span class="tag">Retrieval</span>
-          <span class="tag">Source grounding</span>
-          <span class="tag strong">Context Lattice Engine</span>
-          <span class="tag">Turn compiler</span>
+          <span class="tag">Local project context</span>
           <span class="tag">Tool runtime</span>
           <span class="tag">Telemetry</span>
           <span class="tag">Headless evals</span>
@@ -906,18 +951,168 @@
       </div>
 
       <div class="card">
-        <h3>Quick review path</h3>
+        <h3>What I built</h3>
         <ol>
-          <li>Read the high-level overview.</li>
-          <li>Review the impact metrics and codebase-scale evidence.</li>
-          <li>Watch the demo video.</li>
-          <li>Review the grounding evidence from a small Python adventure-game fixture.</li>
-          <li>Review the Context Lattice Engine explanation.</li>
-          <li>Read the compiled-turn examples from eval traces.</li>
-          <li>Open the generated RepoGrounding reports.</li>
-          <li>Download the demo from GitHub Releases.</li>
+          <li>A native C++ desktop workspace with custom Skia/SDL2 UI.</li>
+          <li>A project-aware assistant that can inspect and retrieve current project files.</li>
+          <li>A compiled-turn runtime that separates intent, evidence, workflow routing, validation, and export.</li>
+          <li>Source-grounded repository QA and semantic file comparison flows.</li>
+          <li>Plan/apply-style workflows and tool execution surfaces.</li>
+          <li>Headless evaluation runs for repeatable repository-grounding tests.</li>
+          <li>Telemetry and trace exports to understand how a turn was handled.</li>
         </ol>
       </div>
+    </div>
+
+    <div class="story-grid">
+      <article class="story-card">
+        <h3>Better verifiability</h3>
+        <p>
+          Coeus keeps project inventory, retrieved source evidence, continuity, and final
+          claims separate so answers can be checked against what was actually packed.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>More control</h3>
+        <p>
+          The design is model/provider agnostic, letting the workspace adapt to different
+          LLM backends, privacy needs, power requirements, and workflow preferences.
+        </p>
+      </article>
+
+      <article class="story-card">
+        <h3>Less web-chat friction</h3>
+        <p>
+          A desktop project workspace avoids relying on giant pasted conversations and
+          keeps codebase context closer to the actual working environment.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="cle">
+    <h2>How Coeus keeps answers grounded</h2>
+
+    <p class="lead">
+      The Context Lattice Engine is the core design behind Coeus. In simple terms, it is
+      the layer that decides what a user is asking, what evidence is allowed, what project
+      context should be packed, what workflow should run, and what trace proves the result.
+    </p>
+
+    <div class="cle-panel">
+      <div class="callout-title">Design principle</div>
+      <p>
+        Coeus does not treat retrieval as the only source of truth. Retrieval is one input
+        into a compiled-turn pipeline. The system separates policy truth, retrieved files,
+        packed prompt context, continuity state, and final-answer validation.
+      </p>
+
+      <div class="diagram-wrap">
+        <div class="diagram-header">
+          <div>
+            <h3>Context Lattice Engine diagram</h3>
+            <p>
+              This visual shows the end-to-end path from raw user input to exported trace evidence.
+              The lattice stack represents the context planes that may be admitted into a turn.
+            </p>
+          </div>
+
+          <div class="diagram-actions">
+            <a class="button primary" href="screenshots/cle_diagram.svg">Open full-size SVG</a>
+          </div>
+        </div>
+
+        <div class="diagram-shell">
+          <img
+            src="screenshots/cle_diagram.svg"
+            alt="Context Lattice Engine compiled-turn architecture diagram"
+            onerror="this.closest('.diagram-shell').innerHTML='<div class=&quot;diagram-fallback&quot;>Diagram unavailable. <a href=&quot;screenshots/cle_diagram.svg&quot;>Open the SVG directly</a>.</div>'">
+        </div>
+
+        <p class="diagram-note">
+          The diagram is the quickest technical summary of the project: user request → contract → retrieval policy → packed evidence → execution → validation → trace export.
+        </p>
+      </div>
+
+      <div class="pipeline-map" aria-label="Compiled turn pipeline">
+        <div class="pipeline-card">
+          <div class="pipeline-num">1</div>
+          <h3>Intent / contract</h3>
+          <p>What kind of answer is allowed, and what must be proven?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">2</div>
+          <h3>Retrieval policy</h3>
+          <p>Which source, summary, memory, or tool planes may enter?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">3</div>
+          <h3>Lattice packing</h3>
+          <p>Which admitted planes actually fit into the prompt budget?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">4</div>
+          <h3>Execution</h3>
+          <p>Was the turn served deterministically or through a model request?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">5</div>
+          <h3>Validation</h3>
+          <p>Did the final answer satisfy the evidence and output contract?</p>
+        </div>
+
+        <div class="pipeline-card">
+          <div class="pipeline-num">6</div>
+          <h3>Export</h3>
+          <p>What trace bundle proves how the turn was handled?</p>
+        </div>
+      </div>
+
+      <div class="truth-grid">
+        <article class="truth-card">
+          <div class="truth-line"></div>
+          <h3>Policy truth</h3>
+          <p>The compiled contract: answer kind, output mode, evidence requirements, and route constraints.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line blue"></div>
+          <h3>Retrieval truth</h3>
+          <p>The files, chunks, and search results actually found from the current project surface.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line violet"></div>
+          <h3>Packed prompt truth</h3>
+          <p>The exact context planes that actually entered the model request after budgeting.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line cyan"></div>
+          <h3>Continuity truth</h3>
+          <p>Conversation and workflow state. Useful for routing, but not proof unless admitted as evidence.</p>
+        </article>
+
+        <article class="truth-card">
+          <div class="truth-line warning"></div>
+          <h3>Claim truth</h3>
+          <p>The final answer must match the compiled contract and available evidence.</p>
+        </article>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Implementation boundary:</strong>
+        this page describes the architecture and behaviour at a portfolio level. Exact algorithms,
+        trace schemas, validator internals, prompts, complete implementation files, and the full
+        proprietary source code are not included in the public package.
+      </p>
     </div>
   </section>
 
@@ -930,6 +1125,15 @@
     </p>
 
     <div class="impact-grid">
+      <div class="impact-card">
+        <span>Project timeline</span>
+        <strong>Nov 2024 – May 2026</strong>
+        <p>
+          Built from initial prototype work through a packaged public demo release, with
+          ongoing refinement around grounding, routing, and evaluation.
+        </p>
+      </div>
+
       <div class="impact-card">
         <span>Runtime architecture</span>
         <strong>Compiled-turn runtime</strong>
@@ -976,15 +1180,6 @@
       </div>
 
       <div class="impact-card">
-        <span>Source-grounding discipline</span>
-        <strong>Evidence required + satisfied</strong>
-        <p>
-          Repo-aware turns recorded packed source evidence and validation signals showing
-          source evidence was required and satisfied.
-        </p>
-      </div>
-
-      <div class="impact-card">
         <span>Private codebase scale</span>
         <strong>144k+ code lines</strong>
         <p>
@@ -994,11 +1189,11 @@
       </div>
 
       <div class="impact-card">
-        <span>Demo distribution</span>
-        <strong>GitHub Release</strong>
+        <span>Visible C++ build surface</span>
+        <strong>173 translation units</strong>
         <p>
-          Compiled Windows GUI demo is distributed through GitHub Releases rather than
-          checked directly into the repository.
+          The shown GUI build list includes 173 C++ translation units, reflecting a
+          substantial native application rather than a thin web wrapper.
         </p>
       </div>
     </div>
@@ -1007,9 +1202,9 @@
       <p>
         <strong>Metric boundary:</strong>
         the public metrics on this page are based on visible portfolio material,
-        controlled fixture evaluations, generated RepoGrounding reports, and clean private
-        codebase metrics. Baseline claims against third-party tools or models are not
-        promoted publicly unless backed by a reproducible comparison report.
+        controlled fixture evaluations, generated RepoGrounding reports, build-output evidence,
+        and clean private codebase metrics. Baseline claims against third-party tools or models
+        are not promoted publicly unless backed by a reproducible comparison report.
       </p>
     </div>
   </section>
@@ -1048,94 +1243,6 @@
           Download demo release
         </a>
       </div>
-    </div>
-  </section>
-
-  <section id="why">
-    <h2>Why it matters</h2>
-
-    <div class="card">
-      <p>
-        A common failure mode in AI coding tools is that they sound confident while
-        losing repository context, hallucinating unsupported features, or routing normal
-        codebase questions into the wrong workflow. Coeus AI explores a more structured
-        approach to project-aware assistance.
-      </p>
-
-      <ul>
-        <li>Separate local project inventory from proof-bearing source evidence.</li>
-        <li>Assemble answer context from actual project files.</li>
-        <li>Route different user intents through different workflows.</li>
-        <li>Distinguish semantic repository questions from patch/diff requests.</li>
-        <li>Retain useful context across follow-up turns without treating continuity as proof.</li>
-        <li>Identify absent features without hallucinating implementation.</li>
-        <li>Suppress internal trace/vector/project-storage details from user-facing answers.</li>
-      </ul>
-    </div>
-  </section>
-
-  <section id="architecture">
-    <h2>Architecture summary</h2>
-
-    <p class="lead">
-      Coeus AI is structured as a native desktop AI workspace with a modular runtime core.
-      The architecture separates the GUI, compiled turn state, project context, retrieval,
-      tools/workflows, provider integration, validation, telemetry, and headless evaluation.
-    </p>
-
-    <div class="grid">
-      <article class="card">
-        <h3>Native GUI layer</h3>
-        <p>
-          Custom C++ desktop interface using Skia for rendering and SDL2/OpenGL for windowing,
-          with conversation, context, settings, tool, evidence, and diagnostic surfaces.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>Headless evaluation surface</h3>
-        <p>
-          A separate headless runtime supports automation and repository-grounding evals without
-          requiring the GUI, while still exercising the same core runtime concepts.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>Policy-first turn compiler</h3>
-        <p>
-          User input is normalized into canonical turn state before retrieval, prompt assembly,
-          tool routing, validation, and telemetry consume it.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>Project context and retrieval</h3>
-        <p>
-          Maintains project inventory, file context, searchable source records, summaries,
-          memory/snapshot support, BM25/vector/hybrid retrieval, and source-evidence surfaces.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>Workflow and tool layer</h3>
-        <p>
-          Supports command handling, project operations, file-context tools, planning/apply-style
-          flows, local/remote tool execution, and deterministic workflow routing.
-        </p>
-      </article>
-
-      <article class="card">
-        <h3>Validation and telemetry</h3>
-        <p>
-          Structured markers, traces, run bundles, answer post-processing, and validation rules
-          support debugging, route analysis, artifact suppression, and evaluation reporting.
-        </p>
-      </article>
-    </div>
-
-    <div class="actions">
-      <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">Read full architecture on GitHub</a>
-      <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">Read case study</a>
     </div>
   </section>
 
@@ -1296,127 +1403,68 @@
     </div>
   </section>
 
-  <section id="cle">
-    <h2>Context Lattice Engine</h2>
+  <section id="architecture">
+    <h2>Architecture summary</h2>
 
     <p class="lead">
-      The Context Lattice Engine is the runtime design behind Coeus: every user turn is
-      compiled into a traceable unit before the model is asked to answer.
+      Coeus AI is structured as a native desktop AI workspace with a modular runtime core.
+      The architecture separates the GUI, compiled turn state, project context, retrieval,
+      tools/workflows, provider integration, validation, telemetry, and headless evaluation.
     </p>
 
-    <div class="cle-panel">
-      <div class="callout-title">Design principle</div>
-      <p>
-        Coeus does not treat retrieval as the owner of truth. Retrieval is one input into a
-        compiled-turn pipeline. The engine keeps policy truth, retrieval truth, packed prompt
-        truth, continuity state, and final claim validation separate.
-      </p>
-
-      <div class="diagram-wrap">
-        <div class="diagram-header">
-          <div>
-            <h3>Compiled-turn and lattice diagram</h3>
-            <p>
-              This visual shows the end-to-end path from raw user input to exported trace evidence.
-              The lattice stack represents the context planes that may be admitted into a turn.
-            </p>
-          </div>
-
-          <div class="diagram-actions">
-            <a class="button" href="screenshots/cle_diagram.svg">Open full-size SVG</a>
-          </div>
-        </div>
-
-        <div class="diagram-shell">
-          <img
-            src="screenshots/cle_diagram.svg"
-            alt="Context Lattice Engine compiled-turn architecture diagram"
-            onerror="this.closest('.diagram-shell').innerHTML='<div class=&quot;diagram-fallback&quot;>Diagram unavailable. <a href=&quot;screenshots/cle_diagram.svg&quot;>Open the SVG directly</a>.</div>'">
-        </div>
-
-        <p class="diagram-note">
-          The six cards below summarize the operational checkpoints that each compiled turn passes through.
+    <div class="grid">
+      <article class="card">
+        <h3>Native GUI layer</h3>
+        <p>
+          Custom C++ desktop interface using Skia for rendering and SDL2/OpenGL for windowing,
+          with conversation, context, settings, tool, evidence, and diagnostic surfaces.
         </p>
-      </div>
+      </article>
 
-      <div class="pipeline-map" aria-label="Compiled turn pipeline">
-        <div class="pipeline-card">
-          <div class="pipeline-num">1</div>
-          <h3>Intent / contract</h3>
-          <p>What kind of answer is allowed, and what must be proven?</p>
-        </div>
+      <article class="card">
+        <h3>Headless evaluation surface</h3>
+        <p>
+          A separate headless runtime supports automation and repository-grounding evals without
+          requiring the GUI, while still exercising the same core runtime concepts.
+        </p>
+      </article>
 
-        <div class="pipeline-card">
-          <div class="pipeline-num">2</div>
-          <h3>Retrieval policy</h3>
-          <p>Which source, summary, memory, or tool planes may enter?</p>
-        </div>
+      <article class="card">
+        <h3>Compiled-turn runtime</h3>
+        <p>
+          User input is normalized into canonical turn state before retrieval, prompt assembly,
+          tool routing, validation, and telemetry consume it.
+        </p>
+      </article>
 
-        <div class="pipeline-card">
-          <div class="pipeline-num">3</div>
-          <h3>Lattice packing</h3>
-          <p>Which admitted planes actually fit into the prompt budget?</p>
-        </div>
+      <article class="card">
+        <h3>Project context and retrieval</h3>
+        <p>
+          Maintains project inventory, file context, searchable source records, summaries,
+          memory/snapshot support, BM25/vector/hybrid retrieval, and source-evidence surfaces.
+        </p>
+      </article>
 
-        <div class="pipeline-card">
-          <div class="pipeline-num">4</div>
-          <h3>Execution</h3>
-          <p>Was the turn served deterministically or through a model request?</p>
-        </div>
+      <article class="card">
+        <h3>Workflow and tool layer</h3>
+        <p>
+          Supports command handling, project operations, file-context tools, planning/apply-style
+          flows, local/remote tool execution, and deterministic workflow routing.
+        </p>
+      </article>
 
-        <div class="pipeline-card">
-          <div class="pipeline-num">5</div>
-          <h3>Validation</h3>
-          <p>Did the final answer satisfy the evidence and output contract?</p>
-        </div>
-
-        <div class="pipeline-card">
-          <div class="pipeline-num">6</div>
-          <h3>Export</h3>
-          <p>What trace bundle proves how the turn was handled?</p>
-        </div>
-      </div>
-
-      <div class="truth-grid">
-        <article class="truth-card">
-          <div class="truth-line"></div>
-          <h3>Policy truth</h3>
-          <p>The compiled contract: answer kind, output mode, evidence requirements, and route constraints.</p>
-        </article>
-
-        <article class="truth-card">
-          <div class="truth-line blue"></div>
-          <h3>Retrieval truth</h3>
-          <p>The files, chunks, and search results actually found from the current project surface.</p>
-        </article>
-
-        <article class="truth-card">
-          <div class="truth-line violet"></div>
-          <h3>Packed prompt truth</h3>
-          <p>The exact context planes that actually entered the model request after budgeting.</p>
-        </article>
-
-        <article class="truth-card">
-          <div class="truth-line cyan"></div>
-          <h3>Continuity truth</h3>
-          <p>Conversation and workflow state. Useful for routing, but not proof unless admitted as evidence.</p>
-        </article>
-
-        <article class="truth-card">
-          <div class="truth-line warning"></div>
-          <h3>Claim truth</h3>
-          <p>The final answer must match the compiled contract and available evidence.</p>
-        </article>
-      </div>
+      <article class="card">
+        <h3>Validation and telemetry</h3>
+        <p>
+          Structured markers, traces, run bundles, answer post-processing, and validation rules
+          support debugging, route analysis, artifact suppression, and evaluation reporting.
+        </p>
+      </article>
     </div>
 
-    <div class="notice">
-      <p>
-        <strong>Implementation boundary:</strong>
-        this page describes the architecture and behaviour at a portfolio level. Exact algorithms,
-        trace schemas, validator internals, prompts, complete implementation files, and the full
-        proprietary source code are not included in the public package.
-      </p>
+    <div class="actions">
+      <a class="button primary" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/ARCHITECTURE.md">Read full architecture on GitHub</a>
+      <a class="button" href="https://github.com/Joshsnz/coeus.ai/blob/main/docs/PORTFOLIO_CASE_STUDY.md">Read case study</a>
     </div>
   </section>
 
@@ -1649,10 +1697,10 @@
       </article>
 
       <article class="card">
-        <h3>Project-aware assistant</h3>
+        <h3>Model-agnostic assistant workspace</h3>
         <p>
-          Designed around the active local project, selected context, file inventory,
-          conversation state, and workflow state.
+          Designed around configurable providers and adaptable LLM usage rather than
+          locking the workspace to one model or one hosted chat surface.
         </p>
       </article>
 
@@ -1728,6 +1776,11 @@
             <div class="stat-label">Reported complexity</div>
             <div class="stat-value">36,717</div>
           </div>
+
+          <div class="stat">
+            <div class="stat-label">Visible C++ build units</div>
+            <div class="stat-value">173</div>
+          </div>
         </div>
 
         <p>
@@ -1742,6 +1795,7 @@
         <h3>What is available for review</h3>
         <ul>
           <li>Clean <code>scc</code> summary and by-file metrics.</li>
+          <li>Visible C++ build-unit evidence from the GUI build output.</li>
           <li>Source-tree structure and subsystem map.</li>
           <li>Architecture notes mapping major files and folders to subsystems.</li>
           <li>Technical study notes covering the turn compiler, retrieval, summaries, tools, contracts, telemetry, and headless runtime.</li>
