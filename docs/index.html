@@ -184,6 +184,32 @@
       color: var(--text);
     }
 
+    .hero-value-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 22px;
+      max-width: 980px;
+    }
+
+    .hero-value-card {
+      border: 1px solid rgba(155, 209, 143, 0.26);
+      background: rgba(155, 209, 143, 0.065);
+      border-radius: 15px;
+      padding: 14px;
+    }
+
+    .hero-value-card strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .hero-value-card span {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
     .actions {
       display: flex;
       flex-wrap: wrap;
@@ -242,6 +268,29 @@
       background:
         linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(23, 26, 32, 0.92)),
         var(--panel);
+    }
+
+    .reviewer-note {
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .reviewer-note p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .reviewer-note p:last-child {
+      margin-bottom: 0;
+    }
+
+    .reviewer-note strong {
+      color: var(--text);
     }
 
     .grid {
@@ -319,6 +368,32 @@
     .executive-card p {
       color: var(--muted);
       font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
+    .proof-path {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .proof-step {
+      border: 1px solid var(--border);
+      background: rgba(16, 19, 24, 0.88);
+      border-radius: 15px;
+      padding: 16px;
+    }
+
+    .proof-step strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+
+    .proof-step p {
+      color: var(--muted);
+      font-size: 0.93rem;
       margin-bottom: 0;
     }
 
@@ -1057,6 +1132,23 @@
       </p>
     </div>
 
+    <div class="hero-value-strip">
+      <div class="hero-value-card">
+        <strong>Choose the model</strong>
+        <span>Designed for configurable providers instead of one fixed hosted assistant.</span>
+      </div>
+
+      <div class="hero-value-card">
+        <strong>Bring local context</strong>
+        <span>Use project files, summaries, retrieval, and state as first-class inputs.</span>
+      </div>
+
+      <div class="hero-value-card">
+        <strong>Inspect the turn</strong>
+        <span>Trace retrieval, packed evidence, tool routes, validation, and exported telemetry.</span>
+      </div>
+    </div>
+
     <div class="actions">
       <a class="button primary" href="#why-use">Why Use Coeus?</a>
       <a class="button" href="#use-cases">See Use Cases</a>
@@ -1119,6 +1211,37 @@
           a native GUI, and private codebase-scale evidence.
         </p>
       </article>
+    </div>
+
+    <div class="reviewer-note">
+      <p>
+        <strong>How to review this project quickly:</strong>
+        start with the Context Lattice Engine diagram, then watch the demo video, then inspect the
+        RepoGrounding reports. Those three pieces show the product idea, the user-facing behaviour,
+        and the evidence that the runtime can answer from project files rather than unsupported memory.
+      </p>
+    </div>
+
+    <div class="proof-path">
+      <div class="proof-step">
+        <strong>1. Product idea</strong>
+        <p>A desktop LLM workspace where context, tools, provider choice, and telemetry are visible.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>2. Architecture</strong>
+        <p>A compiled-turn runtime separates intent, evidence, retrieval, tools, validation, and export.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>3. Demonstration</strong>
+        <p>The public Windows demo shows local project connection, repo QA, plan/apply flows, and continuity.</p>
+      </div>
+
+      <div class="proof-step">
+        <strong>4. Evaluation</strong>
+        <p>Headless RepoGrounding reports show source-grounded repository QA and route discipline.</p>
+      </div>
     </div>
   </section>
 
