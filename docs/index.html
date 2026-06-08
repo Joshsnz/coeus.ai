@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Coeus AI is a transparent, model-agnostic desktop LLM workspace for local context, source-grounded answers, tool workflows, telemetry, and reviewable AI execution.">
   <title>Coeus AI — Transparent LLM Desktop Workspace</title>
 
   <style>
@@ -136,6 +137,19 @@
       padding: 8px 0 18px;
     }
 
+    .hero-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(330px, 0.92fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    @media (max-width: 940px) {
+      .hero-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+
     .lead {
       max-width: 920px;
       color: var(--muted);
@@ -182,6 +196,61 @@
 
     .hero-callout strong {
       color: var(--text);
+    }
+
+    .hero-visual {
+      border: 1px solid rgba(155, 209, 143, 0.34);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.055), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 18px;
+      margin: 0;
+    }
+
+    .hero-visual img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: #0f1115;
+    }
+
+    .hero-visual figcaption {
+      color: var(--muted);
+      font-size: 0.94rem;
+      margin-top: 12px;
+    }
+
+    .hero-metric-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .hero-metric {
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: var(--code);
+      padding: 12px;
+    }
+
+    .hero-metric span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 4px;
+    }
+
+    .hero-metric strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.05rem;
+      line-height: 1.25;
     }
 
     .hero-value-strip {
@@ -1095,68 +1164,99 @@
   </div>
 
   <header class="hero">
-    <div class="eyebrow">Portfolio / demo release</div>
-    <div class="timeline-pill">Nov 2024 – May 2026 demo release · ongoing refinement</div>
-    <h1>Coeus AI</h1>
+    <div class="hero-layout">
+      <div>
+        <div class="eyebrow">Portfolio / demo release</div>
+        <div class="timeline-pill">Nov 2024 – May 2026 demo release · ongoing refinement</div>
+        <h1>Coeus AI</h1>
 
-    <p class="hero-focus">
-      Dedicated, model-agnostic desktop workspace for serious LLM use — local context,
-      configurable providers, source-grounded answers, tool workflows, and traceable execution.
-    </p>
+        <p class="hero-focus">
+          Dedicated, model-agnostic desktop workspace for serious LLM use — local context,
+          configurable providers, source-grounded answers, tool workflows, and traceable execution.
+        </p>
 
-    <p class="lead">
-      Coeus was built for situations where a normal web-chat workflow or locked-in assistant
-      is too opaque to inspect, configure, or evaluate. It brings context management,
-      retrieval, provider choice, tools, telemetry, and evidence-aware answers into one native
-      AI workspace.
-    </p>
+        <p class="lead">
+          Coeus was built for situations where a normal web-chat workflow or locked-in assistant
+          is too opaque to inspect, configure, or evaluate. It brings context management,
+          retrieval, provider choice, tools, telemetry, and evidence-aware answers into one native
+          AI workspace.
+        </p>
 
-    <p class="lead">
-      The public demo uses software projects as the proof case because code is easy to ground,
-      inspect, and test. The underlying design is broader: a configurable LLM workbench for
-      code, documents, research, planning, operations, and private project context.
-    </p>
+        <p class="lead">
+          The public demo uses software projects as the proof case because code is easy to ground,
+          inspect, and test. The underlying design is broader: a configurable LLM workbench for
+          code, documents, research, planning, operations, and private project context.
+        </p>
 
-    <div class="hero-callout">
-      <p>
-        <strong>Plain-English benefit:</strong>
-        Coeus makes AI assistance easier to trust. Instead of asking a model to answer from
-        a giant conversation, it treats each request as a structured turn: identify the intent,
-        retrieve relevant context, pack evidence, route tools safely, validate the output,
-        and export telemetry.
-      </p>
-      <p>
-        It is not trying to clone Copilot or Cursor. Coeus explores a different emphasis:
-        transparency, provider choice, local/private context, workflow routing, and evidence
-        you can inspect.
-      </p>
-    </div>
+        <div class="hero-callout">
+          <p>
+            <strong>Plain-English benefit:</strong>
+            Coeus makes AI assistance easier to trust. Instead of asking a model to answer from
+            a giant conversation, it treats each request as a structured turn: identify the intent,
+            retrieve relevant context, pack evidence, route tools safely, validate the output,
+            and export telemetry.
+          </p>
+          <p>
+            It is not trying to clone Copilot or Cursor. Coeus explores a different emphasis:
+            transparency, provider choice, local/private context, workflow routing, and evidence
+            you can inspect.
+          </p>
+        </div>
 
-    <div class="hero-value-strip">
-      <div class="hero-value-card">
-        <strong>Choose the model</strong>
-        <span>Designed for configurable providers instead of one fixed hosted assistant.</span>
+        <div class="hero-value-strip">
+          <div class="hero-value-card">
+            <strong>Choose the model</strong>
+            <span>Designed for configurable providers instead of one fixed hosted assistant.</span>
+          </div>
+
+          <div class="hero-value-card">
+            <strong>Bring local context</strong>
+            <span>Use project files, summaries, retrieval, and state as first-class inputs.</span>
+          </div>
+
+          <div class="hero-value-card">
+            <strong>Inspect the turn</strong>
+            <span>Trace retrieval, packed evidence, tool routes, validation, and exported telemetry.</span>
+          </div>
+        </div>
+
+        <div class="actions">
+          <a class="button primary" href="#why-use">Why Use Coeus?</a>
+          <a class="button" href="#use-cases">See Use Cases</a>
+          <a class="button" href="#cle">See Grounding Diagram</a>
+          <a class="button" href="#tooling">Tooling Runtime</a>
+          <a class="button" href="#video">Watch Demo Video</a>
+          <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
+          <a class="button" href="#private-review">Technical Review Material</a>
+        </div>
       </div>
 
-      <div class="hero-value-card">
-        <strong>Bring local context</strong>
-        <span>Use project files, summaries, retrieval, and state as first-class inputs.</span>
-      </div>
+      <figure class="hero-visual">
+        <img
+          src="screenshots/cle_diagram.svg"
+          alt="Context Lattice Engine compiled-turn architecture diagram"
+          onerror="this.closest('figure').style.display='none'">
+        <figcaption>
+          Context Lattice Engine: the core idea behind Coeus — request → contract → retrieval policy → evidence packing → execution/tool routing → validation → trace export.
+        </figcaption>
 
-      <div class="hero-value-card">
-        <strong>Inspect the turn</strong>
-        <span>Trace retrieval, packed evidence, tool routes, validation, and exported telemetry.</span>
-      </div>
-    </div>
+        <div class="hero-metric-grid">
+          <div class="hero-metric">
+            <span>Public demo</span>
+            <strong>Windows GUI</strong>
+          </div>
 
-    <div class="actions">
-      <a class="button primary" href="#why-use">Why Use Coeus?</a>
-      <a class="button" href="#use-cases">See Use Cases</a>
-      <a class="button" href="#cle">See Grounding Diagram</a>
-      <a class="button" href="#tooling">Tooling Runtime</a>
-      <a class="button" href="#video">Watch Demo Video</a>
-      <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
-      <a class="button" href="#private-review">Technical Review Material</a>
+          <div class="hero-metric">
+            <span>Grounding evals</span>
+            <strong>13/13 + 14/14</strong>
+          </div>
+
+          <div class="hero-metric">
+            <span>Private scale</span>
+            <strong>144k+ code lines</strong>
+          </div>
+        </div>
+      </figure>
     </div>
 
     <div class="notice public-private">
