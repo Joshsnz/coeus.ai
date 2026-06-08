@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coeus AI — Transparent Project-Aware AI Desktop Workspace</title>
+  <title>Coeus AI — Transparent LLM Desktop Workspace</title>
 
   <style>
     :root {
@@ -947,6 +947,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#use-cases">Use cases</a>
       <a href="#why-use">Why Coeus?</a>
       <a href="#cle">Diagram</a>
       <a href="#impact">Impact</a>
@@ -967,34 +968,41 @@
     <h1>Coeus AI</h1>
 
     <p class="hero-focus">
-      Transparent desktop AI workspace for using LLMs with local project context,
-      configurable models, source-grounded answers, and traceable tool workflows.
+      A dedicated, model-agnostic desktop workspace for serious LLM use — not just coding.
     </p>
 
     <p class="lead">
-      Coeus was built for situations where a normal web-chat workflow or locked-in coding
-      assistant is too opaque to inspect, configure, or evaluate. It gives the user more
-      control over what project context is used, which provider is called, what evidence
-      supports an answer, and what trace proves how the turn was handled.
+      Coeus brings local context, configurable providers, retrieval, tool workflows,
+      telemetry, and evidence-aware answers into one native application. It was built
+      for situations where a normal web-chat workflow or locked-in assistant is too
+      opaque to inspect, configure, or evaluate.
+    </p>
+
+    <p class="lead">
+      The public demo focuses on software projects because source files make grounding,
+      traceability, and evaluation easy to prove. The underlying design is broader:
+      a configurable LLM workbench for code, documents, research, planning, operational
+      workflows, and private project context.
     </p>
 
     <div class="hero-callout">
       <p>
         <strong>Plain-English benefit:</strong>
         Coeus makes AI assistance easier to trust. Instead of asking a model to answer from
-        a giant conversation, it treats each request as a structured project-aware turn:
-        identify the intent, retrieve relevant files, pack source evidence, route tools safely,
-        validate the output, and export telemetry.
+        a giant conversation, it treats each request as a structured turn: identify the intent,
+        retrieve relevant context, pack evidence, route tools safely, validate the output,
+        and export telemetry.
       </p>
       <p>
-        It is not trying to clone Copilot or Cursor. It explores a different emphasis:
-        transparency, provider choice, local project context, workflow routing, and evidence
-        you can inspect.
+        The codebase demo is the proof case, not the whole product category. Coeus is not
+        trying to clone Copilot or Cursor; it explores a different emphasis: transparency,
+        provider choice, local/private context, workflow routing, and evidence you can inspect.
       </p>
     </div>
 
     <div class="actions">
       <a class="button primary" href="#why-use">Why Use Coeus?</a>
+      <a class="button" href="#use-cases">See Use Cases</a>
       <a class="button" href="#cle">See Grounding Diagram</a>
       <a class="button" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
@@ -1028,20 +1036,25 @@
       <div class="card">
         <h3>The user problem</h3>
         <p>
-          AI coding assistants are powerful, but they can be hard to inspect. They may lose
-          project context, answer confidently without showing which files support the answer,
-          blend conversation memory with source evidence, or force users into slow web-chat
-          workflows where context grows until it becomes hard to verify.
+          LLMs are powerful, but most people still use them through opaque web-chat workflows:
+          long conversations, pasted context, unclear evidence, limited provider control, and
+          little visibility into why a response was produced.
         </p>
 
         <p>
-          Coeus AI was built as a desktop-first alternative: a transparent workspace where
-          project context, retrieval, model choice, workflow routing, and telemetry are part
-          of the product rather than hidden behind a single chat prompt.
+          Coding assistants are one example of this problem, but the same issue appears in many
+          LLM workflows: reviewing documents, understanding project context, planning work,
+          comparing files, running tools, and producing answers that need to be checked.
         </p>
 
         <p>
-          The practical goal is to give developers better control over LLM usage: make answers
+          Coeus AI was built as a desktop-first LLM workspace: a transparent environment where
+          context, model choice, retrieval, workflow routing, tools, and telemetry are part of
+          the product rather than hidden inside a single chat prompt.
+        </p>
+
+        <p>
+          The practical goal is to give users better control over LLM usage: make answers
           easier to verify, support local/private project workflows, avoid provider lock-in,
           and keep the assistant adaptable as models and tools change.
         </p>
@@ -1050,6 +1063,7 @@
           <span class="tag strong">Model-agnostic</span>
           <span class="tag strong">Source-grounded</span>
           <span class="tag strong">Configurable</span>
+          <span class="tag strong">General LLM workspace</span>
           <span class="tag">C++20</span>
           <span class="tag">Skia</span>
           <span class="tag">SDL2</span>
@@ -1066,11 +1080,12 @@
         <h3>What I built</h3>
         <ol>
           <li>A native C++ desktop workspace with a custom Skia/SDL2 UI.</li>
-          <li>A project-aware assistant that can inspect and retrieve current project files.</li>
+          <li>A model-agnostic assistant surface for configurable LLM usage.</li>
+          <li>A project-aware context layer that can retrieve current files and evidence.</li>
           <li>A compiled-turn runtime that separates intent, evidence, workflow routing, validation, and export.</li>
-          <li>Source-grounded repository QA and semantic file-comparison flows.</li>
+          <li>Source-grounded repository QA and semantic file-comparison flows as the public proof case.</li>
           <li>An extensible tool/workflow backbone for commands, file-context tools, plan/apply operations, and deterministic routing.</li>
-          <li>Headless evaluation runs for repeatable repository-grounding tests.</li>
+          <li>Headless evaluation runs for repeatable grounding and route-discipline tests.</li>
           <li>Telemetry and trace exports to inspect how a turn was handled.</li>
         </ol>
       </div>
@@ -1080,8 +1095,8 @@
       <article class="story-card">
         <h3>Better verifiability</h3>
         <p>
-          Coeus keeps project inventory, retrieved source evidence, continuity, and final
-          claims separate so answers can be checked against what was actually packed.
+          Coeus keeps project inventory, retrieved evidence, continuity, and final claims
+          separate so answers can be checked against what was actually packed.
         </p>
       </article>
 
@@ -1096,53 +1111,113 @@
       <article class="story-card">
         <h3>Less web-chat friction</h3>
         <p>
-          A desktop project workspace avoids relying on giant pasted conversations and
-          keeps codebase context closer to the actual working environment.
+          A desktop workspace avoids relying on giant pasted conversations and keeps context
+          closer to the actual working environment.
+        </p>
+      </article>
+    </div>
+  </section>
+
+  <section id="use-cases">
+    <h2>What Coeus is for</h2>
+
+    <p class="lead">
+      Coeus is designed as a general LLM workspace. The current public evaluation uses code
+      because code is easy to ground and test, but the same runtime pattern applies to broader
+      knowledge-work tasks.
+    </p>
+
+    <div class="grid">
+      <article class="card">
+        <h3>Project and codebase understanding</h3>
+        <p>
+          Ask questions about a local project, retrieve relevant files, compare modules,
+          trace logic, and keep answers grounded in source evidence.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Document and knowledge work</h3>
+        <p>
+          Use local context, retrieval, and evidence-aware responses for documents,
+          notes, specifications, research material, and operational knowledge.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Research and planning</h3>
+        <p>
+          Structure complex questions, preserve useful context, compare information,
+          and produce traceable outputs rather than relying on a long unstructured chat.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Workflow and tool execution</h3>
+        <p>
+          Route requests into structured workflows, tools, plans, apply-style operations,
+          and repeatable task flows instead of treating every request as plain chat.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Private or configurable LLM usage</h3>
+        <p>
+          Keep provider choice configurable and separate from the workspace so different
+          models, privacy needs, power levels, and cost profiles can be supported.
+        </p>
+      </article>
+
+      <article class="card">
+        <h3>Evaluation and auditability</h3>
+        <p>
+          Use telemetry, validation, and headless evaluation runs to understand how an
+          answer was produced and whether grounding requirements were satisfied.
         </p>
       </article>
     </div>
   </section>
 
   <section id="why-use">
-    <h2>Why use Coeus instead of a normal coding assistant?</h2>
+    <h2>Why use Coeus instead of a web chatbot or coding assistant?</h2>
 
     <p class="lead">
-      Copilot, Cursor, and similar tools are useful productivity products. Coeus explores a
-      different problem: what if the user wants a transparent, configurable AI workspace where
-      context, tools, evidence, and telemetry are inspectable?
+      ChatGPT, Copilot, Cursor, and similar tools are useful products. Coeus explores a
+      different problem: what if the user wants a transparent, configurable LLM workspace
+      where context, tools, evidence, and telemetry are inspectable?
     </p>
 
     <div class="comparison-wrap">
       <table class="comparison-table">
         <thead>
           <tr>
-            <th>Common limitation in normal AI assistant workflows</th>
+            <th>Common limitation in normal LLM workflows</th>
             <th>Coeus design direction</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Context can become opaque: the user may not know what files or history influenced the answer.</td>
-            <td><strong>Source-grounded turns:</strong> repository-aware answers are built around retrieved project files, packed evidence, and validation signals.</td>
+            <td>Context can become opaque: the user may not know what files, notes, or history influenced the answer.</td>
+            <td><strong>Evidence-aware turns:</strong> answers are built around retrieved context, packed evidence, and validation signals.</td>
           </tr>
           <tr>
-            <td>Provider or product lock-in can limit model choice and experimentation.</td>
+            <td>Provider or product lock-in can limit model choice, privacy posture, pricing, or experimentation.</td>
             <td><strong>Model-agnostic workspace:</strong> designed around configurable providers and adaptable LLM usage rather than one fixed backend.</td>
           </tr>
           <tr>
             <td>Long web-chat conversations become slow, cluttered, and difficult to audit.</td>
-            <td><strong>Desktop project workflow:</strong> project state, context, tools, and telemetry live closer to the working environment.</td>
+            <td><strong>Desktop project workflow:</strong> context, tools, and telemetry live closer to the working environment.</td>
           </tr>
           <tr>
             <td>Tool actions and workflow routing may be hidden behind the assistant interface.</td>
             <td><strong>Extensible tooling backbone:</strong> commands, project operations, file-context tools, plan/apply flows, and tool observations are routed through explicit runtime layers.</td>
           </tr>
           <tr>
-            <td>Answers may sound confident even when source evidence is missing or weak.</td>
-            <td><strong>Validation and trace export:</strong> Coeus records whether source evidence was required, packed, and satisfied for repository-aware turns.</td>
+            <td>Answers may sound confident even when evidence is missing or weak.</td>
+            <td><strong>Validation and trace export:</strong> Coeus records whether evidence was required, packed, and satisfied for grounded turns.</td>
           </tr>
           <tr>
-            <td>IDE-specific tooling can be powerful but tied to a particular product surface.</td>
+            <td>Coding-only assistants can be powerful but are often tied to a specific IDE or product surface.</td>
             <td><strong>Bridgeable workspace idea:</strong> Coeus is structured as a standalone native workspace with editor/tool surfaces that can be integrated around the runtime.</td>
           </tr>
         </tbody>
@@ -1157,7 +1232,7 @@
 
       <div class="value-pill">
         <strong>Use it for evidence</strong>
-        <span>Answer from project files instead of unsupported model memory.</span>
+        <span>Answer from project files or local context instead of unsupported model memory.</span>
       </div>
 
       <div class="value-pill">
@@ -1166,8 +1241,8 @@
       </div>
 
       <div class="value-pill">
-        <strong>Use it for project work</strong>
-        <span>Treat the active codebase as part of the assistant runtime.</span>
+        <strong>Use it for serious LLM work</strong>
+        <span>Treat LLM usage as a configurable workspace, not a single chat box.</span>
       </div>
     </div>
 
@@ -1175,8 +1250,8 @@
       <p>
         <strong>Positioning:</strong>
         Coeus is a portfolio/demo release and architecture exploration, not a claim that it
-        broadly replaces mature commercial coding assistants. Its value is in showing how an
-        AI workspace can be made more configurable, inspectable, source-grounded, and workflow-aware.
+        broadly replaces mature commercial assistants. Its value is in showing how an AI
+        workspace can be made more configurable, inspectable, source-grounded, and workflow-aware.
       </p>
     </div>
   </section>
@@ -1186,16 +1261,16 @@
 
     <p class="lead">
       The Context Lattice Engine is the core design behind Coeus. In simple terms, it is
-      the layer that decides what a user is asking, what evidence is allowed, what project
-      context should be packed, what workflow should run, and what trace proves the result.
+      the layer that decides what a user is asking, what evidence is allowed, what context
+      should be packed, what workflow should run, and what trace proves the result.
     </p>
 
     <div class="cle-panel">
       <div class="callout-title">Design principle</div>
       <p>
         Coeus does not treat retrieval as the only source of truth. Retrieval is one input
-        into a compiled-turn pipeline. The system separates policy truth, retrieved files,
-        packed prompt context, continuity state, and final-answer validation.
+        into a compiled-turn pipeline. The system separates policy truth, retrieved context,
+        packed prompt context, continuity state, tool/workflow state, and final-answer validation.
       </p>
 
       <div class="diagram-wrap">
@@ -1221,7 +1296,7 @@
         </div>
 
         <p class="diagram-note">
-          The diagram is the quickest technical summary of the project: user request → contract → retrieval policy → packed evidence → execution → validation → trace export.
+          The diagram is the quickest technical summary of the project: user request → contract → retrieval policy → packed evidence → execution/tool routing → validation → trace export.
         </p>
       </div>
 
@@ -1273,7 +1348,7 @@
         <article class="truth-card">
           <div class="truth-line blue"></div>
           <h3>Retrieval truth</h3>
-          <p>The files, chunks, and search results actually found from the current project surface.</p>
+          <p>The files, chunks, and search results actually found from the current context surface.</p>
         </article>
 
         <article class="truth-card">
@@ -1448,9 +1523,9 @@
     </p>
 
     <p class="lead">
-      The headless evaluation harness loads the fixture as a project, scans the files, builds
-      retrieval context, asks repository-aware questions, packs source evidence into the turn,
-      and records validation signals showing whether source evidence was required and satisfied.
+      The codebase fixture is the proof case because code is easy to test precisely. The same
+      compiled-turn pattern is intended for broader LLM work where context, evidence, tools,
+      and traceability matter.
     </p>
 
     <div class="grounding-grid">
@@ -1597,8 +1672,8 @@
     <h2>Architecture summary</h2>
 
     <p class="lead">
-      Coeus AI is structured as a native desktop AI workspace with a modular runtime core.
-      The architecture separates the GUI, compiled turn state, project context, retrieval,
+      Coeus AI is structured as a native desktop LLM workspace with a modular runtime core.
+      The architecture separates the GUI, compiled turn state, local context, retrieval,
       tools/workflows, provider integration, validation, telemetry, and headless evaluation.
     </p>
 
@@ -1614,7 +1689,7 @@
       <article class="card">
         <h3>Headless evaluation surface</h3>
         <p>
-          A separate headless runtime supports automation and repository-grounding evals without
+          A separate headless runtime supports automation and grounding evals without
           requiring the GUI, while still exercising the same core runtime concepts.
         </p>
       </article>
@@ -1628,10 +1703,10 @@
       </article>
 
       <article class="card">
-        <h3>Project context and retrieval</h3>
+        <h3>Local context and retrieval</h3>
         <p>
           Maintains project inventory, file context, searchable source records, summaries,
-          memory/snapshot support, BM25/vector/hybrid retrieval, and source-evidence surfaces.
+          memory/snapshot support, BM25/vector/hybrid retrieval, and evidence surfaces.
         </p>
       </article>
 
@@ -1887,7 +1962,7 @@
       </article>
 
       <article class="card">
-        <h3>Model-agnostic assistant workspace</h3>
+        <h3>Model-agnostic LLM workspace</h3>
         <p>
           Designed around configurable providers and adaptable LLM usage rather than
           locking the workspace to one model or one hosted chat surface.
@@ -1897,15 +1972,15 @@
       <article class="card">
         <h3>Retrieval and context assembly</h3>
         <p>
-          Retrieves relevant project files or chunks and assembles context for
-          repository-grounded answers.
+          Retrieves relevant files, chunks, or local context and assembles evidence for
+          grounded answers.
         </p>
       </article>
 
       <article class="card">
-        <h3>Semantic repository QA</h3>
+        <h3>Repository QA proof case</h3>
         <p>
-          Supports architecture questions, source-flow tracing, file responsibility
+          Demonstrates architecture questions, source-flow tracing, file responsibility
           explanations, semantic comparisons, and absent-feature analysis.
         </p>
       </article>
