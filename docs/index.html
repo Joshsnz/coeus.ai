@@ -143,9 +143,9 @@
     }
 
     .hero-focus {
-      max-width: 960px;
+      max-width: 980px;
       color: var(--text);
-      font-size: 1.22rem;
+      font-size: 1.25rem;
       line-height: 1.55;
     }
 
@@ -168,7 +168,7 @@
       border-radius: 18px;
       padding: 20px;
       margin-top: 26px;
-      max-width: 960px;
+      max-width: 980px;
     }
 
     .hero-callout p {
@@ -283,6 +283,45 @@
       }
     }
 
+    .executive-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
+      gap: 16px;
+      margin-top: 18px;
+    }
+
+    .executive-card {
+      border: 1px solid rgba(155, 209, 143, 0.3);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.07), rgba(16, 19, 24, 0.96)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    .executive-card span {
+      display: block;
+      color: var(--muted-2);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 6px;
+    }
+
+    .executive-card strong {
+      display: block;
+      color: var(--text);
+      font-size: 1.2rem;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .executive-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 0;
+    }
+
     .story-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(245px, 1fr));
@@ -373,6 +412,25 @@
     .value-pill span {
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    .tool-flow {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .tool-step {
+      border: 1px solid var(--border);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.035), rgba(16, 19, 24, 0.96)),
+        var(--code);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .tool-step strong {
+      color: var(--accent);
     }
 
     .tags {
@@ -946,18 +1004,17 @@
     </a>
 
     <nav class="nav" aria-label="Primary navigation">
+      <a href="#summary">Summary</a>
       <a href="#overview">Overview</a>
       <a href="#use-cases">Use cases</a>
       <a href="#why-use">Why Coeus?</a>
       <a href="#cle">Diagram</a>
+      <a href="#tooling">Tooling</a>
       <a href="#impact">Impact</a>
       <a href="#video">Video</a>
       <a href="#grounding">Grounding</a>
       <a href="#architecture">Architecture</a>
-      <a href="#compiled-examples">Examples</a>
       <a href="#private-review">Technical review</a>
-      <a href="#evals">Evaluation</a>
-      <a href="#docs">Docs</a>
       <a href="https://github.com/Joshsnz/coeus.ai">GitHub</a>
     </nav>
   </div>
@@ -968,21 +1025,21 @@
     <h1>Coeus AI</h1>
 
     <p class="hero-focus">
-      A dedicated, model-agnostic desktop workspace for serious LLM use — not just coding.
+      Dedicated, model-agnostic desktop workspace for serious LLM use — local context,
+      configurable providers, source-grounded answers, tool workflows, and traceable execution.
     </p>
 
     <p class="lead">
-      Coeus brings local context, configurable providers, retrieval, tool workflows,
-      telemetry, and evidence-aware answers into one native application. It was built
-      for situations where a normal web-chat workflow or locked-in assistant is too
-      opaque to inspect, configure, or evaluate.
+      Coeus was built for situations where a normal web-chat workflow or locked-in assistant
+      is too opaque to inspect, configure, or evaluate. It brings context management,
+      retrieval, provider choice, tools, telemetry, and evidence-aware answers into one native
+      AI workspace.
     </p>
 
     <p class="lead">
-      The public demo focuses on software projects because source files make grounding,
-      traceability, and evaluation easy to prove. The underlying design is broader:
-      a configurable LLM workbench for code, documents, research, planning, operational
-      workflows, and private project context.
+      The public demo uses software projects as the proof case because code is easy to ground,
+      inspect, and test. The underlying design is broader: a configurable LLM workbench for
+      code, documents, research, planning, operations, and private project context.
     </p>
 
     <div class="hero-callout">
@@ -994,9 +1051,9 @@
         and export telemetry.
       </p>
       <p>
-        The codebase demo is the proof case, not the whole product category. Coeus is not
-        trying to clone Copilot or Cursor; it explores a different emphasis: transparency,
-        provider choice, local/private context, workflow routing, and evidence you can inspect.
+        It is not trying to clone Copilot or Cursor. Coeus explores a different emphasis:
+        transparency, provider choice, local/private context, workflow routing, and evidence
+        you can inspect.
       </p>
     </div>
 
@@ -1004,10 +1061,9 @@
       <a class="button primary" href="#why-use">Why Use Coeus?</a>
       <a class="button" href="#use-cases">See Use Cases</a>
       <a class="button" href="#cle">See Grounding Diagram</a>
+      <a class="button" href="#tooling">Tooling Runtime</a>
       <a class="button" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
-      <a class="button" href="#impact">View Impact Metrics</a>
-      <a class="button" href="#grounding">View Grounding Evidence</a>
       <a class="button" href="#private-review">Technical Review Material</a>
     </div>
 
@@ -1029,6 +1085,43 @@
     </div>
   </header>
 
+  <section id="summary">
+    <h2>Executive summary</h2>
+    <p class="lead">
+      Coeus is best understood as an LLM operating environment: a native workspace that makes
+      AI interactions more structured, inspectable, and adaptable than a single chat window.
+    </p>
+
+    <div class="executive-grid">
+      <article class="executive-card">
+        <span>Problem</span>
+        <strong>LLM work is often opaque</strong>
+        <p>
+          Users paste context into long chats and hope the model uses it correctly, with limited
+          visibility into evidence, routing, tools, or validation.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Solution</span>
+        <strong>Compile each turn into a traceable workflow</strong>
+        <p>
+          Coeus separates intent, retrieval, packed evidence, tool routing, model execution,
+          validation, and telemetry export.
+        </p>
+      </article>
+
+      <article class="executive-card">
+        <span>Proof</span>
+        <strong>Working Windows demo + grounding evals</strong>
+        <p>
+          The public release demonstrates repository-aware answers, source-grounding reports,
+          a native GUI, and private codebase-scale evidence.
+        </p>
+      </article>
+    </div>
+  </section>
+
   <section id="overview">
     <h2>Problem and solution</h2>
 
@@ -1036,21 +1129,22 @@
       <div class="card">
         <h3>The user problem</h3>
         <p>
-          LLMs are powerful, but most people still use them through opaque web-chat workflows:
-          long conversations, pasted context, unclear evidence, limited provider control, and
-          little visibility into why a response was produced.
+          LLMs are powerful, but many workflows still depend on opaque web chats:
+          long conversations, pasted context, unclear evidence, limited provider control,
+          and little visibility into why a response was produced.
         </p>
 
         <p>
-          Coding assistants are one example of this problem, but the same issue appears in many
-          LLM workflows: reviewing documents, understanding project context, planning work,
-          comparing files, running tools, and producing answers that need to be checked.
+          Coding assistants are one example of this problem, but the same pattern appears
+          across many LLM workflows: reviewing documents, understanding project context,
+          planning work, comparing files, running tools, and producing answers that need
+          to be checked.
         </p>
 
         <p>
-          Coeus AI was built as a desktop-first LLM workspace: a transparent environment where
-          context, model choice, retrieval, workflow routing, tools, and telemetry are part of
-          the product rather than hidden inside a single chat prompt.
+          Coeus AI was built as a desktop-first LLM workspace: a transparent environment
+          where context, model choice, retrieval, workflow routing, tools, and telemetry are
+          part of the product rather than hidden inside a single chat prompt.
         </p>
 
         <p>
@@ -1378,6 +1472,48 @@
         trace schemas, validator internals, prompts, complete implementation files, and the full
         proprietary source code are not included in the public package.
       </p>
+    </div>
+  </section>
+
+  <section id="tooling">
+    <h2>Extensible tool and workflow runtime</h2>
+
+    <p class="lead">
+      Coeus is not just retrieval plus a chat box. A major part of the engineering work is the
+      tooling backbone: the runtime surfaces that let the assistant route commands, use project
+      context, execute workflow-style operations, and record what happened.
+    </p>
+
+    <div class="tool-flow">
+      <div class="tool-step">
+        <strong>Command and intent routing:</strong>
+        user requests are classified into the right kind of turn before execution, so normal
+        answers, project questions, file-context actions, and workflow operations can be handled differently.
+      </div>
+
+      <div class="tool-step">
+        <strong>File-context tools:</strong>
+        the runtime can operate around project files, retrieved chunks, file summaries, project inventory,
+        and explicit source evidence instead of relying only on model memory.
+      </div>
+
+      <div class="tool-step">
+        <strong>Plan/apply-style workflows:</strong>
+        workflow surfaces support structured planning and controlled apply-style operations rather
+        than treating every request as a free-form model response.
+      </div>
+
+      <div class="tool-step">
+        <strong>Tool observations and non-transcript operations:</strong>
+        tool results and runtime observations can be handled as structured state, giving the system
+        a cleaner separation between what happened internally and what should be shown to the user.
+      </div>
+
+      <div class="tool-step">
+        <strong>Telemetry and validation:</strong>
+        tool routes, packed context, evidence status, validation signals, and trace exports make it
+        possible to inspect how a turn was handled after the fact.
+      </div>
     </div>
   </section>
 
