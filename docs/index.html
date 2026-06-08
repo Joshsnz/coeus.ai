@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Coeus AI — Project-Aware AI Desktop Workspace</title>
+  <title>Coeus AI — Transparent Project-Aware AI Desktop Workspace</title>
 
   <style>
     :root {
@@ -142,6 +142,13 @@
       font-size: 1.14rem;
     }
 
+    .hero-focus {
+      max-width: 960px;
+      color: var(--text);
+      font-size: 1.22rem;
+      line-height: 1.55;
+    }
+
     .timeline-pill {
       display: inline-block;
       border: 1px solid rgba(155, 209, 143, 0.32);
@@ -151,6 +158,30 @@
       padding: 6px 11px;
       font-size: 0.9rem;
       margin-bottom: 18px;
+    }
+
+    .hero-callout {
+      border: 1px solid rgba(155, 209, 143, 0.32);
+      background:
+        linear-gradient(135deg, rgba(155, 209, 143, 0.075), rgba(23, 26, 32, 0.94)),
+        var(--panel);
+      border-radius: 18px;
+      padding: 20px;
+      margin-top: 26px;
+      max-width: 960px;
+    }
+
+    .hero-callout p {
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .hero-callout strong {
+      color: var(--text);
     }
 
     .actions {
@@ -276,6 +307,72 @@
       color: var(--muted);
       font-size: 0.95rem;
       margin-bottom: 0;
+    }
+
+    .comparison-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: rgba(23, 26, 32, 0.92);
+      margin-top: 18px;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 780px;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      text-align: left;
+      padding: 14px;
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+
+    .comparison-table th {
+      background: var(--code);
+      color: var(--text);
+    }
+
+    .comparison-table td {
+      color: var(--muted);
+      background: rgba(23, 26, 32, 0.72);
+    }
+
+    .comparison-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .comparison-table strong {
+      color: var(--text);
+    }
+
+    .value-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(185px, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .value-pill {
+      border: 1px solid rgba(155, 209, 143, 0.28);
+      background: rgba(155, 209, 143, 0.07);
+      border-radius: 14px;
+      padding: 14px;
+    }
+
+    .value-pill strong {
+      display: block;
+      color: var(--accent);
+      margin-bottom: 5px;
+    }
+
+    .value-pill span {
+      color: var(--muted);
+      font-size: 0.92rem;
     }
 
     .tags {
@@ -850,6 +947,7 @@
 
     <nav class="nav" aria-label="Primary navigation">
       <a href="#overview">Overview</a>
+      <a href="#why-use">Why Coeus?</a>
       <a href="#cle">Diagram</a>
       <a href="#impact">Impact</a>
       <a href="#video">Video</a>
@@ -867,35 +965,49 @@
     <div class="eyebrow">Portfolio / demo release</div>
     <div class="timeline-pill">Nov 2024 – May 2026 demo release · ongoing refinement</div>
     <h1>Coeus AI</h1>
-    <p class="lead">
-      A model-agnostic, configurable AI desktop workspace for working with software projects.
-      Coeus was built to make LLM usage more transparent, adaptable, private, and efficient:
-      local project context, source-grounded answers, configurable provider choices, and
-      less dependence on slow web chat workflows or giant unstructured conversations.
-    </p>
-    <p class="lead">
-      Instead of treating an LLM as a generic chat box, Coeus turns each request into a
-      structured project-aware turn: what is the user asking, what files are relevant,
-      what evidence is allowed, what workflow should run, and what telemetry proves how
-      the answer was produced.
+
+    <p class="hero-focus">
+      Transparent desktop AI workspace for using LLMs with local project context,
+      configurable models, source-grounded answers, and traceable tool workflows.
     </p>
 
+    <p class="lead">
+      Coeus was built for situations where a normal web-chat workflow or locked-in coding
+      assistant is too opaque to inspect, configure, or evaluate. It gives the user more
+      control over what project context is used, which provider is called, what evidence
+      supports an answer, and what trace proves how the turn was handled.
+    </p>
+
+    <div class="hero-callout">
+      <p>
+        <strong>Plain-English benefit:</strong>
+        Coeus makes AI assistance easier to trust. Instead of asking a model to answer from
+        a giant conversation, it treats each request as a structured project-aware turn:
+        identify the intent, retrieve relevant files, pack source evidence, route tools safely,
+        validate the output, and export telemetry.
+      </p>
+      <p>
+        It is not trying to clone Copilot or Cursor. It explores a different emphasis:
+        transparency, provider choice, local project context, workflow routing, and evidence
+        you can inspect.
+      </p>
+    </div>
+
     <div class="actions">
-      <a class="button primary" href="#cle">See How Grounding Works</a>
+      <a class="button primary" href="#why-use">Why Use Coeus?</a>
+      <a class="button" href="#cle">See Grounding Diagram</a>
       <a class="button" href="#video">Watch Demo Video</a>
       <a class="button" href="https://github.com/Joshsnz/coeus.ai/releases/latest">Download Windows Demo</a>
       <a class="button" href="#impact">View Impact Metrics</a>
       <a class="button" href="#grounding">View Grounding Evidence</a>
-      <a class="button" href="#compiled-examples">View Compiled-Turn Examples</a>
       <a class="button" href="#private-review">Technical Review Material</a>
-      <a class="button" href="https://github.com/Joshsnz/coeus.ai">View Repository</a>
     </div>
 
     <div class="notice public-private">
       <p>
         <strong>Public release scope:</strong>
         this is a portfolio/demo package. It presents the product idea, user problem,
-        technical architecture, Context Lattice Engine diagram, demo release, evaluation
+        Context Lattice Engine diagram, technical architecture, demo release, evaluation
         summaries, screenshots/video guidance, and generated public reports.
       </p>
       <p>
@@ -916,22 +1028,22 @@
       <div class="card">
         <h3>The user problem</h3>
         <p>
-          AI coding assistants are powerful, but they often become opaque. They can lose
-          track of the current project, answer confidently without showing what files they
-          used, mix memory with evidence, and force users into slow web-chat workflows
-          where context becomes huge and hard to verify.
+          AI coding assistants are powerful, but they can be hard to inspect. They may lose
+          project context, answer confidently without showing which files support the answer,
+          blend conversation memory with source evidence, or force users into slow web-chat
+          workflows where context grows until it becomes hard to verify.
         </p>
 
         <p>
           Coeus AI was built as a desktop-first alternative: a transparent workspace where
           project context, retrieval, model choice, workflow routing, and telemetry are part
-          of the product, not hidden behind a single chat prompt.
+          of the product rather than hidden behind a single chat prompt.
         </p>
 
         <p>
-          The goal is practical: give developers better control over how LLMs are used,
-          make answers easier to verify, support local/private project workflows, and keep
-          the assistant adaptable as models and providers change.
+          The practical goal is to give developers better control over LLM usage: make answers
+          easier to verify, support local/private project workflows, avoid provider lock-in,
+          and keep the assistant adaptable as models and tools change.
         </p>
 
         <div class="tags">
@@ -953,13 +1065,13 @@
       <div class="card">
         <h3>What I built</h3>
         <ol>
-          <li>A native C++ desktop workspace with custom Skia/SDL2 UI.</li>
+          <li>A native C++ desktop workspace with a custom Skia/SDL2 UI.</li>
           <li>A project-aware assistant that can inspect and retrieve current project files.</li>
           <li>A compiled-turn runtime that separates intent, evidence, workflow routing, validation, and export.</li>
-          <li>Source-grounded repository QA and semantic file comparison flows.</li>
-          <li>Plan/apply-style workflows and tool execution surfaces.</li>
+          <li>Source-grounded repository QA and semantic file-comparison flows.</li>
+          <li>An extensible tool/workflow backbone for commands, file-context tools, plan/apply operations, and deterministic routing.</li>
           <li>Headless evaluation runs for repeatable repository-grounding tests.</li>
-          <li>Telemetry and trace exports to understand how a turn was handled.</li>
+          <li>Telemetry and trace exports to inspect how a turn was handled.</li>
         </ol>
       </div>
     </div>
@@ -988,6 +1100,84 @@
           keeps codebase context closer to the actual working environment.
         </p>
       </article>
+    </div>
+  </section>
+
+  <section id="why-use">
+    <h2>Why use Coeus instead of a normal coding assistant?</h2>
+
+    <p class="lead">
+      Copilot, Cursor, and similar tools are useful productivity products. Coeus explores a
+      different problem: what if the user wants a transparent, configurable AI workspace where
+      context, tools, evidence, and telemetry are inspectable?
+    </p>
+
+    <div class="comparison-wrap">
+      <table class="comparison-table">
+        <thead>
+          <tr>
+            <th>Common limitation in normal AI assistant workflows</th>
+            <th>Coeus design direction</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Context can become opaque: the user may not know what files or history influenced the answer.</td>
+            <td><strong>Source-grounded turns:</strong> repository-aware answers are built around retrieved project files, packed evidence, and validation signals.</td>
+          </tr>
+          <tr>
+            <td>Provider or product lock-in can limit model choice and experimentation.</td>
+            <td><strong>Model-agnostic workspace:</strong> designed around configurable providers and adaptable LLM usage rather than one fixed backend.</td>
+          </tr>
+          <tr>
+            <td>Long web-chat conversations become slow, cluttered, and difficult to audit.</td>
+            <td><strong>Desktop project workflow:</strong> project state, context, tools, and telemetry live closer to the working environment.</td>
+          </tr>
+          <tr>
+            <td>Tool actions and workflow routing may be hidden behind the assistant interface.</td>
+            <td><strong>Extensible tooling backbone:</strong> commands, project operations, file-context tools, plan/apply flows, and tool observations are routed through explicit runtime layers.</td>
+          </tr>
+          <tr>
+            <td>Answers may sound confident even when source evidence is missing or weak.</td>
+            <td><strong>Validation and trace export:</strong> Coeus records whether source evidence was required, packed, and satisfied for repository-aware turns.</td>
+          </tr>
+          <tr>
+            <td>IDE-specific tooling can be powerful but tied to a particular product surface.</td>
+            <td><strong>Bridgeable workspace idea:</strong> Coeus is structured as a standalone native workspace with editor/tool surfaces that can be integrated around the runtime.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="value-strip">
+      <div class="value-pill">
+        <strong>Use it for control</strong>
+        <span>Choose providers, inspect context, and route workflows explicitly.</span>
+      </div>
+
+      <div class="value-pill">
+        <strong>Use it for evidence</strong>
+        <span>Answer from project files instead of unsupported model memory.</span>
+      </div>
+
+      <div class="value-pill">
+        <strong>Use it for transparency</strong>
+        <span>Trace how a turn moved through retrieval, tools, validation, and export.</span>
+      </div>
+
+      <div class="value-pill">
+        <strong>Use it for project work</strong>
+        <span>Treat the active codebase as part of the assistant runtime.</span>
+      </div>
+    </div>
+
+    <div class="notice">
+      <p>
+        <strong>Positioning:</strong>
+        Coeus is a portfolio/demo release and architecture exploration, not a claim that it
+        broadly replaces mature commercial coding assistants. Its value is in showing how an
+        AI workspace can be made more configurable, inspectable, source-grounded, and workflow-aware.
+      </p>
     </div>
   </section>
 
@@ -1057,7 +1247,7 @@
         <div class="pipeline-card">
           <div class="pipeline-num">4</div>
           <h3>Execution</h3>
-          <p>Was the turn served deterministically or through a model request?</p>
+          <p>Was the turn served deterministically, through a tool route, or through a model request?</p>
         </div>
 
         <div class="pipeline-card">
@@ -1130,7 +1320,7 @@
         <strong>Nov 2024 – May 2026</strong>
         <p>
           Built from initial prototype work through a packaged public demo release, with
-          ongoing refinement around grounding, routing, and evaluation.
+          ongoing refinement around grounding, routing, tooling, and evaluation.
         </p>
       </div>
 
@@ -1138,8 +1328,17 @@
         <span>Runtime architecture</span>
         <strong>Compiled-turn runtime</strong>
         <p>
-          Built a policy-first runtime that routes each turn through canonical state,
-          retrieval, context packing, validation, telemetry, and export.
+          Built a runtime that routes each turn through canonical state, retrieval,
+          context packing, tool/workflow routing, validation, telemetry, and export.
+        </p>
+      </div>
+
+      <div class="impact-card">
+        <span>Tooling backbone</span>
+        <strong>Extensible tool runtime</strong>
+        <p>
+          Engineered command handling, project operations, file-context tools, planning/apply-style
+          flows, tool observations, and deterministic workflow routing.
         </p>
       </div>
 
@@ -1167,15 +1366,6 @@
         <p>
           Passed targeted constants lookup, cross-file health usage tracing, and ordered
           startup-flow explanation on a small Python adventure-game fixture.
-        </p>
-      </div>
-
-      <div class="impact-card">
-        <span>Continuity run</span>
-        <strong>2 / 2 passed</strong>
-        <p>
-          Passed follow-up and architecture-continuity scenarios covering project inventory,
-          targeted file understanding, broad architecture, and file comparison.
         </p>
       </div>
 
@@ -1449,7 +1639,7 @@
         <h3>Workflow and tool layer</h3>
         <p>
           Supports command handling, project operations, file-context tools, planning/apply-style
-          flows, local/remote tool execution, and deterministic workflow routing.
+          flows, local/remote tool execution, tool observations, and deterministic workflow routing.
         </p>
       </article>
 
